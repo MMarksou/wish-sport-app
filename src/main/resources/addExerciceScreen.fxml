@@ -5,54 +5,49 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.I243.groupe1.controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.I243.groupe1.controller.addExerciceController">
 <children>
     <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
         <image>
             <Image url="@logo.png" />
         </image>
     </ImageView>
-    <Label layoutX="130.0" layoutY="313.0" text="Type de l'execice ">
+    <Label layoutX="238.0" layoutY="297.0" text="Type de l'exercice ">
         <font>
             <Font name="Arial Bold" size="15.0" />
         </font>
     </Label>
-    <Label layoutX="130.0" layoutY="249.0" text="Categorie">
+    <Label layoutX="265.0" layoutY="223.0" text="Catégorie">
         <font>
             <Font name="Arial Bold" size="15.0" />
         </font>
     </Label>
-    <Label layoutX="130.0" layoutY="372.0" text="Nom de l'exercice">
+    <Label layoutX="237.0" layoutY="372.0" text="Nom de l'exercice">
         <font>
             <Font name="Arial Bold" size="15.0" />
         </font>
     </Label>
-    <Label layoutX="130.0" layoutY="426.0" text="Description de l'exercice">
+    <Label layoutX="205.0" layoutY="427.0" text="Description de l'exercice">
         <font>
             <Font name="Arial Bold" size="15.0" />
         </font>
     </Label>
-    <TextField fx:id="textFieldNom" layoutX="363.0" layoutY="369.0" prefHeight="25.0" prefWidth="150.0" />
-    <TextField fx:id="textFieldDesc" layoutX="363.0" layoutY="423.0" prefHeight="25.0" prefWidth="150.0" />
-    <Label layoutX="363.0" layoutY="249.0" text="non Selectionnee">
-        <font>
-            <Font name="Arial Bold" size="15.0" />
-        </font>
-    </Label>
-    <Label layoutX="363.0" layoutY="313.0" text="non Selectionnee">
-        <font>
-            <Font name="Arial Bold" size="15.0" />
-        </font>
-    </Label>
-    <Button fx:id="buttonConfirmAddType" layoutX="737.0" layoutY="575.0" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
+    <TextField fx:id="textFieldNom" layoutX="440.0" layoutY="370.0" prefHeight="28.0" prefWidth="243.0" />
+
+    <Button fx:id="buttonConfirmAddType" layoutX="737.0" layoutY="575.0" onAction="#chargerPage" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
         <font>
             <Font name="Segoe UI Semibold" size="16.0" />
         </font>
     </Button>
-    <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" style="-fx-background-color:#99d6ff " text="Retour">
+    <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retour" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
         <font>
             <Font name="Segoe UI Semibold" size="16.0" />
         </font>
     </Button>
+      <Separator layoutX="394.0" layoutY="208.0" orientation="VERTICAL" prefHeight="345.0" prefWidth="11.0" />
+      <TextField fx:id="textFieldCategorie" layoutX="440.0" layoutY="219.0" prefHeight="28.0" prefWidth="243.0" />
+      <TextField fx:id="textFieldNomType" layoutX="440.0" layoutY="276.0" prefHeight="28.0" prefWidth="243.0" promptText="nom" />
+      <TextField fx:id="textFieldDureeType" layoutX="440.0" layoutY="315.0" prefHeight="28.0" prefWidth="243.0" promptText="durée" />
+      <TextArea layoutX="440.0" layoutY="422.0" prefHeight="128.0" prefWidth="243.0" />
 </children>
 </AnchorPane>

@@ -4,8 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,8 +18,8 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("acceuilScreen.fxml")));
-        stage.initStyle(StageStyle.UNDECORATED);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("accueilScreen.fxml")));
+        stage.initStyle(StageStyle.DECORATED);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
