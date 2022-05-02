@@ -1,0 +1,62 @@
+.button
+{
+    -fx-background-color: #007399;
+    -fx-background-radius: 30px;
+    -fx-border-radius: 30;
+}
+
+.button:hover
+{
+    -fx-background-color:  #00bfff ;
+    -fx-background-radius: 30;
+}
+
+.tab {
+
+    -fx-font-size: 20;
+    -fx-pref-width: 330;
+    -fx-background-color:#00bfff
+
+}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+.tab-pane > .tab-header-area > .headers-region > .tab > .tab-container > .tab-label {
+    -fx-alignment: CENTER;
+    -fx-pref-width: 330;
+
+}
+
+.tab-label{
+
+    -fx-text-fill: #ffffff;
+
+}
+
+
+.tab-pane{
+    -fx-padding: 0 -1 -1 -1
+}
+.tab-pane .tab:selected
+{
+    -fx-background-color: #00ace6;
+}
+
+.combo-box-base {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-border-color: #00bfff
+}
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: #ffffff;
+}
+
+.spinner {
+    -fx-border-color: #00bfff
+}
+
+.text-field {
+    -fx-border-color: #00ace6;
+}
