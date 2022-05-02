@@ -1,4 +1,4 @@
-package univ.tln.I243.groupe1.controller;
+package univ.tln.i243.groupe1.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +10,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class recordController {
+public class RecordController {
 
+    public void chargerPage(ActionEvent actionEvent) throws IOException {
+        // a Modifier le fichier XML
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("categorieScreen.fxml")));
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
     /**
      * Cette méthode permet de retourner à l'écran précédent
      */
