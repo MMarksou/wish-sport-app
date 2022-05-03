@@ -7,6 +7,8 @@ import lombok.extern.java.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "CATEGORIE")
@@ -16,6 +18,7 @@ import java.io.Serializable;
 @JsonRootName(value = "categorie")
 public class Categorie implements Serializable {
 
+
     @Id
     @Column(name = "CATEGORIE_ID")
     @JsonProperty("nom")
@@ -23,11 +26,16 @@ public class Categorie implements Serializable {
     @Getter
     String nom;
 
+    @OneToMany(mappedBy="cat",cascade = {CascadeType.ALL})
+    List<Enregistrement> enregistrements;
+
 
     @Getter
     @Setter
     @JsonProperty("description")
     @Column(name = "DESCRIPTION", nullable = false)
     String description;
+
+    public Categorie(List<Enregistrement> enregistrements){this.enregistrements=enregistrements;}
 
 }

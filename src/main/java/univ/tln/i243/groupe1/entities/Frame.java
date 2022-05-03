@@ -1,5 +1,6 @@
 package univ.tln.i243.groupe1.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.extern.java.Log;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "FRAME")
@@ -33,6 +35,18 @@ public class Frame implements Serializable {
     @Getter
     int numero;
 
-    /** ------donnee JSON a discuter !!------**/
+    @Getter
+    @Setter
+    @ManyToOne
+    @JsonIdentityReference(alwaysAsId = true)
+    @JoinColumn(name="ENREGISTREMENT_ID")
+    Enregistrement enreg;
+
+    @OneToMany(mappedBy="frame",cascade = {CascadeType.ALL})
+    List<Jointure> jointures;
+
+    public Frame(List<Jointure> jointures){this.jointures=jointures;}
+
+
 
 }
