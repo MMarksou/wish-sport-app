@@ -14,16 +14,15 @@ public class AddCategorieController {
 
     public void chargerPage(ActionEvent actionEvent) throws IOException {
         // a Modifier le fichier XML
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("categorieScreen.fxml")));
-        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        //Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("categorieScreen.fxml")));
+        AddExerciceController str = new AddExerciceController();
+        str.charger(actionEvent,"categorieScreen.fxml");
     }
     /**
      * Cette méthode permet de retourner à l'écran précédent
      */
     public void retour(ActionEvent actionEvent) throws IOException {
-        chargerPage(actionEvent);
+        AddExerciceController str = new AddExerciceController();
+        str.charger(actionEvent,"categorieScreen.fxml");
     }
 }
