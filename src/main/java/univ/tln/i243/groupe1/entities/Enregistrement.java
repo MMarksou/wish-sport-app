@@ -19,6 +19,10 @@ import java.util.List;
 @ToString
 @Log
 @JsonRootName(value = "enregistrement")
+@NamedQueries({
+        @NamedQuery(name = "enregistrement.findAll", query = "select enregistrement from Enregistrement enregistrement"),
+        @NamedQuery(name = "enregistrement.findByCategorie", query = "select enregistrement from Enregistrement enregistrement where enregistrement.cat = :cat")
+})
 public class Enregistrement implements Serializable {
 
     @Id

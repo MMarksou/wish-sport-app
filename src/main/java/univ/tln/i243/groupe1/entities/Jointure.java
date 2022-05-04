@@ -1,15 +1,15 @@
 package univ.tln.i243.groupe1.entities;
 
-        import com.fasterxml.jackson.annotation.JsonIdentityReference;
-        import com.fasterxml.jackson.annotation.JsonProperty;
-        import com.fasterxml.jackson.annotation.JsonRootName;
-        import lombok.Getter;
-        import lombok.NoArgsConstructor;
-        import lombok.Setter;
-        import lombok.ToString;
-        import lombok.extern.java.Log;
-        import javax.persistence.*;
-        import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.extern.java.Log;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "JOINTURE")
@@ -17,6 +17,10 @@ package univ.tln.i243.groupe1.entities;
 @ToString
 @Log
 @JsonRootName(value = "jointure")
+@NamedQueries({
+        @NamedQuery(name = "jointure.findAll", query = "select jointure from Jointure jointure"),
+        @NamedQuery(name = "jointure.findByFrame", query = "select jointure from Jointure jointure where jointure.frame = :frame")
+})
 public class Jointure implements Serializable {
 
     @Id

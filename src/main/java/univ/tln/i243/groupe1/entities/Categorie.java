@@ -16,6 +16,12 @@ import java.util.Set;
 @ToString
 @Log
 @JsonRootName(value = "categorie")
+@NamedQueries({
+        @NamedQuery(name = "categorie.findAll", query = "select categorie from Categorie categorie"),
+/*        @NamedQuery(name = "personne.findByComposeId", query = "select personne from Personne personne where personne.nom = :nom and personne.prenom = :prenom"),
+        @NamedQuery(name = "personne.update", query = "update Personne personne set personne.nom = :nom, personne.prenom = :prenom, personne.age = :age where personne.nom = :nom and personne.prenom = :prenom")*/
+
+})
 public class Categorie implements Serializable {
 
 

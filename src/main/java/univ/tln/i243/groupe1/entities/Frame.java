@@ -19,6 +19,10 @@ import java.util.List;
 @ToString
 @Log
 @JsonRootName(value = "frame")
+@NamedQueries({
+        @NamedQuery(name = "frame.findAll", query = "select frame from Frame frame"),
+        @NamedQuery(name = "frame.findByEnregistrement", query = "select frame from Frame frame where frame.enreg = :enreg")
+})
 public class Frame implements Serializable {
 
     @Id
