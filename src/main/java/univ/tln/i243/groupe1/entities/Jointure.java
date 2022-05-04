@@ -21,6 +21,7 @@ import java.io.Serializable;
         @NamedQuery(name = "jointure.findAll", query = "select jointure from Jointure jointure"),
         @NamedQuery(name = "jointure.findByFrame", query = "select jointure from Jointure jointure where jointure.frame = :frame")
 })
+@IdClass(JointureId.class)
 public class Jointure implements Serializable {
 
     @Id
@@ -29,7 +30,7 @@ public class Jointure implements Serializable {
     @JsonProperty("id")
     @Setter
     @Getter
-    long id;
+    String id;
 
     @JsonProperty("x")
     @Column(name = "X", nullable = false)
@@ -73,10 +74,22 @@ public class Jointure implements Serializable {
     @Getter
     float wz;
 
+    @Id
     @Getter
     @Setter
     @ManyToOne
     @JsonIdentityReference(alwaysAsId = true)
-    @JoinColumn(name="FRAME_ID")
+    @JoinColumns(
+    {
+            @JoinColumn(name="FRAME_ID"),
+            @JoinColumn(name="NUMERO")
+    })
     Frame frame;
+
+
+    @JsonProperty("nom")
+    @Column(name = "NOM", nullable = false)
+    @Setter
+    @Getter
+    String nom;
 }

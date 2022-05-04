@@ -23,6 +23,7 @@ import java.util.List;
         @NamedQuery(name = "frame.findAll", query = "select frame from Frame frame"),
         @NamedQuery(name = "frame.findByEnregistrement", query = "select frame from Frame frame where frame.enreg = :enreg")
 })
+@IdClass(FrameId.class)
 public class Frame implements Serializable {
 
     @Id
@@ -33,8 +34,10 @@ public class Frame implements Serializable {
     @Getter
     long id;
 
+    @Id
+    @GeneratedValue
+    @Column(name = "NUMERO")
     @JsonProperty("numero")
-    @Column(name = "NUMERO", nullable = false)
     @Setter
     @Getter
     int numero;
