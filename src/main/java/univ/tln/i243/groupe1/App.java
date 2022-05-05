@@ -15,18 +15,14 @@ import java.util.Objects;
  */
 public class App extends Application {
 
-    public Parent root;
-    public void loadFichier(Stage stage){
+    @Override
+    public void start(Stage stage) throws IOException {
+
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pageAccueil.fxml")));
         stage.initStyle(StageStyle.DECORATED);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-    @Override
-    public void start(Stage stage) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("accueilScreen.fxml")));
-        loadFichier(stage);
-
     }
 
     public static void main(String[] args) {

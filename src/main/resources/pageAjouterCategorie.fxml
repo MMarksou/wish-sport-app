@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.i243.groupe1.controller.AddCategorieController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.i243.groupe1.controller.AjouterCategorieControleur">
 <children>
     <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
         <image>
@@ -23,18 +23,18 @@
         </font>
     </Label>
 
-    <Button fx:id="buttonConfirmAddType" layoutX="737.0" layoutY="575.0" onAction="#chargerPage" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
+    <Button fx:id="buttonConfirmAddType" layoutX="737.0" layoutY="575.0" onAction="#validerCategorie" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
         <font>
             <Font name="Segoe UI Semibold" size="16.0" />
         </font>
     </Button>
-    <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retour" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
+    <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retourChoix" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
         <font>
             <Font name="Segoe UI Semibold" size="16.0" />
         </font>
     </Button>
       <Separator layoutX="394.0" layoutY="208.0" orientation="VERTICAL" prefHeight="264.0" prefWidth="11.0" />
-      <TextField fx:id="textFieldCategorie" layoutX="440.0" layoutY="219.0" prefHeight="28.0" prefWidth="243.0" />
-      <TextArea layoutX="440.0" layoutY="292.0" prefHeight="178.0" prefWidth="243.0" />
+      <TextField fx:id="nomCategorie" layoutX="440.0" layoutY="219.0" prefHeight="28.0" prefWidth="243.0" />
+      <TextArea fx:id="descriptionCategorie" layoutX="440.0" layoutY="292.0" prefHeight="178.0" prefWidth="243.0" />
 </children>
 </AnchorPane>
