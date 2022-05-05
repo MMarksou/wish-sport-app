@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
 @EqualsAndHashCode
 public class JointureId implements Serializable {
     @Getter
@@ -16,7 +15,12 @@ public class JointureId implements Serializable {
 
     @Getter
     @Setter
-    private Frame frame;
+    private FrameId frame;
+
+    public JointureId(String id, FrameId frame) {
+        this.id=id;
+        this.frame=frame;
+    }
 
 
 }

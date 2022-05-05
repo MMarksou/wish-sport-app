@@ -23,9 +23,7 @@ import java.io.Serializable;
 })
 @IdClass(JointureId.class)
 public class Jointure implements Serializable {
-
     @Id
-    @GeneratedValue
     @Column(name = "JOINTURE_ID")
     @JsonProperty("id")
     @Setter
@@ -81,8 +79,8 @@ public class Jointure implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumns(
     {
-            @JoinColumn(name="FRAME_ID"),
-            @JoinColumn(name="NUMERO")
+            @JoinColumn(name="FRAME_ID", referencedColumnName="NUMERO"),
+            @JoinColumn(name="ENREGISTREMENT_ID", referencedColumnName = "ENREGISTREMENT_ID"),
     })
     Frame frame;
 

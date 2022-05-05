@@ -25,23 +25,14 @@ import java.util.List;
 })
 @IdClass(FrameId.class)
 public class Frame implements Serializable {
-
     @Id
-    @GeneratedValue
-    @Column(name = "FRAME_ID")
-    @JsonProperty("id")
-    @Setter
-    @Getter
-    long id;
-
-    @Id
-    @GeneratedValue
     @Column(name = "NUMERO")
     @JsonProperty("numero")
     @Setter
     @Getter
     int numero;
 
+    @Id
     @Getter
     @Setter
     @ManyToOne

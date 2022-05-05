@@ -33,6 +33,12 @@ public class Enregistrement implements Serializable {
     @Getter
     long id;
 
+    @Column(name = "NOM")
+    @JsonProperty("nom")
+    @Setter
+    @Getter
+    String nom;
+
     @JsonProperty("repetition")
     @Column(name = "REPETITION", nullable = false)
     @Setter
@@ -49,7 +55,7 @@ public class Enregistrement implements Serializable {
     @Column(name = "DESCRIPTION")
     @Setter
     @Getter
-    int description;
+    String description;
 
 
     @Getter

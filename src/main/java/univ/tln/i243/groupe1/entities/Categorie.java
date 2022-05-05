@@ -8,7 +8,6 @@ import lombok.extern.java.Log;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "CATEGORIE")
@@ -43,5 +42,7 @@ public class Categorie implements Serializable {
     String description;
 
     public Categorie(List<Enregistrement> enregistrements){this.enregistrements=enregistrements;}
+
+
 
 }

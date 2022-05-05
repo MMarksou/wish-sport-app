@@ -7,7 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@AllArgsConstructor
+
 @EqualsAndHashCode
 public class FrameId implements Serializable {
     @Getter
@@ -16,7 +16,11 @@ public class FrameId implements Serializable {
 
     @Getter
     @Setter
-    private long id;
+    private long enreg;
 
+    public FrameId(int numero, long enreg) {
+        this.numero=numero;
+        this.enreg=enreg;
+    }
 
 }
