@@ -17,7 +17,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Frame.findALl",query = "select c from Frame c")
 })
-@Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","enregistrement"})})
+@Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","id_enregistrement"})})
 public class Frame implements Entite{
 
     @Id
@@ -28,11 +28,11 @@ public class Frame implements Entite{
     private int numero;
 
     @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "frame")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "frame")
     private List<Jointure> jointures;
 
     @Setter
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "ID_ENREGISTREMENT")
     @JsonIdentityReference(alwaysAsId = true)
     private Enregistrement enregistrement;

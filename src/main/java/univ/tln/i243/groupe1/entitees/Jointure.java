@@ -16,7 +16,7 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Jointure.findALl",query = "select c from Jointure c")
 })
-@Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","frame"})})
+@Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","id_frame"})})
 public class Jointure implements Entite{
 
     @Id
@@ -24,7 +24,7 @@ public class Jointure implements Entite{
     private long id;
 
     @Setter
-    @ManyToOne(cascade = {CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "ID_FRAME")
     @JsonIdentityReference(alwaysAsId = true)
     private Frame frame;

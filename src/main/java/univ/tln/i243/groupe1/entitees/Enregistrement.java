@@ -18,7 +18,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Enregistrement.findALl",query = "select c from Enregistrement c")
 })
-@Table(name = "Enregistrement",uniqueConstraints = {@UniqueConstraint(name = "uniqueEnregistrementCategorie", columnNames = {"nom","categorie"})})
+@Table(name = "Enregistrement",uniqueConstraints = {@UniqueConstraint(name = "uniqueEnregistrementCategorie", columnNames = {"nom","id_categorie"})})
 public class Enregistrement implements Entite{
 
     @Id
@@ -38,7 +38,7 @@ public class Enregistrement implements Entite{
     private int repetition;
 
     @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "enregistrement")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "enregistrement")
     private List<Frame> frames;
 
     @Setter

@@ -30,7 +30,7 @@ public class Categorie implements Entite{
     private String description;
 
     @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST})
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "categorie")
     private List<Enregistrement> enregistrements;
 
     @Override
