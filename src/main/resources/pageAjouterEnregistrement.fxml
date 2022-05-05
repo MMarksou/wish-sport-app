@@ -71,17 +71,17 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
-            <ComboBox layoutX="448.0" layoutY="222.0" prefHeight="28.0" prefWidth="175.0" />
-            <Spinner layoutX="448.0" layoutY="290.0" />
-            <Spinner layoutX="448.0" layoutY="360.0" />
+            <ComboBox fx:id="comboCategorie" layoutX="448.0" layoutY="222.0" onAction="#showcatdesc" prefHeight="28.0" prefWidth="175.0" />
+            <Spinner fx:id="spinnerNbrRep" layoutX="448.0" layoutY="290.0" />
+            <Spinner fx:id="spinnerDuree" layoutX="448.0" layoutY="360.0" />
             <Label layoutX="290.0" layoutY="445.0" />
             <Label layoutX="290.0" layoutY="488.0">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <TextArea layoutX="448.0" layoutY="489.0" prefHeight="113.0" prefWidth="175.0" />
-            <TextField layoutX="450.0" layoutY="426.0" />
+            <TextArea fx:id="descriptionExercice" layoutX="448.0" layoutY="489.0" prefHeight="113.0" prefWidth="175.0" />
+            <TextField fx:id="nomExercice" layoutX="450.0" layoutY="426.0" />
             <Label layoutX="684.0" layoutY="227.0" prefHeight="16.0" prefWidth="77.0" />
             <Label layoutX="246.0" layoutY="427.0" text="Nom de l'exercice">
                <font>
@@ -93,6 +93,7 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
+            <Label fx:id="catdesc" layoutX="650.0" layoutY="193.0" prefHeight="86.0" prefWidth="173.0" />
       </children>
       </AnchorPane>
 </children>

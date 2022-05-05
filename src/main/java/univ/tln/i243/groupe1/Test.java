@@ -14,10 +14,32 @@ import javax.persistence.Persistence;
 
 public class Test {
     public static void main(String[] args) {
-        Categorie cat = Categorie.builder().nom("Squat").build();
-        Enregistrement enregistrement = Enregistrement.builder().nom("NathanSquat").durée(10).categorie(cat).repetition(2).build();
-        Frame frame = Frame.builder().numero(1).enregistrement(enregistrement).build();
-        Jointure jointure = Jointure.builder().nom("HOLLA").frame(frame).build();
+        Categorie categorie = new Categorie();
+        categorie.setNom("cat1");
+        categorie.setDescription("deeeeescrtion");
+
+        Enregistrement enregistrement = new Enregistrement();
+        //enregistrement.setCategorie(categorie);
+        enregistrement.setNom("enrg1");
+        enregistrement.setDescription("random desc");
+        enregistrement.setDuree(5);
+        enregistrement.setRepetition(3);
+
+        /*Frame frame = new Frame();
+        frame.setEnregistrement(enregistrement);
+        frame.setNumero(1);
+
+        Jointure jointure = new Jointure();
+        jointure.setId("head");
+        jointure.setNom("head");
+        jointure.setFrame(frame);
+        jointure.setW(0.0F);
+        jointure.setWx(0.0F);
+        jointure.setWy(0.0F);
+        jointure.setWz(0.0F);
+        jointure.setX(0.0F);
+        jointure.setY(0.0F);
+        jointure.setZ(0.0F);*/
 
         EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
 
@@ -30,8 +52,8 @@ public class Test {
 //        FrameDao frameDao = new FrameDao(em);
 //        frameDao.persist(frame);
 
-        JointureDao jointureDao = new JointureDao(em);
-        jointureDao.persist(jointure);
+        EnregistrementDao enre = new EnregistrementDao(em);
+        enre.persist(enregistrement);
 
 
     }

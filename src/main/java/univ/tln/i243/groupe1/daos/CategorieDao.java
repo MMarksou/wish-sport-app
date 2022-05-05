@@ -3,25 +3,20 @@ package univ.tln.i243.groupe1.daos;
 import univ.tln.i243.groupe1.entitees.Categorie;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 public class CategorieDao extends DAO<Categorie>{
 
-    public CategorieDao(EntityManager em) {
-        super(em);
+    public static CategorieDao of(EntityManager entityManager){
+        return new CategorieDao(entityManager);
     }
 
-
-    @Override
-    public Categorie find(long id) {
-        return em.find(Categorie.class,id);
+    public CategorieDao(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
     public List<Categorie> findAll() {
-        Query query = em.createNamedQuery("Categorie.findALl");
-        List<Categorie> categories = query.getResultList();
-        return categories;
+        return entityManager.createNamedQuery("categorie.findAll",Categorie.class).getResultList();
     }
 }

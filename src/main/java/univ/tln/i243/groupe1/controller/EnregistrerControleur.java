@@ -3,20 +3,44 @@ package univ.tln.i243.groupe1.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import univ.tln.i243.groupe1.daos.CategorieDao;
+import univ.tln.i243.groupe1.entitees.Categorie;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class EnregistrerControleur implements PageControleur{
+public class EnregistrerControleur implements PageControleur, Initializable {
 
     @FXML
     private ProgressBar temps;
+
+    @FXML
+    private Label nomCategorie;
+
+    @FXML
+    private Label nbRepetition;
+
+    @FXML
+    private Label dureeType;
+
+    @FXML
+    private Label nomExercice;
+
+    @FXML
+    private TextArea descriptionExercice;
 
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
@@ -55,5 +79,15 @@ public class EnregistrerControleur implements PageControleur{
 
         //enregistrement.setFrame(objectMapper.readValue(contenu, new TypeReference<List<Frame>>() {}));
         //daoEnregistrement.persist()
+    }
+
+    @Override
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        nomCategorie.setText(AjouterEnregistrementControleur.nomCategorie);
+        nbRepetition.setText(String.valueOf(AjouterEnregistrementControleur.nbRepetition));
+        dureeType.setText(String.valueOf(AjouterEnregistrementControleur.dureeExercice));
+        nomExercice.setText(AjouterEnregistrementControleur.nomExo);
+        descriptionExercice.setText(AjouterEnregistrementControleur.descriptionExo);
     }
 }

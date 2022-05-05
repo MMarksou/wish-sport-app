@@ -36,5 +36,10 @@
       <Separator layoutX="394.0" layoutY="208.0" orientation="VERTICAL" prefHeight="264.0" prefWidth="11.0" />
       <TextField fx:id="nomCategorie" layoutX="440.0" layoutY="219.0" prefHeight="28.0" prefWidth="243.0" />
       <TextArea fx:id="descriptionCategorie" layoutX="440.0" layoutY="292.0" prefHeight="178.0" prefWidth="243.0" />
+      <Label fx:id="labelValider" layoutX="378.0" layoutY="586.0">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
 </children>
 </AnchorPane>

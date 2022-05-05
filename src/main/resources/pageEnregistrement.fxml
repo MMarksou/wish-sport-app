@@ -12,12 +12,12 @@
                 <Image url="@logo.png" />
             </image>
         </ImageView>
-        <Label layoutX="359.0" layoutY="257.0" text="nom de la categorie">
+        <Label fx:id="nomCategorie" layoutX="359.0" layoutY="257.0" text="nom de la categorie">
             <font>
                 <Font name="Arial Bold" size="15.0" />
             </font>
         </Label>
-        <Label layoutX="359.0" layoutY="285.0" text="nom du type">
+        <Label fx:id="nbRepetition" layoutX="359.0" layoutY="285.0" text="nombre répétition">
             <font>
                 <Font name="Arial Bold" size="15.0" />
             </font>
@@ -37,13 +37,13 @@
             <Font name="Arial Black" size="16.0" />
          </font>
       </Label>
-      <TextArea layoutX="319.0" layoutY="378.0" prefHeight="66.0" prefWidth="199.0" promptText="Description de l'exercice" />
-      <Label layoutX="359.0" layoutY="314.0" text="durée du type">
+      <TextArea fx:id="descriptionExercice" layoutX="319.0" layoutY="378.0" prefHeight="66.0" prefWidth="199.0" promptText="Description de l'exercice" />
+      <Label fx:id="dureeType" layoutX="359.0" layoutY="314.0" text="durée du type">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="359.0" layoutY="343.0" text="nom de l'exercice">
+      <Label fx:id="nomExercice" layoutX="359.0" layoutY="343.0" text="nom de l'exercice">
          <font>
             <Font name="Arial Bold" size="15.0" />
          </font>

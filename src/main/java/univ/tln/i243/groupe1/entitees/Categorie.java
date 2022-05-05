@@ -1,59 +1,40 @@
 package univ.tln.i243.groupe1.entitees;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.extern.java.Log;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Builder
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@NoArgsConstructor
+@ToString
+@Log
+@Setter
+@Getter
 @NamedQueries({
-        @NamedQuery(name = "Categorie.findALl",query = "select c from Categorie c")
-})
-@Table(name = "Categorie", uniqueConstraints = {@UniqueConstraint(name = "uniqueCategorie",columnNames = ("nom"))})
-public class Categorie implements Entite{
+        @NamedQuery(name = "categorie.findAll", query = "select categorie from Categorie categorie")})
+public class Categorie implements Serializable {
+
 
     @Id
-    @GeneratedValue
-    private long id;
+    @Column(name = "CATEGORIE_ID")
+    @JsonProperty("nom")
+    String nom;
 
-    @Setter
-    private String nom;
+    @OneToMany(mappedBy= "categorie",cascade = {CascadeType.ALL})
+    List<Enregistrement> enregistrements;
 
-    @Setter
-    private String description;
 
-    @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "categorie")
-    private List<Enregistrement> enregistrements;
+    @Column(name = "DESCRIPTION", nullable = false)
+    String description;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Categorie categorie = (Categorie) o;
-
-        return nom.equals(categorie.nom);
+    public void addEnregistrement(Enregistrement enregistrement){
+        this.enregistrements.add(enregistrement);
     }
 
-    @Override
-    public int hashCode() {
-        return nom.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Categorie " +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
-                ", enregistrements=" + enregistrements;
-    }
 }

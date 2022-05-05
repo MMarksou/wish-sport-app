@@ -1,66 +1,40 @@
 package univ.tln.i243.groupe1.entitees;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import lombok.extern.java.Log;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Builder
-@Getter
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@ToString
+@Log
 @NamedQueries({
-        @NamedQuery(name = "Frame.findALl",query = "select c from Frame c")
+        @NamedQuery(name = "frame.findAll", query = "select frame from Frame frame"),
+        @NamedQuery(name = "frame.findByEnregistrement", query = "select frame from Frame frame where frame.enregistrement = :enreg")
 })
-@Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","id_enregistrement"})})
-public class Frame implements Entite{
+@Setter
+@Getter
+@IdClass(FrameId.class)
+public class Frame implements Serializable {
 
     @Id
-    @GeneratedValue
-    private long id;
+    int numero;
 
-    @Setter
-    private int numero;
+    @Id
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumns(
+            {
+                    @JoinColumn(name = "ENREGISTREMENT_ID",referencedColumnName = "NOM"),
+                    @JoinColumn(name = "CATEGORIE_ID",referencedColumnName = "CATEGORIE_ID")
 
-    @Setter
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "frame")
-    private List<Jointure> jointures;
+            })
+    Enregistrement enregistrement;
 
-    @Setter
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinColumn(name = "ID_ENREGISTREMENT")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Enregistrement enregistrement;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Frame frame = (Frame) o;
-
-        if (numero != frame.numero) return false;
-        return enregistrement.equals(frame.enregistrement);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = numero;
-        result = 31 * result + enregistrement.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Frame " +
-                "id=" + id +
-                ", numero=" + numero +
-                ", jointures=" + jointures +
-                ", enregistrement=" + enregistrement;
-    }
+    @OneToMany(mappedBy="frame",cascade = {CascadeType.ALL})
+    List<Jointure> jointures;
 }
