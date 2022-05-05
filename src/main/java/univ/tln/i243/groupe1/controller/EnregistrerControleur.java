@@ -1,5 +1,6 @@
 package univ.tln.i243.groupe1.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,13 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import univ.tln.i243.groupe1.daos.CategorieDao;
-import univ.tln.i243.groupe1.entitees.Categorie;
+import univ.tln.i243.groupe1.daos.EnregistrementDao;
+import univ.tln.i243.groupe1.entitees.Enregistrement;
+import univ.tln.i243.groupe1.entitees.EnregistrementId;
+import univ.tln.i243.groupe1.entitees.Frame;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -41,6 +46,9 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
     @FXML
     private TextArea descriptionExercice;
+
+    private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
+
 
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
@@ -70,15 +78,18 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         fileChooser.setTitle("Open Resource File");
         File fichier = fileChooser.showOpenDialog(stage);
         String contenu = Files.readString(Path.of(fichier.getPath()));
-        System.out.println(contenu);
 
-        //Enregistrement enregistrement;
-        //DAOEnregistrement daoEnregistrement = new DAOEnregistrement();
+        EnregistrementDao enregistrementdao = new EnregistrementDao(em);
+        EnregistrementId idEnregistrement = new EnregistrementId(nomExercice.getText(), nomCategorie.getText());
+        Enregistrement enregistrement = enregistrementdao.findById(idEnregistrement);
 
         ObjectMapper objectMapper = new ObjectMapper();
+        List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<List<Frame>>() {});
 
-        //enregistrement.setFrame(objectMapper.readValue(contenu, new TypeReference<List<Frame>>() {}));
-        //daoEnregistrement.persist()
+        enregistrement.setFrames(frames);
+        enregistrementdao.persist(enregistrement);
+
+        //System.out.println(enregistrement.getFrames());
     }
 
     @Override

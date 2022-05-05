@@ -50,15 +50,11 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
 
         Categorie cat = categoriedao.findById(comboCategorie.getValue().toString());
 
-        System.out.println(cat);
-
         enr.setCategorie(cat);
         enr.setRepetition(spinnerNbrRep.getValue());
         enr.setDuree(spinnerDuree.getValue());
         enr.setNom(nomExercice.getText());
         enr.setDescription(descriptionExercice.getText());
-
-        System.out.println(enr);
 
         em.getTransaction().begin();
         em.persist(enr);

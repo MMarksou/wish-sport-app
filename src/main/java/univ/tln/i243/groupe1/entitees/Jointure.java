@@ -22,7 +22,9 @@ import java.io.Serializable;
 @Getter
 @IdClass(JointureId.class)
 public class Jointure implements Serializable {
+
     @Id
+    @GeneratedValue
     String id;
 
     @Column(nullable = false)
