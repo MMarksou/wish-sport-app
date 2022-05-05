@@ -13,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@NamedQueries({
+        @NamedQuery(name = "Categorie.findALl",query = "select c from Categorie c")
+})
 @Table(name = "Categorie", uniqueConstraints = {@UniqueConstraint(name = "uniqueCategorie",columnNames = ("nom"))})
 public class Categorie implements Entite{
 

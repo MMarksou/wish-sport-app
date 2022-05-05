@@ -13,6 +13,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@NamedQueries({
+        @NamedQuery(name = "Jointure.findALl",query = "select c from Jointure c")
+})
 @Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","frame"})})
 public class Jointure implements Entite{
 

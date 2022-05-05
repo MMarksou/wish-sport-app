@@ -14,6 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@NamedQueries({
+        @NamedQuery(name = "Frame.findALl",query = "select c from Frame c")
+})
 @Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","enregistrement"})})
 public class Frame implements Entite{
 

@@ -2,8 +2,8 @@ package univ.tln.i243.groupe1.daos;
 
 import univ.tln.i243.groupe1.entitees.Categorie;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class CategorieDao extends DAO<Categorie>{
@@ -20,8 +20,8 @@ public class CategorieDao extends DAO<Categorie>{
 
     @Override
     public List<Categorie> findAll() {
-        Query query = em.createNamedQuery("")
-
-        return null;
+        Query query = em.createNamedQuery("Categorie.findALl");
+        List<Categorie> categories = query.getResultList();
+        return categories;
     }
 }
