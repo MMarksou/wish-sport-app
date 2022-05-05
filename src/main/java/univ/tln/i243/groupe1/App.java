@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import univ.tln.i243.groupe1.daos.JointureDao;
 import univ.tln.i243.groupe1.entities.Categorie;
 import univ.tln.i243.groupe1.entities.Enregistrement;
 import univ.tln.i243.groupe1.entities.Frame;
@@ -65,8 +64,6 @@ public class App extends Application {
         jointure.setX(0.0F);
         jointure.setY(0.0F);
         jointure.setZ(0.0F);
-
-        System.out.println("wooorking !!!");
 
         EntityTransaction transac = em.getTransaction();
         transac.begin();
