@@ -11,6 +11,8 @@ import univ.tln.i243.groupe1.entitees.Categorie;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
+import java.util.logging.Logger;
+
 
 public class AjouterCategorieControleur implements PageControleur {
 
@@ -23,17 +25,31 @@ public class AjouterCategorieControleur implements PageControleur {
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
 
-    public void validerCategorie(ActionEvent actionEvent){
+    CategorieDao categoriedao = new CategorieDao(em);
 
-        Categorie categorie = Categorie.builder().nom(nomCategorie.getText()).description(descriptionCategorie.getText()).build();
-        CategorieDao categoriedao = new CategorieDao(em);
-        categoriedao.persist(categorie);
+    static Logger logger;
 
-        labelValider.setStyle("-fx-text-fill: green;\n");
-        labelValider.setText("La catégorie a bien été enregistrée !");
+    public void validerCategorie(ActionEvent actionEvent) {
 
-        nomCategorie.setText("");
-        descriptionCategorie.setText("");
+        try {
+            if(!nomCategorie.getText().equals("")) {
+                Categorie categorie = Categorie.builder().nom(nomCategorie.getText()).description(descriptionCategorie.getText()).build();
+
+                categoriedao.persister(categorie);
+
+                labelValider.setStyle("-fx-text-fill: green;\n");
+                labelValider.setText("La catégorie a bien été enregistrée !");
+
+                nomCategorie.setText("");
+                descriptionCategorie.setText("");
+            } else {
+                labelValider.setStyle("-fx-text-fill: red;\n");
+                labelValider.setText("UwU GANG");
+            }
+        } catch (Exception e){
+            labelValider.setStyle("-fx-text-fill: red;\n");
+            labelValider.setText("Une catégorie a déjà ce nom !");
+        }
     }
 
     public void retourChoix(ActionEvent actionEvent) throws IOException {

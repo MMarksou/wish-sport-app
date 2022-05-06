@@ -13,12 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-@NamedQueries({
-        @NamedQuery(name = "Categorie.findALl",query = "select c from Categorie c"),
-        @NamedQuery(name = "Categorie.findByNom",query = "select c from Categorie c where c.nom=:nom")
-})
+@NamedQuery(name = "Categorie.rechercherTout",query = "select c from Categorie c")
+@NamedQuery(name = "Categorie.rechercherParNom",query = "select c from Categorie c where c.nom=:nom")
+
 @Table(name = "Categorie", uniqueConstraints = {@UniqueConstraint(name = "uniqueCategorie",columnNames = ("nom"))})
-public class Categorie implements Entite{
+public class Categorie implements Entitee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

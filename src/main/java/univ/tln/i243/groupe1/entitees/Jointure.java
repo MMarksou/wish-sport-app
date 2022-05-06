@@ -13,11 +13,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-@NamedQueries({
-        @NamedQuery(name = "Jointure.findALl",query = "select c from Jointure c")
-})
+@NamedQuery(name = "Jointure.rechercherTout",query = "select c from Jointure c")
+
 @Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","id_frame"})})
-public class Jointure implements Entite{
+public class Jointure implements Entitee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,32 +32,31 @@ public class Jointure implements Entite{
     private String nom;
 
     @Setter
-    private long w;
+    private float w;
 
     @Setter
-    private long wx;
+    private float wx;
 
     @Setter
-    private long wy;
+    private float wy;
 
     @Setter
-    private long wz;
+    private float wz;
 
     @Setter
-    private long x;
+    private float x;
 
     @Setter
-    private long y;
+    private float y;
 
     @Setter
-    private long z;
+    private float z;
 
 
     @Override
     public String toString() {
         return "Jointure " +
                 "id=" + id +
-                ", frame=" + frame +
                 ", nom='" + nom + '\'' +
                 ", w=" + w +
                 ", wx=" + wx +

@@ -12,23 +12,21 @@ public class CategorieDao extends DAO<Categorie>{
         super(em);
     }
 
+
     @Override
-    public Categorie findByNom(String nom){
-        Query query = em.createNamedQuery("Categorie.findByNom");
+    public Categorie rechercherParNom(String nom){
+        Query query = em.createNamedQuery("Categorie.rechercherParNom");
         query.setParameter("nom",nom);
-        Categorie categorie = (Categorie) query.getResultList().get(0);
-        return categorie;
+        return (Categorie) query.getResultList().get(0);
     }
 
     @Override
-    public Categorie find(long id) {
+    public Categorie rechercher(long id) {
         return em.find(Categorie.class,id);
     }
 
     @Override
-    public List<Categorie> findAll() {
-        Query query = em.createNamedQuery("Categorie.findALl");
-        List<Categorie> categories = query.getResultList();
-        return categories;
+    public List<Categorie> rechercherTout() {
+       return em.createNamedQuery("Categorie.rechercherTout").getResultList();
     }
 }

@@ -14,11 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-@NamedQueries({
-        @NamedQuery(name = "Frame.findALl",query = "select c from Frame c")
-})
+@NamedQuery(name = "Frame.rechercherTout",query = "select c from Frame c")
+
 @Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","id_enregistrement"})})
-public class Frame implements Entite{
+public class Frame implements Entitee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +59,6 @@ public class Frame implements Entite{
         return "Frame " +
                 "id=" + id +
                 ", numero=" + numero +
-                ", jointures=" + jointures +
-                ", enregistrement=" + enregistrement;
+                ", jointures=" + jointures;
     }
 }

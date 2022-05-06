@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import univ.tln.i243.groupe1.daos.CategorieDao;
-import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 
@@ -19,7 +18,7 @@ import java.util.ResourceBundle;
 public class AjouterEnregistrementControleur implements PageControleur, Initializable {
 
     @FXML
-    private ComboBox comboCategorie;
+    private ComboBox<String> comboCategorie;
     @FXML
     private Spinner<Integer> spinnerNbrRep;
     @FXML
@@ -29,7 +28,7 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     @FXML
     private TextArea descriptionExercice;
     @FXML
-    private Label catdesc;
+    private Label descriptionCategorie;
 
     protected static String nomCategorie;
     protected static int nbRepetition;
@@ -38,47 +37,48 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     protected static String descriptionExo;
 
     private CategorieDao categoriedao;
-    private EnregistrementDao enregistrementdao;
-
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
 
     public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
 
-        Enregistrement enr = new Enregistrement();
+        Enregistrement enregistrement = new Enregistrement();
 
-        Categorie cat = categoriedao.findByNom(comboCategorie.getValue().toString());
+        Categorie categorie = categoriedao.rechercherParNom(comboCategorie.getValue());
 
-        enr.setCategorie(cat);
-        enr.setRepetition(spinnerNbrRep.getValue());
-        enr.setDurée(spinnerDuree.getValue());
-        enr.setNom(nomExercice.getText());
-        enr.setDescription(descriptionExercice.getText());
+        enregistrement.setCategorie(categorie);
+        enregistrement.setRepetition(spinnerNbrRep.getValue());
+        enregistrement.setDuree(spinnerDuree.getValue());
+        enregistrement.setNom(nomExercice.getText());
+        enregistrement.setDescription(descriptionExercice.getText());
 
         em.getTransaction().begin();
-        em.persist(enr);
+        em.persist(enregistrement);
         em.getTransaction().commit();
 
-        nomCategorie = comboCategorie.getValue().toString();
+        miseAJourChamps(comboCategorie, spinnerNbrRep, spinnerDuree, nomExercice, descriptionExercice);
+
+        chargerPage(actionEvent, "pageEnregistrement.fxml");
+    }
+    public static void miseAJourChamps(ComboBox<String> comboCategorie, Spinner<Integer> spinnerNbrRep, Spinner<Integer> spinnerDuree, TextField nomExercice, TextArea descriptionExercice){
+        nomCategorie = comboCategorie.getValue();
         nbRepetition = spinnerNbrRep.getValue();
         dureeExercice = spinnerDuree.getValue();
         nomExo = nomExercice.getText();
         descriptionExo = descriptionExercice.getText();
-
-        chargerPage(actionEvent, "pageEnregistrement.fxml");
     }
     public void retourChoix(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageChoix.fxml");
     }
-    public void showcatdesc(ActionEvent e){
+    public void afficherCategorieDescription(ActionEvent e){
         categoriedao = new CategorieDao(em);
-        catdesc.setText(categoriedao.findByNom(comboCategorie.getValue().toString()).getDescription());
+        descriptionCategorie.setText(categoriedao.rechercherParNom(comboCategorie.getValue()).getDescription());
     }
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         categoriedao = new CategorieDao(em);
-        List<Categorie> listeCategorie = categoriedao.findAll();
+        List<Categorie> listeCategorie = categoriedao.rechercherTout();
 
         for(Categorie cat : listeCategorie ) {
             comboCategorie.getItems().add(cat.getNom());

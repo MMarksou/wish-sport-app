@@ -1,5 +1,4 @@
 package univ.tln.i243.groupe1.daos;
-import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 
 import javax.persistence.EntityManager;
@@ -12,25 +11,20 @@ public class EnregistrementDao extends DAO<Enregistrement>{
         super(entityManager);
     }
 
-
     @Override
-    public Enregistrement find(long id) {
+    public Enregistrement rechercher(long id) {
         return em.find(Enregistrement.class,id);
     }
 
     @Override
-    public Enregistrement findByNom(String nom){
-        Query query = em.createNamedQuery("Enregistrement.findByNom");
+    public Enregistrement rechercherParNom(String nom){
+        Query query = em.createNamedQuery("Enregistrement.rechercherParNom");
         query.setParameter("nom",nom);
-        Enregistrement enregistrement = (Enregistrement) query.getResultList().get(0);
-        return enregistrement;
+        return  (Enregistrement) query.getResultList().get(0);
     }
 
     @Override
-    public List<Enregistrement> findAll() {
-        Query query = em.createNamedQuery("Enregistrement.findALl");
-        List<Enregistrement> enregistrements = query.getResultList();
-
-        return enregistrements;
+    public List<Enregistrement> rechercherTout() {
+        return em.createNamedQuery("Enregistrement.rechercherTout").getResultList();
     }
 }

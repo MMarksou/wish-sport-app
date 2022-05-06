@@ -1,6 +1,5 @@
 package univ.tln.i243.groupe1;
 
-import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
@@ -37,16 +36,6 @@ public class Test {
         EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
 
         EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-        enregistrementDao.persist(enr);
-//
-//        EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-//        enregistrementDao.persist(enregistrement);
-//
-//        FrameDao frameDao = new FrameDao(em);
-//        frameDao.persist(frame);
-
-
-
-
+        enregistrementDao.persister(enr);
     }
 }

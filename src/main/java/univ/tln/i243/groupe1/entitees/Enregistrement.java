@@ -15,12 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-@NamedQueries({
-        @NamedQuery(name = "Enregistrement.findALl",query = "select c from Enregistrement c"),
-        @NamedQuery(name = "Enregistrement.findByNom",query = "select c from Enregistrement c where c.nom=:nom")
-})
+@NamedQuery(name = "Enregistrement.rechercherTout",query = "select c from Enregistrement c")
+@NamedQuery(name = "Enregistrement.rechercherParNom",query = "select c from Enregistrement c where c.nom=:nom")
+
 @Table(name = "Enregistrement",uniqueConstraints = {@UniqueConstraint(name = "uniqueEnregistrementCategorie", columnNames = {"nom","id_categorie"})})
-public class Enregistrement implements Entite{
+public class Enregistrement implements Entitee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +29,7 @@ public class Enregistrement implements Entite{
     private String nom;
 
     @Setter
-    private int durée;
+    private int duree;
 
     @Setter
     private String description;
@@ -71,10 +70,9 @@ public class Enregistrement implements Entite{
         return "Enregistrement " +
                 "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", durée=" + durée +
+                ", durée=" + duree +
                 ", description='" + description + '\'' +
                 ", repetition=" + repetition +
-                ", frames=" + frames +
-                ", categorie=" + categorie;
+                ", frames=" + frames;
     }
 }

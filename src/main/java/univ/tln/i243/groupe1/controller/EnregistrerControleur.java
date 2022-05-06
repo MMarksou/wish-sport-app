@@ -48,7 +48,6 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
 
-
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
@@ -79,7 +78,7 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         String contenu = Files.readString(Path.of(fichier.getPath()));
 
         EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-        Enregistrement enregistrement = enregistrementdao.findByNom(nomExercice.getText());
+        Enregistrement enregistrement = enregistrementdao.rechercherParNom(nomExercice.getText());
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<List<Frame>>() {});
@@ -93,12 +92,7 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         }
 
         enregistrement.setFrames(frames);
-        enregistrementdao.persist(enregistrement);
-
-
-        //enregistrementdao.update(enregistrement);
-
-        //System.out.println(enregistrement.getFrames());
+        enregistrementdao.persister(enregistrement);
     }
 
     @Override
