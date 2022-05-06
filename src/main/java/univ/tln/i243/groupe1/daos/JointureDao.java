@@ -3,24 +3,34 @@ package univ.tln.i243.groupe1.daos;
 import univ.tln.i243.groupe1.entitees.Jointure;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
+
 
 public class JointureDao extends DAO<Jointure>{
 
-    public static JointureDao of(EntityManager entityManager){
-        return new JointureDao(entityManager);
-    }
+
 
     public JointureDao(EntityManager entityManager) {
         super(entityManager);
     }
 
+
     @Override
-    public List<Jointure> findAll() {
-        return entityManager.createNamedQuery("jointure.findAll",Jointure.class).getResultList();
+    public Jointure find(long id) {
+        return em.find(Jointure.class,id);
     }
 
-    public List<Jointure> findByFrame(String frame) {
-        return entityManager.createNamedQuery("jointure.findByFrame",Jointure.class).setParameter("frame",frame).getResultList();
+    @Override
+    public Jointure findByNom(String nom) {
+        return null;
+    }
+
+    @Override
+    public List<Jointure> findAll() {
+        Query query = em.createNamedQuery("Jointure.findALl");
+        List<Jointure> jointures = query.getResultList();
+
+        return jointures;
     }
 }

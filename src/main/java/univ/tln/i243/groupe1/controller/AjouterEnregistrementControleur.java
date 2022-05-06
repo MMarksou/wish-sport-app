@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
@@ -48,19 +47,17 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
 
         Enregistrement enr = new Enregistrement();
 
-        Categorie cat = categoriedao.findById(comboCategorie.getValue().toString());
+        Categorie cat = categoriedao.findByNom(comboCategorie.getValue().toString());
 
         enr.setCategorie(cat);
         enr.setRepetition(spinnerNbrRep.getValue());
-        enr.setDuree(spinnerDuree.getValue());
+        enr.setDurée(spinnerDuree.getValue());
         enr.setNom(nomExercice.getText());
         enr.setDescription(descriptionExercice.getText());
 
         em.getTransaction().begin();
         em.persist(enr);
         em.getTransaction().commit();
-
-        //enregistrementdao.persist(enr);
 
         nomCategorie = comboCategorie.getValue().toString();
         nbRepetition = spinnerNbrRep.getValue();
@@ -75,7 +72,7 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     }
     public void showcatdesc(ActionEvent e){
         categoriedao = new CategorieDao(em);
-        catdesc.setText(categoriedao.findById(comboCategorie.getValue().toString()).getDescription());
+        catdesc.setText(categoriedao.findByNom(comboCategorie.getValue().toString()).getDescription());
     }
     @Override
     @FXML

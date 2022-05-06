@@ -1,40 +1,52 @@
 package univ.tln.i243.groupe1.daos;
 
 import lombok.AllArgsConstructor;
+import univ.tln.i243.groupe1.entitees.Entite;
 
 import javax.persistence.EntityManager;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @AllArgsConstructor
-public abstract class DAO<E> {
-    @SuppressWarnings("unchecked")
-    protected final Class<E> entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+public abstract class DAO<E extends Entite> {
 
-    protected EntityManager entityManager;
+    protected EntityManager em;
 
-    public void persist(E entity) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(entity);
-        entityManager.getTransaction().commit();
+    public E persist(E t){
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+
+        em.refresh(t);
+        return t;
     }
 
-    public void remove(long id) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(findById(id));
-        entityManager.getTransaction().commit();
+    public abstract E find(long id);
+
+    public abstract E findByNom(String nom);
+
+    public abstract List<E> findAll();
+
+    public E merge(E t){
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+
+        return t;
     }
 
-    public void remove(E entity) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(entity);
-        entityManager.getTransaction().commit();
+    public void delete(E t){
+        em.getTransaction().begin();
+        em.remove(t);
+        em.getTransaction().commit();
     }
 
-    public E findById(Object id) {
-        return entityManager.find(entityClass, id);
-    }
+    public void refresh(E t){em.refresh(t);}
 
-    abstract List<E> findAll();
+    public void clear(){em.clear();}
+
+    public void close(){em.close();}
+
+    public void flush(){em.flush();}
 
 }

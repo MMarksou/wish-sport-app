@@ -11,11 +11,10 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
-import univ.tln.i243.groupe1.entitees.EnregistrementId;
 import univ.tln.i243.groupe1.entitees.Frame;
+import univ.tln.i243.groupe1.entitees.Jointure;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -80,14 +79,24 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         String contenu = Files.readString(Path.of(fichier.getPath()));
 
         EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-        EnregistrementId idEnregistrement = new EnregistrementId(nomExercice.getText(), nomCategorie.getText());
-        Enregistrement enregistrement = enregistrementdao.findById(idEnregistrement);
+        Enregistrement enregistrement = enregistrementdao.findByNom(nomExercice.getText());
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<List<Frame>>() {});
 
+        for (Frame frame: frames) {
+            frame.setEnregistrement(enregistrement);
+
+            for (Jointure jointure: frame.getJointures()) {
+                jointure.setFrame(frame);
+            }
+        }
+
         enregistrement.setFrames(frames);
         enregistrementdao.persist(enregistrement);
+
+
+        //enregistrementdao.update(enregistrement);
 
         //System.out.println(enregistrement.getFrames());
     }

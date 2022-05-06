@@ -1,50 +1,80 @@
 package univ.tln.i243.groupe1.entitees;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-import lombok.extern.java.Log;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "ENREGISTREMENT")
-@NoArgsConstructor
 @Builder
-@AllArgsConstructor
-@ToString
-@Log
-@Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQueries({
-        @NamedQuery(name = "enregistrement.findAll", query = "select enregistrement from Enregistrement enregistrement"),
-        @NamedQuery(name = "enregistrement.findByCategorie", query = "select enregistrement from Enregistrement enregistrement where enregistrement.categorie = :cat")
+        @NamedQuery(name = "Enregistrement.findALl",query = "select c from Enregistrement c"),
+        @NamedQuery(name = "Enregistrement.findByNom",query = "select c from Enregistrement c where c.nom=:nom")
 })
-@IdClass(EnregistrementId.class)
-public class Enregistrement implements Serializable {
-
-
-    @Id
-    String nom;
-
-    @Column(nullable = false)
-    int repetition;
-
-    @Column(nullable = false)
-    int duree;
-
-    @Column(name = "DESCRIPTION")
-    String description;
+@Table(name = "Enregistrement",uniqueConstraints = {@UniqueConstraint(name = "uniqueEnregistrementCategorie", columnNames = {"nom","id_categorie"})})
+public class Enregistrement implements Entite{
 
     @Id
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name="CATEGORIE_ID", referencedColumnName = "CATEGORIE_ID")
-    Categorie categorie;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @OneToMany(mappedBy="enregistrement",cascade = {CascadeType.ALL})
-    List<Frame> frames;
+    @Setter
+    private String nom;
 
+    @Setter
+    private int durée;
+
+    @Setter
+    private String description;
+
+    @Setter
+    private int repetition;
+
+    @Setter
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "enregistrement")
+    private List<Frame> frames;
+
+    @Setter
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "ID_CATEGORIE")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Categorie categorie;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Enregistrement that = (Enregistrement) o;
+
+        if (!nom.equals(that.nom)) return false;
+        return categorie.equals(that.categorie);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = nom.hashCode();
+        result = 31 * result + categorie.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Enregistrement " +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", durée=" + durée +
+                ", description='" + description + '\'' +
+                ", repetition=" + repetition +
+                ", frames=" + frames +
+                ", categorie=" + categorie;
+    }
 }

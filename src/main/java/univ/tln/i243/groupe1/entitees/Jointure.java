@@ -1,64 +1,71 @@
 package univ.tln.i243.groupe1.entitees;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-import lombok.extern.java.Log;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Log
-@NamedQueries({
-        @NamedQuery(name = "jointure.findAll", query = "select jointure from Jointure jointure"),
-        @NamedQuery(name = "jointure.findByFrame", query = "select jointure from Jointure jointure where jointure.frame = :frame")
-})
-@Setter
 @Getter
-@IdClass(JointureId.class)
-public class Jointure implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+@NamedQueries({
+        @NamedQuery(name = "Jointure.findALl",query = "select c from Jointure c")
+})
+@Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","id_frame"})})
+public class Jointure implements Entite{
 
     @Id
-    @GeneratedValue
-    String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @Column(nullable = false)
-    float x;
-    
-    @Column(nullable = false)
-    float y;
+    @Setter
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "ID_FRAME")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Frame frame;
 
-    @Column(nullable = false)
-    float z;
+    @Setter
+    private String nom;
 
-    @Column(nullable = false)
-    float w;
+    @Setter
+    private long w;
 
-    @Column(nullable = false)
-    float wx;
+    @Setter
+    private long wx;
 
-    @Column(nullable = false)
-    float wy;
+    @Setter
+    private long wy;
 
-    @Column(nullable = false)
-    float wz;
+    @Setter
+    private long wz;
 
-    @Id
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumns(
-    {
-            @JoinColumn(name="FRAME_ID", referencedColumnName="NUMERO"),
-            @JoinColumn(name="ENREGISTREMENT_ID", referencedColumnName = "ENREGISTREMENT_ID"),
-            @JoinColumn(name = "CATEGORIE_ID",referencedColumnName = "CATEGORIE_ID")
-    })
-    Frame frame;
+    @Setter
+    private long x;
+
+    @Setter
+    private long y;
+
+    @Setter
+    private long z;
 
 
-    @Column(nullable = false)
-    String nom;
+    @Override
+    public String toString() {
+        return "Jointure " +
+                "id=" + id +
+                ", frame=" + frame +
+                ", nom='" + nom + '\'' +
+                ", w=" + w +
+                ", wx=" + wx +
+                ", wy=" + wy +
+                ", wz=" + wz +
+                ", x=" + x +
+                ", y=" + y +
+                ", z=" + z;
+    }
 }
