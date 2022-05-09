@@ -8,6 +8,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Sphere;
+import com.jme3.system.AppSettings;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
@@ -32,7 +33,12 @@ public class JME extends SimpleApplication {
 
     public static void main(String[] args){
         JME app = new JME();
-        app.start(); // start the game
+        app.setShowSettings(false);
+        AppSettings settings = new AppSettings(true);
+        settings.setFrameRate(30);
+        settings.setResolution(1200, 720);
+        app.setSettings(settings);
+        app.start();
     }
 
     @Override
