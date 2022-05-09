@@ -1,34 +1,51 @@
 package univ.tln.i243.groupe1.daos;
 
 import lombok.AllArgsConstructor;
+import univ.tln.i243.groupe1.entitees.Entitee;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @AllArgsConstructor
-public abstract class DAO<E> {
-    @SuppressWarnings("unchecked")
-    protected final Class<E> entityClass = (Class<E>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+public abstract class DAO<E extends Entitee> {
 
-    protected EntityManager entityManager;
+    protected EntityManager em;
 
-    public void persist(E entity) {
-        entityManager.persist(entity);
+    public E persister(E t){
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+
+        em.refresh(t);
+        return t;
     }
 
-    public void remove(long id) {
-        entityManager.remove(findById(id));
+    public abstract E rechercher(long id);
+
+    public abstract E rechercherParNom(String nom);
+
+    public abstract List<E> rechercherTout();
+
+    public E fusionner(E t){
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+
+        return t;
     }
 
-    public void remove(E entity) {
-        entityManager.remove(entity);
+    public void supprimer(E t){
+        em.getTransaction().begin();
+        em.remove(t);
+        em.getTransaction().commit();
     }
 
-    public E findById(long id) {
-        return entityManager.find(entityClass, id);
-    }
+    public void recharger(E t){em.refresh(t);}
 
-    abstract List<E> findAll();
+    public void nettoyer(){em.clear();}
+
+    public void fermer(){em.close();}
+
+    public void flush(){em.flush();}
 
 }

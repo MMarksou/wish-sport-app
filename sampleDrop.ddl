@@ -1,0 +1,11 @@
+ALTER TABLE Enregistrement DROP CONSTRAINT FK_Enregistrement_ID_CATEGORIE
+ALTER TABLE Enregistrement DROP CONSTRAINT uniqueEnregistrementCategorie
+ALTER TABLE Categorie DROP CONSTRAINT uniqueCategorie
+ALTER TABLE Frame DROP CONSTRAINT FK_Frame_ID_ENREGISTREMENT
+ALTER TABLE Frame DROP CONSTRAINT uniqueFrameEnregistrement
+ALTER TABLE Jointure DROP CONSTRAINT FK_Jointure_ID_FRAME
+ALTER TABLE Jointure DROP CONSTRAINT uniqueJointureFrame
+DROP TABLE Enregistrement
+DROP TABLE Categorie
+DROP TABLE Frame
+DROP TABLE Jointure

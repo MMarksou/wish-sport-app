@@ -1,26 +1,29 @@
 package univ.tln.i243.groupe1.daos;
 
-import univ.tln.i243.groupe1.entities.Jointure;
+import univ.tln.i243.groupe1.entitees.Jointure;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class JointureDao extends DAO<Jointure>{
 
-    public static JointureDao of(EntityManager entityManager){
-        return new JointureDao(entityManager);
-    }
+public class JointureDao extends DAO<Jointure>{
 
     public JointureDao(EntityManager entityManager) {
         super(entityManager);
     }
 
     @Override
-    List<Jointure> findAll() {
-        return entityManager.createNamedQuery("jointure.findAll",Jointure.class).getResultList();
+    public Jointure rechercher(long id) {
+        return em.find(Jointure.class,id);
     }
 
-    List<Jointure> findByFrame(String frame) {
-        return entityManager.createNamedQuery("jointure.findByFrame",Jointure.class).setParameter("frame",frame).getResultList();
+    @Override
+    public Jointure rechercherParNom(String nom) {
+        return null;
+    }
+
+    @Override
+    public List<Jointure> rechercherTout() {
+        return em.createNamedQuery("Jointure.rechercherTout").getResultList();
     }
 }

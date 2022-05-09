@@ -4,29 +4,29 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="bdd" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="bddlocal" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
-        <class>univ.tln.i243.groupe1.entities.Enregistrement</class>
-        <class>univ.tln.i243.groupe1.entities.Categorie</class>
-        <class>univ.tln.i243.groupe1.entities.Frame</class>
-        <class>univ.tln.i243.groupe1.entities.Jointure</class>
+        <class>univ.tln.i243.groupe1.entitees.Enregistrement</class>
+        <class>univ.tln.i243.groupe1.entitees.Categorie</class>
+        <class>univ.tln.i243.groupe1.entitees.Frame</class>
+        <class>univ.tln.i243.groupe1.entitees.Jointure</class>
 
         <properties>
             <!-- Les paramètres de connexions -->
-           <!--<property name="javax.persistence.target-database" value="h2"/>-->
-            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bdd"/>
-            <property name="javax.persistence.jdbc.user" value="sa"/>
-            <property name="javax.persistence.jdbc.password" value="123"/>
+           <property name="javax.persistence.target-database" value="h2"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/kinect"/>
+            <property name="javax.persistence.jdbc.user" value="kinect"/>
+            <property name="javax.persistence.jdbc.password" value="kinect"/>
 
             <!-- Les options de générations des tables -->
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
-            <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation.scripts.action" value="drop-and-create"/>
             <property name="javax.persistence.schema-generation.scripts.create-target" value="sampleCreate.ddl"/>
             <property name="javax.persistence.schema-generation.scripts.drop-target" value="sampleDrop.ddl"/>
 
-            <property name="javax.persistence.sql-load-script-source" value="insert.sql"/>
+
 
         </properties>
     </persistence-unit>
