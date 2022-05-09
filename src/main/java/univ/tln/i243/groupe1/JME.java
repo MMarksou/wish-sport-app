@@ -43,7 +43,7 @@ public class JME extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-            viewPort.setBackgroundColor(new ColorRGBA(0.7f,0.8f,1f,1f));
+            viewPort.setBackgroundColor(new ColorRGBA(0.1f,0.8f,1f,1f));
             flyCam.setMoveSpeed(flyCam.getMoveSpeed()*10);
             cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
 
@@ -51,7 +51,7 @@ public class JME extends SimpleApplication {
             Frame frame = enregistrement.getFrames().get(0);
             List<Jointure> listeJointures = frame.getJointures();
 
-            initListeGeometriesJointures(listeJointures);
+            initGeometriesCylindres(initListeGeometriesJointures(listeJointures));
     }
 
     @Override
@@ -63,15 +63,16 @@ public class JME extends SimpleApplication {
             if(numero < enregistrement.getFrames().size()) {
                 rootNode.detachAllChildren();
                 Frame frame = enregistrement.getFrames().get(numero);
-                initListeGeometriesJointures(frame.getJointures());
+                initGeometriesCylindres(initListeGeometriesJointures(frame.getJointures()));
                 numero++;
             }
             tempsTotal = tempsActuel; // Reset to now.
         }
     }
 
-    public List<Geometry> initListeGeometriesJointures(List<Jointure> listeJointure){
-            List<Geometry> listeGeometriesJointures = new ArrayList<>();
+    public Map<String,Geometry> initListeGeometriesJointures(List<Jointure> listeJointure){
+            Map<String, Geometry> carteGeometriesJointures = new HashMap<>();
+
             Node geometriesJointures = new Node();
 
             Sphere jointureSphere = new Sphere(20, 20, rayonSphere);
@@ -82,20 +83,45 @@ public class JME extends SimpleApplication {
             for(int i = 0; i < listeJointure.size(); i++){
 
                     // Jointure
-                    listeGeometriesJointures.add(new Geometry("Jointure_" + i, jointureSphere));
-                    listeGeometriesJointures.get(i).setMaterial(mat);
-                    listeGeometriesJointures.get(i).setLocalTranslation(new Vector3f(-listeJointure.get(i).getX(), -listeJointure.get(i).getY(), listeJointure.get(i).getZ()).normalize());
-                    geometriesJointures.attachChild(listeGeometriesJointures.get(i));
+                    carteGeometriesJointures.put(listeJointure.get(i).getNom(), new Geometry("Jointure_" + i, jointureSphere));
+                    carteGeometriesJointures.get(listeJointure.get(i).getNom()).setMaterial(mat);
+                    carteGeometriesJointures.get(listeJointure.get(i).getNom()).setLocalTranslation(new Vector3f(-listeJointure.get(i).getX(), -listeJointure.get(i).getY(), listeJointure.get(i).getZ()).normalize());
+
+                    geometriesJointures.attachChild(carteGeometriesJointures.get(listeJointure.get(i).getNom()));
             }
 
             rootNode.attachChild(geometriesJointures);
-            return listeGeometriesJointures;
+            return carteGeometriesJointures;
     }
 
-    public List<Geometry> initGeometriesCylindres(List<Geometry> listeGeometriesJointures, List<Jointure> listeJointures){
+    public List<Geometry> initGeometriesCylindres(Map<String, Geometry> carteGeometriesJointures){
 
         List<Geometry> listeGeometriesCylindres = new ArrayList<>();
 
+        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_HEAD"), carteGeometriesJointures.get("K4ABT_JOINT_NECK")));
+        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_SPINE_CHEST")));
+        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_LEFT")));
+        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_LEFT"), carteGeometriesJointures.get("K4ABT_JOINT_SHOULDER_LEFT")));
+        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_RIGHT")));
+
+
+
         return listeGeometriesCylindres;
+    }
+
+    public Geometry calcCylindre(Geometry geo1, Geometry geo2){
+        Cylinder cylindre = new Cylinder(100, 100 ,0.005f, geo1.getLocalTranslation().distance(geo2.getLocalTranslation()), true);
+
+        Geometry resultat = new Geometry("test", cylindre);
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        //mat.setColor("", new ColorRGBA(1f,1f,1f,1f));
+        resultat.setMaterial(mat);
+
+        resultat.setLocalTranslation(geo1.getLocalTranslation().add(geo2.getLocalTranslation()).divide(2));
+        resultat.lookAt(geo1.getLocalTranslation(),geo2.getLocalTranslation());
+
+        rootNode.attachChild(resultat);
+
+        return resultat;
     }
 }
