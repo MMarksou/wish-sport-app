@@ -38,6 +38,7 @@ public class Enregistrement implements Entitee {
     private int repetition;
 
     @Setter
+    @OrderBy("numero ASC")
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "enregistrement")
     private List<Frame> frames;
 
