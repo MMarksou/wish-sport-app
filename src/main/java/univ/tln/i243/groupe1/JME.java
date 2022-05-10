@@ -38,7 +38,6 @@ public class JME extends SimpleApplication {
         JME app = new JME();
         app.setShowSettings(false);
         AppSettings settings = new AppSettings(true);
-        settings.setFrameRate(30);
         settings.setResolution(1200, 720);
         app.setSettings(settings);
         app.start();

@@ -22,7 +22,19 @@
                 <Font name="Arial Bold" size="15.0" />
             </font>
         </Label>
-        <Button layoutX="733.0" layoutY="575.0" onAction="#visualiserEnregistrement" prefHeight="38.0" prefWidth="118.0" stylesheets="@style.css" text="Visualiser">
+        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="199.0" prefHeight="341.0" prefWidth="880.0">
+            <columns>
+                <TableColumn fx:id="nomColumn" prefWidth="75.0" text="nom" />
+                <TableColumn fx:id="dureeColumn" prefWidth="75.0" text="durée" />
+                <TableColumn fx:id="repetitionColumn" prefWidth="75.0" text="répétition" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="description" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+
+        </TableView>
+        <Button disable="true" layoutX="710.0" layoutY="575.0" onAction="#visualiserEnregistrement" prefHeight="38.0" prefWidth="141.0" stylesheets="@style.css" text="Voir l'exercice">
             <font>
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
@@ -32,22 +44,5 @@
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
         </Button>
-        <Label layoutX="533.0" layoutY="219.0" text="Récapitulatif de l'exercice : ">
-            <font>
-                <Font name="Arial Black" size="16.0" />
-            </font>
-        </Label>
-        <TextArea fx:id="descriptionExercice" layoutX="563.0" layoutY="445.0" prefHeight="66.0" prefWidth="199.0" promptText="Description de l'exercice" />
-        <Label fx:id="dureeType" layoutX="613.0" layoutY="353.0" text="durée du type">
-            <font>
-                <Font name="Arial Bold" size="15.0" />
-            </font>
-        </Label>
-        <Label fx:id="nomExercice" layoutX="599.0" layoutY="395.0" text="nom de l'exercice">
-            <font>
-                <Font name="Arial Bold" size="15.0" />
-            </font>
-        </Label>
-      <ListView fx:id="listeExercice" layoutX="46.0" layoutY="216.0" prefHeight="320.0" prefWidth="377.0" />
     </children>
 </AnchorPane>
