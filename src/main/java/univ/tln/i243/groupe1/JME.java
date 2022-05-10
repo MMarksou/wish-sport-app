@@ -9,18 +9,18 @@ import com.jme3.scene.Node;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.system.AppSettings;
+import javafx.util.Pair;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
 import univ.tln.i243.groupe1.entitees.Jointure;
+import univ.tln.i243.groupe1.entitees.Liaisons;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.util.*;
 
-/** Sample 1 - how to get started with the most simple JME 3 application.
- * Display a blue 3D cube and view from all sides by
- * moving the mouse and pressing the WASD keys. */
+
 public class JME extends SimpleApplication {
 
         private float rayonSphere = 0.01f;
@@ -30,6 +30,9 @@ public class JME extends SimpleApplication {
         private int numero = 0;
         private long compteur = 1000/30;
         private long tempsTotal;
+
+        private Liaisons liaisons = new Liaisons();
+
 
     public static void main(String[] args){
         JME app = new JME();
@@ -66,7 +69,7 @@ public class JME extends SimpleApplication {
                 initGeometriesCylindres(initListeGeometriesJointures(frame.getJointures()));
                 numero++;
             }
-            tempsTotal = tempsActuel; // Reset to now.
+            tempsTotal = tempsActuel;
         }
     }
 
@@ -98,13 +101,9 @@ public class JME extends SimpleApplication {
 
         List<Geometry> listeGeometriesCylindres = new ArrayList<>();
 
-        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_HEAD"), carteGeometriesJointures.get("K4ABT_JOINT_NECK")));
-        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_SPINE_CHEST")));
-        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_LEFT")));
-        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_LEFT"), carteGeometriesJointures.get("K4ABT_JOINT_SHOULDER_LEFT")));
-        listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get("K4ABT_JOINT_NECK"), carteGeometriesJointures.get("K4ABT_JOINT_CLAVICLE_RIGHT")));
-
-
+        for (Pair<String, String> paires: liaisons.getListeLiaisons()) {
+            listeGeometriesCylindres.add(calcCylindre(carteGeometriesJointures.get(paires.getKey()), carteGeometriesJointures.get(paires.getValue())));
+        }
 
         return listeGeometriesCylindres;
     }
@@ -114,7 +113,6 @@ public class JME extends SimpleApplication {
 
         Geometry resultat = new Geometry("test", cylindre);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        //mat.setColor("", new ColorRGBA(1f,1f,1f,1f));
         resultat.setMaterial(mat);
 
         resultat.setLocalTranslation(geo1.getLocalTranslation().add(geo2.getLocalTranslation()).divide(2));

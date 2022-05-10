@@ -12,7 +12,6 @@ public class AccueilControleur implements PageControleur {
     }
 
     public void chargerJMonkey(ActionEvent actionEvent){
-        JME main = new JME();
-        main.main(null);
+        JME.main(null);
     }
 }
