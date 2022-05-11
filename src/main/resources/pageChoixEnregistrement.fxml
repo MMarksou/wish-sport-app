@@ -34,7 +34,7 @@
             </columnResizePolicy>
 
         </TableView>
-        <Button disable="true" layoutX="710.0" layoutY="575.0" onAction="#visualiserEnregistrement" prefHeight="38.0" prefWidth="141.0" stylesheets="@style.css" text="Voir l'exercice">
+        <Button layoutX="710.0" layoutY="575.0" onAction="#visualiserEnregistrement" prefHeight="38.0" prefWidth="141.0" stylesheets="@style.css" text="Voir l'exercice">
             <font>
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>

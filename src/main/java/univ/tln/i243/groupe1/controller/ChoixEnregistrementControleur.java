@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 
@@ -60,6 +61,10 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     }
 
     public void visualiserEnregistrement(ActionEvent actionEvent) {
+        if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
+             Enregistrement enregistrement= tableEnregistrement.getSelectionModel().getSelectedItem();
+            JME.main(null,enregistrement.getId());
+        }
     }
 
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {

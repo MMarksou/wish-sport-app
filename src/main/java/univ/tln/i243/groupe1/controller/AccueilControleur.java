@@ -10,10 +10,6 @@ public class AccueilControleur implements PageControleur {
         chargerPage(actionEvent, "pageChoix.fxml");
     }
 
-     /*public void chargerJMonkey(ActionEvent actionEvent){
-        JME.main(null);
-    }*/
-
     public void chargerVisualisation(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent,"pageChoixEnregistrement.fxml");
 

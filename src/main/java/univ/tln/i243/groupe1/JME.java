@@ -33,8 +33,11 @@ public class JME extends SimpleApplication {
 
         private Liaisons liaisons = new Liaisons();
 
+        private static long idEnregistrementActif;
 
-    public static void main(String[] args){
+
+    public static void main(String[] args,long idEnregistrement){
+        JME.idEnregistrementActif = idEnregistrement;
         JME app = new JME();
         app.setShowSettings(false);
         AppSettings settings = new AppSettings(true);
@@ -49,7 +52,7 @@ public class JME extends SimpleApplication {
             flyCam.setMoveSpeed(flyCam.getMoveSpeed()*10);
             cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
 
-            enregistrement = new EnregistrementDao(em).rechercher(1);
+            enregistrement = new EnregistrementDao(em).rechercher(idEnregistrementActif);
             Frame frame = enregistrement.getFrames().get(0);
             List<Jointure> listeJointures = frame.getJointures();
 
