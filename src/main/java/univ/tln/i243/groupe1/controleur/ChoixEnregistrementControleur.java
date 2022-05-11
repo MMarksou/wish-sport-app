@@ -1,4 +1,4 @@
-package univ.tln.i243.groupe1.controller;
+package univ.tln.i243.groupe1.controleur;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

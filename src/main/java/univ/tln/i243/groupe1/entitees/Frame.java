@@ -16,7 +16,7 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Frame.rechercherTout",query = "select c from Frame c")
 
-@Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"numero","id_enregistrement"})})
+@Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"frameNumero","id_enregistrement"})})
 public class Frame implements Entitee {
 
     @Id
@@ -24,7 +24,7 @@ public class Frame implements Entitee {
     private long id;
 
     @Setter
-    private int numero;
+    private int frameNumero;
 
     @Setter
     @OrderBy()
@@ -44,13 +44,13 @@ public class Frame implements Entitee {
 
         Frame frame = (Frame) o;
 
-        if (numero != frame.numero) return false;
+        if (frameNumero != frame.frameNumero) return false;
         return enregistrement.equals(frame.enregistrement);
     }
 
     @Override
     public int hashCode() {
-        int result = numero;
+        int result = frameNumero;
         result = 31 * result + enregistrement.hashCode();
         return result;
     }
@@ -59,7 +59,7 @@ public class Frame implements Entitee {
     public String toString() {
         return "Frame " +
                 "id=" + id +
-                ", numero=" + numero +
+                ", numero=" + frameNumero +
                 ", jointures=" + jointures;
     }
 }

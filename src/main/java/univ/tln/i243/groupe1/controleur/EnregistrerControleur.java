@@ -1,4 +1,4 @@
-package univ.tln.i243.groupe1.controller;
+package univ.tln.i243.groupe1.controleur;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

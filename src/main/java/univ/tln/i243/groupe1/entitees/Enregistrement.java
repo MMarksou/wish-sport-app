@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,9 +39,9 @@ public class Enregistrement implements Entitee {
     private int repetition;
 
     @Setter
-    @OrderBy("numero ASC")
+    @OrderBy("frameNumero ASC")
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "enregistrement")
-    private List<Frame> frames;
+    private List<Frame> frames = new ArrayList<>();
 
     @Setter
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -75,5 +76,9 @@ public class Enregistrement implements Entitee {
                 ", description='" + description + '\'' +
                 ", repetition=" + repetition +
                 ", frames=" + frames;
+    }
+
+    public void ajouterFrame(Frame frame){
+        this.frames.add(frame);
     }
 }

@@ -29,7 +29,7 @@ public class Liaisons {
         listeLiaisons.add(new Pair<>("COUDE_DROIT", "EPAULE_DROITE"));
         listeLiaisons.add(new Pair<>("POIGNET_DROIT", "COUDE_DROIT"));
         listeLiaisons.add(new Pair<>("MAIN_DROITE", "POIGNET_DROIT"));
-        listeLiaisons.add(new Pair<>("BOUTMAIN_DROITE", "MAIN_DROITE"));
+        listeLiaisons.add(new Pair<>("BOUTMAIN_DROIT", "MAIN_DROITE"));
         listeLiaisons.add(new Pair<>("POUCE_DROIT", "POIGNET_DROIT"));
         listeLiaisons.add(new Pair<>("HANCHE_GAUCHE", "BASSIN"));
         listeLiaisons.add(new Pair<>("GENOUX_GAUCHE", "HANCHE_GAUCHE"));
@@ -43,3 +43,4 @@ public class Liaisons {
     }
 
 }
+

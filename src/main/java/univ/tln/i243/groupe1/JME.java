@@ -48,15 +48,17 @@ public class JME extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-            viewPort.setBackgroundColor(new ColorRGBA(0.1f,0.8f,1f,1f));
-            flyCam.setMoveSpeed(flyCam.getMoveSpeed()*10);
-            cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
+        viewPort.setBackgroundColor(new ColorRGBA(0.1f,0.8f,1f,1f));
+        flyCam.setMoveSpeed(flyCam.getMoveSpeed()*10);
+        cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
 
-            enregistrement = new EnregistrementDao(em).rechercher(idEnregistrementActif);
-            Frame frame = enregistrement.getFrames().get(0);
-            List<Jointure> listeJointures = frame.getJointures();
+        enregistrement = new EnregistrementDao(em).rechercher(idEnregistrementActif);
+        Frame frame = enregistrement.getFrames().get(0);
+        List<Jointure> listeJointures = frame.getJointures();
 
-            initGeometriesCylindres(initListeGeometriesJointures(listeJointures));
+        System.out.println(enregistrement);
+
+        initGeometriesCylindres(initListeGeometriesJointures(listeJointures));
     }
 
     @Override
