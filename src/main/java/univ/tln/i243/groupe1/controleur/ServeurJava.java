@@ -7,7 +7,6 @@ import jakarta.websocket.*;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
-import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Frame;
 import univ.tln.i243.groupe1.entitees.Jointure;
 
@@ -15,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

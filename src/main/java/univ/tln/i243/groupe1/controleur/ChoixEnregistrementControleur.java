@@ -70,4 +70,15 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent,"pageAccueil.fxml");
     }
+
+    public void supprimerExercice(ActionEvent actionEvent) throws IOException {
+
+        if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
+            Enregistrement enregistrement= tableEnregistrement.getSelectionModel().getSelectedItem();
+            EnregistrementDao enregistrementDao = new EnregistrementDao(em);
+            enregistrementDao.supprimer(enregistrement);
+            chargerPage(actionEvent, "pageChoixEnregistrement.fxml");
+        }
+
+    }
 }

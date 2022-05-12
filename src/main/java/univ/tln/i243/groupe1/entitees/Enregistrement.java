@@ -40,7 +40,7 @@ public class Enregistrement implements Entitee {
 
     @Setter
     @OrderBy("frameNumero ASC")
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "enregistrement")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE},mappedBy = "enregistrement")
     private List<Frame> frames = new ArrayList<>();
 
     @Setter

@@ -28,7 +28,7 @@ public class Frame implements Entitee {
 
     @Setter
     @OrderBy()
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "frame")
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "frame")
     private List<Jointure> jointures;
 
     @Setter
