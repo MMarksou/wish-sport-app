@@ -25,20 +25,16 @@ public class ServeurJava {
     private static final Logger LOGGER = Logger.getLogger(ServeurJava.class.getName());
     private boolean transmission = false;
     private String donnees;
-    private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
-    private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-    private int nbFrames = 100;
+    private static EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
+    private static EnregistrementDao enregistrementDao = new EnregistrementDao(em);
+    private static int nbFrames;
 
-    private Enregistrement enregistrement;
+    private static Enregistrement enregistrement;
+    private static boolean etatConnexion = true;
 
     @OnOpen
     public void onOpen(Session session) throws IOException {
         LOGGER.log(Level.INFO, ()-> "Connecté à la session :  "+session.getId());
-
-        Categorie categorie = Categorie.builder().nom("Categorie").build();
-        enregistrement = Enregistrement.builder().nom("Test").categorie(categorie).build();
-        enregistrementDao.persister(enregistrement);
-
         session.getBasicRemote().sendText("Demarrage");
     }
 
@@ -50,6 +46,7 @@ public class ServeurJava {
                 session.close();
                 transmission = false;
                 session.close();
+                etatConnexion = false;
             } else {
                 donnees = message;
                 recupererJson();
@@ -86,8 +83,12 @@ public class ServeurJava {
         frameDao.persister(frame);
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args, int nombreFrames, String enregistrementCible)
     {
+
+        nbFrames = nombreFrames * 30;
+        enregistrement =  enregistrementDao.rechercherParNom(enregistrementCible);
+
         LOGGER.log(Level.INFO, "Lancement client");
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
@@ -98,6 +99,6 @@ public class ServeurJava {
         {
             LOGGER.log(Level.SEVERE, ()->"Impossible de se connecter au serveur"+ex);
         }
-        while (true);
+        while (etatConnexion);
     }
 }

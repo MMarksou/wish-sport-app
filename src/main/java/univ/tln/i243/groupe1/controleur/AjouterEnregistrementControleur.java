@@ -85,7 +85,7 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
         }
 
         SpinnerValueFactory<Integer> valueRep = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 100, 5, 5);
-        SpinnerValueFactory<Integer> valueDuree = new SpinnerValueFactory.IntegerSpinnerValueFactory(10, 300, 10, 10);
+        SpinnerValueFactory<Integer> valueDuree = new SpinnerValueFactory.IntegerSpinnerValueFactory(5, 300, 5, 5);
         spinnerDuree.setValueFactory(valueDuree);
         spinnerNbrRep.setValueFactory(valueRep);
     }

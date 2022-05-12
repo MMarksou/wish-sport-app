@@ -56,8 +56,6 @@ public class JME extends SimpleApplication {
         Frame frame = enregistrement.getFrames().get(0);
         List<Jointure> listeJointures = frame.getJointures();
 
-        System.out.println(enregistrement);
-
         initGeometriesCylindres(initListeGeometriesJointures(listeJointures));
     }
 

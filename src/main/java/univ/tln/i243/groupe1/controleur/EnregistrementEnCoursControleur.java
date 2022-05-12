@@ -7,7 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import univ.tln.i243.groupe1.JME;
+import univ.tln.i243.groupe1.daos.EnregistrementDao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,15 +24,20 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
     @FXML
     private Label labelInfoEnregistrement;
 
+    private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
+    private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
 
-    public void validerEnregistrement(ActionEvent actionEvent) {
+    public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
+        chargerPage(actionEvent, "pageAccueil.fxml");
     }
 
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
+        enregistrementDao.supprimer(enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo));
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
     public void visualiserEnregistrement(ActionEvent actionEvent) {
+        JME.main(null, enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo).getId());
     }
 
     @Override
@@ -53,5 +62,12 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
             }
         });
         progression.start();
+
+        Thread connexion = new Thread(new Runnable() {
+            @Override public void run() {
+                ServeurJava.main(null, AjouterEnregistrementControleur.dureeExercice, AjouterEnregistrementControleur.nomExo);
+            }
+        });
+        connexion.start();
     }
 }
