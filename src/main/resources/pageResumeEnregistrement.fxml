@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.i243.groupe1.controleur.EnregistrerControleur">
+    <children>
+        <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@logo.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="nomCategorie" layoutX="419.0" layoutY="257.0" text="nom de la categorie">
+            <font>
+                <Font name="Arial Bold" size="15.0" />
+            </font>
+        </Label>
+        <Label fx:id="nbRepetition" layoutX="419.0" layoutY="287.0" text="nombre répétition">
+            <font>
+                <Font name="Arial Bold" size="15.0" />
+            </font>
+        </Label>
+        <Button fx:id="buttonConfirmAddType" layoutX="729.0" layoutY="575.0" onAction="#lancerEnregistrement" prefHeight="38.0" prefWidth="118.0" stylesheets="@style.css" text="Enregistrer">
+            <font>
+                <Font name="Segoe UI Semibold" size="16.0" />
+            </font>
+        </Button>
+        <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retourEnregistrement" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
+            <font>
+                <Font name="Segoe UI Semibold" size="16.0" />
+            </font>
+        </Button>
+      <Label layoutX="322.0" layoutY="217.0" text="Récapitulatif de l'exercice : ">
+         <font>
+            <Font name="Arial Black" size="16.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="descriptionExercice" layoutX="341.0" layoutY="378.0" prefHeight="66.0" prefWidth="199.0" promptText="Description de l'exercice" />
+      <Label fx:id="dureeType" layoutX="419.0" layoutY="315.0" text="durée du type">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomExercice" layoutX="417.0" layoutY="344.0" text="nom de l'exercice">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="boutonImporter" layoutX="384.0" layoutY="575.0" onAction="#importerEnregistrement" prefHeight="38.0" prefWidth="118.0" stylesheets="@style.css" text="Importer">
+         <font>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
+      <Label fx:id="decompte" layoutX="398.0" layoutY="533.0" prefHeight="17.0" prefWidth="141.0" text="5" visible="false">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomCategorie1" layoutX="330.0" layoutY="256.0" text="catégorie :">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="nbRepetition1" layoutX="350.0" layoutY="286.0" text="nb rep :">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="dureeType1" layoutX="355.0" layoutY="315.0" text="durée :">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="nomExercice1" layoutX="335.0" layoutY="344.0" text="exercice :">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="barreTemps" layoutX="302.0" layoutY="516.0" prefHeight="17.0" prefWidth="288.0" progress="0.0" />
+      <Label fx:id="labelInformationLancement" layoutX="299.0" layoutY="470.0" textFill="RED">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

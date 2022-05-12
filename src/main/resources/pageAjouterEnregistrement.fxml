@@ -61,7 +61,7 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="251.0" layoutY="366.0" text="Durée en minutes">
+            <Label layoutX="251.0" layoutY="366.0" text="Durée en secondes">
                <font>
                   <Font name="Arial Bold" size="15.0" />
                </font>

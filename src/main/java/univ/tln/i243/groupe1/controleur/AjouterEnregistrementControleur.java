@@ -58,7 +58,7 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
 
         miseAJourChamps(comboCategorie, spinnerNbrRep, spinnerDuree, nomExercice, descriptionExercice);
 
-        chargerPage(actionEvent, "pageEnregistrement.fxml");
+        chargerPage(actionEvent, "pageResumeEnregistrement.fxml");
     }
     public static void miseAJourChamps(ComboBox<String> comboCategorie, Spinner<Integer> spinnerNbrRep, Spinner<Integer> spinnerDuree, TextField nomExercice, TextArea descriptionExercice){
         nomCategorie = comboCategorie.getValue();
