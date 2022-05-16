@@ -25,7 +25,6 @@ public class JME extends SimpleApplication {
 
         private float rayonSphere = 0.01f;
         private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
-        private Enregistrement enregistrement;
 
         private int numero = 0;
         private long compteur = 1000/30;
@@ -33,11 +32,11 @@ public class JME extends SimpleApplication {
 
         private Liaisons liaisons = new Liaisons();
 
-        private static long idEnregistrementActif;
+        private static List<Frame> listeFrameActive;
 
 
-    public static void main(long idEnregistrement){
-        JME.idEnregistrementActif = idEnregistrement;
+    public static void main(List<Frame> listeFrame){
+        JME.listeFrameActive = listeFrame;
         JME app = new JME();
         app.setShowSettings(false);
         AppSettings settings = new AppSettings(true);
@@ -54,8 +53,7 @@ public class JME extends SimpleApplication {
         flyCam.setEnabled(false);
         cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
 
-        enregistrement = new EnregistrementDao(em).rechercher(idEnregistrementActif);
-        Frame frame = enregistrement.getFrames().get(0);
+        Frame frame = listeFrameActive.get(0);
         List<Jointure> listeJointures = frame.getJointures();
 
         initGeometriesCylindres(initListeGeometriesJointures(listeJointures));
@@ -67,9 +65,9 @@ public class JME extends SimpleApplication {
         long tempsActuel = System.currentTimeMillis();
 
         if (tempsActuel - tempsTotal >= compteur) {
-            if(numero < enregistrement.getFrames().size()) {
+            if(numero < listeFrameActive.size()) {
                 rootNode.detachAllChildren();
-                Frame frame = enregistrement.getFrames().get(numero);
+                Frame frame = listeFrameActive.get(numero);
                 initGeometriesCylindres(initListeGeometriesJointures(frame.getJointures()));
                 numero++;
             }

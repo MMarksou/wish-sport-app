@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,12 +25,17 @@ public class ServeurJava {
     private static final Logger LOGGER = Logger.getLogger(ServeurJava.class.getName());
     private boolean transmission = false;
     private String donnees;
+
+    protected static List<Frame> listeFrames = new ArrayList<>();
+
     private static EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private static EnregistrementDao enregistrementDao = new EnregistrementDao(em);
     private static int nbFrames;
 
     private static Enregistrement enregistrement;
     private static boolean etatConnexion = true;
+
+
 
     @OnOpen
     public void onOpen(Session session) throws IOException {
@@ -64,21 +71,9 @@ public class ServeurJava {
 
     public void recupererJson() throws JsonProcessingException {
 
-        FrameDao frameDao = new FrameDao(em);
-
         ObjectMapper objectMapper = new ObjectMapper();
         Frame frame = objectMapper.readValue(donnees, new TypeReference<>() {});
-
-        frame.setEnregistrement(enregistrement);
-
-        for (Jointure jointure: frame.getJointures()) {
-            jointure.setFrame(frame);
-        }
-        enregistrement.ajouterFrame(frame);
-
-        enregistrementDao.recharger(enregistrement);
-
-        frameDao.persister(frame);
+        listeFrames.add(frame);
     }
 
     public static void main(int nombreFrames, String enregistrementCible)

@@ -4,6 +4,10 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
+/**
+ *
+ */
+
 public class AccueilControleur implements PageControleur {
 
     public void chargerCategorie(ActionEvent actionEvent) throws IOException {

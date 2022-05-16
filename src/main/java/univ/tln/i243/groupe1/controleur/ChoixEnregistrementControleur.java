@@ -10,8 +10,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
+import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
+import univ.tln.i243.groupe1.entitees.Frame;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -40,6 +42,7 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private CategorieDao categoriedao = new CategorieDao(em);
     private EnregistrementDao enregistrementdao = new EnregistrementDao(em);
+    private FrameDao frameDao = new FrameDao(em);
 
 
     @Override
@@ -73,7 +76,7 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     public void visualiserEnregistrement(ActionEvent actionEvent) {
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
              Enregistrement enregistrement= tableEnregistrement.getSelectionModel().getSelectedItem();
-            JME.main(enregistrement.getId());
+            JME.main(frameDao.rechercherParEnregistrement(enregistrement));
         }
     }
 

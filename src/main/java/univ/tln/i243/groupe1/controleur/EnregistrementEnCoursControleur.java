@@ -8,11 +8,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
+import univ.tln.i243.groupe1.daos.FrameDao;
+import univ.tln.i243.groupe1.entitees.Enregistrement;
+import univ.tln.i243.groupe1.entitees.Frame;
+import univ.tln.i243.groupe1.entitees.Jointure;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class EnregistrementEnCoursControleur  implements PageControleur, Initializable {
@@ -25,18 +31,39 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
+    private FrameDao frameDao = new FrameDao(em);
 
     public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
+
+        Enregistrement enregistrement = enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo);
+
+        for (Frame frame : ServeurJava.listeFrames) {
+
+            enregistrement.ajouterFrame(frame);
+
+            frame.setEnregistrement(enregistrement);
+
+            for (Jointure jointure: frame.getJointures()) {
+                jointure.setFrame(frame);
+            }
+
+            frameDao.persister(frame);
+        }
+
+        enregistrementDao.recharger(enregistrement);
+
+        ServeurJava.listeFrames.clear();
+
         chargerPage(actionEvent, "pageAccueil.fxml");
     }
 
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
-        enregistrementDao.supprimer(enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo));
+        ServeurJava.listeFrames = new ArrayList<>();
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
     public void visualiserEnregistrement(ActionEvent actionEvent) {
-        JME.main(enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo).getId());
+        JME.main(ServeurJava.listeFrames);
     }
 
     @Override
@@ -45,8 +72,8 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
 
         Thread progression = new Thread(() -> {
             try {
-                for (float i = 0; i <= 1; i+= (float) 1/AjouterEnregistrementControleur.dureeExercice) {
-                    barreTemps.setProgress(i);
+                for (float i = 0; i <= AjouterEnregistrementControleur.dureeExercice; i++) {
+                    barreTemps.setProgress(i/AjouterEnregistrementControleur.dureeExercice);
                     Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
@@ -57,9 +84,10 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
                 labelInfoEnregistrement.setStyle("-fx-background-color: green");
             });
         });
-        progression.start();
 
         Thread connexion = new Thread(() -> ServeurJava.main(AjouterEnregistrementControleur.dureeExercice, AjouterEnregistrementControleur.nomExo));
+
         connexion.start();
+        progression.start();
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Frame.rechercherTout",query = "select c from Frame c")
+@NamedQuery(name = "Frame.rechercherParEnregistrement",query = "select c from Frame c where c.enregistrement=:enregistrement")
 
 @Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"frameNumero","id_enregistrement"})})
 public class Frame implements Entitee {
