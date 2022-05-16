@@ -71,60 +71,55 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         labelInformationLancement.setText("Placez-vous devant la Kinect");
 
 
-        Thread progression = new Thread(new Runnable() {
-            @Override public void run() {
-                float countdownSeconds = 5;
-                for (float i = 0; i <= 1; i+=(float) 1/5) {
-                    try {
-                        barreTemps.setProgress(i);
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+        Thread progression = new Thread(() -> {
+            for (float i = 0; i <= 1; i+=(float) 1/5) {
+                try {
+                    barreTemps.setProgress(i);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
-                Platform.runLater(() -> {
-                    try {
-                        chargerPage(actionEvent, "pageEnregistrement.fxml");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
             }
+            Platform.runLater(() -> {
+                try {
+                    chargerPage(actionEvent, "pageEnregistrement.fxml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         });
         progression.start();
     }
 
 
     public void importerEnregistrement(ActionEvent actionEvent) throws IOException {
-        try {
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Resource File");
-            File fichier = fileChooser.showOpenDialog(stage);
-            String contenu = Files.readString(Path.of(fichier.getPath()));
 
-            EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-            Enregistrement enregistrement = enregistrementdao.rechercherParNom(nomExercice.getText());
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File fichier = fileChooser.showOpenDialog(stage);
+        String contenu = Files.readString(Path.of(fichier.getPath()));
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<>() {
-            });
+        EnregistrementDao enregistrementdao = new EnregistrementDao(em);
+        Enregistrement enregistrement = enregistrementdao.rechercherParNom(nomExercice.getText());
 
-            for (Frame frame : frames) {
-                frame.setEnregistrement(enregistrement);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<>() {
+        });
 
-                for (Jointure jointure : frame.getJointures()) {
-                    jointure.setFrame(frame);
-                }
+        for (Frame frame : frames) {
+            frame.setEnregistrement(enregistrement);
+
+            for (Jointure jointure : frame.getJointures()) {
+                jointure.setFrame(frame);
             }
-
-            enregistrement.setFrames(frames);
-            enregistrementdao.persister(enregistrement);
-
-            afficherConfirmation(actionEvent);
-        }catch (Exception e) {
-
         }
+
+        enregistrement.setFrames(frames);
+        enregistrementdao.persister(enregistrement);
+
+        afficherConfirmation(actionEvent);
+
     }
 
     private void afficherConfirmation(ActionEvent actionEvent) throws IOException {
@@ -142,18 +137,17 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
         Optional<ButtonType> option = alerte.showAndWait();
 
-        if (option.get() == accueil) {
-            chargerPage(actionEvent, "pageAccueil.fxml");
-        } else if (option.get() == pageActuelle) {
-            Enregistrement enregistrement = enregistrementDao.rechercherParNom(nomExercice.getText());
-            List<Frame> listeFrames = enregistrement.getFrames();
-            enregistrement.setFrames(null);
-            for (Frame frame : listeFrames) {
-                frameDao.supprimer(frame);
+        if(option.isPresent()) {
+            if (option.get() == accueil) {
+                chargerPage(actionEvent, "pageAccueil.fxml");
+            } else if (option.get() == pageActuelle) {
+                Enregistrement enregistrement = enregistrementDao.rechercherParNom(nomExercice.getText());
+                List<Frame> listeFrames = enregistrement.getFrames();
+                enregistrement.setFrames(null);
+                for (Frame frame : listeFrames) {
+                    frameDao.supprimer(frame);
+                }
             }
-            return;
-        }else {
-            return;
         }
     }
 

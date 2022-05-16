@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextArea;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 
@@ -37,37 +36,30 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
     }
 
     public void visualiserEnregistrement(ActionEvent actionEvent) {
-        JME.main(null, enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo).getId());
+        JME.main(enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo).getId());
     }
 
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Thread progression = new Thread(new Runnable() {
-            @Override public void run() {
-                float countdownSeconds = (float)(AjouterEnregistrementControleur.dureeExercice);
+        Thread progression = new Thread(() -> {
+            try {
                 for (float i = 0; i <= 1; i+= (float) 1/AjouterEnregistrementControleur.dureeExercice) {
-                    try {
-                        barreTemps.setProgress(i);
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+                    barreTemps.setProgress(i);
+                    Thread.sleep(1000);
                 }
-                Platform.runLater(() -> {
-                    labelInfoEnregistrement.setText("L'enregistrement est terminé ! ");
-                    labelInfoEnregistrement.setStyle("-fx-background-color: cyan");
-                });
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
+            Platform.runLater(() -> {
+                labelInfoEnregistrement.setText("L'enregistrement est terminé ! ");
+                labelInfoEnregistrement.setStyle("-fx-background-color: green");
+            });
         });
         progression.start();
 
-        Thread connexion = new Thread(new Runnable() {
-            @Override public void run() {
-                ServeurJava.main(null, AjouterEnregistrementControleur.dureeExercice, AjouterEnregistrementControleur.nomExo);
-            }
-        });
+        Thread connexion = new Thread(() -> ServeurJava.main(AjouterEnregistrementControleur.dureeExercice, AjouterEnregistrementControleur.nomExo));
         connexion.start();
     }
 }

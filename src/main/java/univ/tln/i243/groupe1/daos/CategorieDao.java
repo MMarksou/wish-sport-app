@@ -17,7 +17,11 @@ public class CategorieDao extends DAO<Categorie>{
     public Categorie rechercherParNom(String nom){
         Query query = em.createNamedQuery("Categorie.rechercherParNom");
         query.setParameter("nom",nom);
-        return (Categorie) query.getResultList().get(0);
+        if(query.getResultList().isEmpty()){
+            return null;
+        } else {
+            return (Categorie) query.getResultList().get(0);
+        }
     }
 
     @Override

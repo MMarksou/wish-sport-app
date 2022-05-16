@@ -81,7 +81,7 @@ public class ServeurJava {
         frameDao.persister(frame);
     }
 
-    public static void main(String[] args, int nombreFrames, String enregistrementCible)
+    public static void main(int nombreFrames, String enregistrementCible)
     {
 
         nbFrames = nombreFrames * 30;
@@ -91,7 +91,7 @@ public class ServeurJava {
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 
         try {
-            Session session = container.connectToServer(ServeurJava.class, URI.create("ws://localhost:9001/"));
+            container.connectToServer(ServeurJava.class, URI.create("ws://localhost:9001/"));
 
         } catch (DeploymentException | IOException ex)
         {

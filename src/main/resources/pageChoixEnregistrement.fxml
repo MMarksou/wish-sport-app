@@ -22,7 +22,7 @@
                 <Font name="Arial Bold" size="15.0" />
             </font>
         </Label>
-        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="199.0" prefHeight="341.0" prefWidth="880.0">
+        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="269.0" prefHeight="271.0" prefWidth="880.0">
             <columns>
                 <TableColumn fx:id="nomColumn" prefWidth="75.0" text="nom" />
                 <TableColumn fx:id="dureeColumn" prefWidth="75.0" text="durée" />
@@ -44,10 +44,20 @@
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
         </Button>
-      <Button layoutX="348.0" layoutY="575.0" onAction="#supprimerExercice" prefHeight="38.0" prefWidth="204.0" stylesheets="@style.css" text="Supprimer l'exercice">
+      <Button layoutX="474.0" layoutY="575.0" onAction="#supprimerExercice" prefHeight="38.0" prefWidth="183.0" stylesheets="@style.css" text="Exporter en C3D">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
       </Button>
+      <Button layoutX="214.0" layoutY="575.0" onAction="#supprimerExercice" prefHeight="38.0" prefWidth="204.0" stylesheets="@style.css" text="Supprimer l'exercice">
+         <font>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="comboCategorie" layoutX="167.0" layoutY="210.0" onAction="#chargerEnregistrements" prefWidth="150.0" />
+      <Label layoutX="20.0" layoutY="214.0" text="Saisir catégorie">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
     </children>
 </AnchorPane>

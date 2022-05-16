@@ -11,7 +11,6 @@ import univ.tln.i243.groupe1.entitees.Categorie;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
-import java.util.logging.Logger;
 
 
 public class AjouterCategorieControleur implements PageControleur {
@@ -27,13 +26,12 @@ public class AjouterCategorieControleur implements PageControleur {
 
     CategorieDao categoriedao = new CategorieDao(em);
 
-    static Logger logger;
+    public void validerCategorie (ActionEvent actionEvent) {
 
-    public void validerCategorie(ActionEvent actionEvent) {
+        if(!nomCategorie.getText().equals("")) {
+            Categorie categorie = Categorie.builder().nom(nomCategorie.getText()).description(descriptionCategorie.getText()).build();
 
-        try {
-            if(!nomCategorie.getText().equals("")) {
-                Categorie categorie = Categorie.builder().nom(nomCategorie.getText()).description(descriptionCategorie.getText()).build();
+            if(categoriedao.rechercherParNom(categorie.getNom()) == null) {
 
                 categoriedao.persister(categorie);
 
@@ -44,11 +42,11 @@ public class AjouterCategorieControleur implements PageControleur {
                 descriptionCategorie.setText("");
             } else {
                 labelValider.setStyle("-fx-text-fill: red;\n");
-                labelValider.setText("UwU GANG");
+                labelValider.setText("Une catégorie a déjà ce nom !");
             }
-        } catch (Exception e){
+        } else {
             labelValider.setStyle("-fx-text-fill: red;\n");
-            labelValider.setText("Une catégorie a déjà ce nom !");
+            labelValider.setText("Le champ \"Catégorie\" est obligatoire !");
         }
     }
 

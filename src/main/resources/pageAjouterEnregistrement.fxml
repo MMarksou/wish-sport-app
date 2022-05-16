@@ -37,7 +37,7 @@
       <TextField fx:id="textFieldCategorie1" layoutX="280.0" layoutY="581.0" prefHeight="28.0" prefWidth="243.0" />
       <Spinner layoutX="452.0" layoutY="291.0" />
       <ComboBox layoutX="448.0" layoutY="228.0" prefWidth="150.0" />
-      <AnchorPane layoutX="2.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css">
+      <AnchorPane layoutX="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css">
       <children>
           <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
               <image>
@@ -45,7 +45,7 @@
               </image>
           </ImageView>
       
-          <Button fx:id="buttonConfirmAddType1" layoutX="720.0" layoutY="545.0" onAction="#validerEnregistrement" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
+          <Button fx:id="boutonValider" disable="true" layoutX="720.0" layoutY="545.0" onAction="#validerEnregistrement" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
               <font>
                   <Font name="Segoe UI Semibold" size="16.0" />
               </font>
@@ -94,6 +94,10 @@
                </font>
             </Label>
             <Label fx:id="descriptionCategorie" layoutX="650.0" layoutY="193.0" prefHeight="86.0" prefWidth="173.0" />
+            <Label fx:id="labelValider" layoutX="645.0" layoutY="432.0" textFill="RED" />
+            <Label layoutX="634.0" layoutY="432.0" prefHeight="16.0" prefWidth="11.0" text="*" textFill="#f20000" />
+            <Label layoutX="634.0" layoutY="228.0" prefHeight="16.0" prefWidth="11.0" text="*" textFill="#f20000" />
+            <Label layoutX="723.0" layoutY="24.0" text="champs obligatoires (*)" textFill="#e40000" />
       </children>
       </AnchorPane>
 </children>

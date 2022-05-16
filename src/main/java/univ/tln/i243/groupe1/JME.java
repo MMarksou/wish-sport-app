@@ -36,20 +36,22 @@ public class JME extends SimpleApplication {
         private static long idEnregistrementActif;
 
 
-    public static void main(String[] args,long idEnregistrement){
+    public static void main(long idEnregistrement){
         JME.idEnregistrementActif = idEnregistrement;
         JME app = new JME();
         app.setShowSettings(false);
         AppSettings settings = new AppSettings(true);
         settings.setResolution(1200, 720);
+        settings.setFrameRate(30);
         app.setSettings(settings);
+        app.setDisplayStatView(false);
         app.start();
     }
 
     @Override
     public void simpleInitApp() {
         viewPort.setBackgroundColor(new ColorRGBA(0.1f,0.8f,1f,1f));
-        flyCam.setMoveSpeed(flyCam.getMoveSpeed()*10);
+        flyCam.setEnabled(false);
         cam.setLocation(new Vector3f(0.026f, 0.016f, 3.10f));
 
         enregistrement = new EnregistrementDao(em).rechercher(idEnregistrementActif);

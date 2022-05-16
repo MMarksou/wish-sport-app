@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import univ.tln.i243.groupe1.daos.CategorieDao;
+import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 
@@ -29,6 +30,10 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     private TextArea descriptionExercice;
     @FXML
     private Label descriptionCategorie;
+    @FXML
+    private Label labelValider;
+    @FXML
+    private Button boutonValider;
 
     protected static String nomCategorie;
     protected static int nbRepetition;
@@ -36,29 +41,41 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     protected static String nomExo;
     protected static String descriptionExo;
 
-    private CategorieDao categoriedao;
-
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
+
+    private CategorieDao categoriedao = new CategorieDao(em);
+    private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
+
 
     public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
 
-        Enregistrement enregistrement = new Enregistrement();
+        if(!nomExercice.getText().equals("")) {
 
-        Categorie categorie = categoriedao.rechercherParNom(comboCategorie.getValue());
+            Enregistrement enregistrement = new Enregistrement();
 
-        enregistrement.setCategorie(categorie);
-        enregistrement.setRepetition(spinnerNbrRep.getValue());
-        enregistrement.setDuree(spinnerDuree.getValue());
-        enregistrement.setNom(nomExercice.getText());
-        enregistrement.setDescription(descriptionExercice.getText());
+            Categorie categorie = categoriedao.rechercherParNom(comboCategorie.getValue());
 
-        em.getTransaction().begin();
-        em.persist(enregistrement);
-        em.getTransaction().commit();
+            enregistrement.setCategorie(categorie);
+            enregistrement.setRepetition(spinnerNbrRep.getValue());
+            enregistrement.setDuree(spinnerDuree.getValue());
+            enregistrement.setNom(nomExercice.getText());
+            enregistrement.setDescription(descriptionExercice.getText());
 
-        miseAJourChamps(comboCategorie, spinnerNbrRep, spinnerDuree, nomExercice, descriptionExercice);
+            if(enregistrementDao.rechercherParNom(enregistrement.getNom()) == null) {
 
-        chargerPage(actionEvent, "pageResumeEnregistrement.fxml");
+                enregistrementDao.persister(enregistrement);
+
+                miseAJourChamps(comboCategorie, spinnerNbrRep, spinnerDuree, nomExercice, descriptionExercice);
+
+                chargerPage(actionEvent, "pageResumeEnregistrement.fxml");
+            } else {
+                labelValider.setStyle("-fx-text-fill: red;\n");
+                labelValider.setText("Ce nom d'exercice existe déjà !");
+            }
+        } else {
+            labelValider.setStyle("-fx-text-fill: red;\n");
+            labelValider.setText("Le nom de l'exercice est obligatoire !");
+        }
     }
     public static void miseAJourChamps(ComboBox<String> comboCategorie, Spinner<Integer> spinnerNbrRep, Spinner<Integer> spinnerDuree, TextField nomExercice, TextArea descriptionExercice){
         nomCategorie = comboCategorie.getValue();
@@ -73,6 +90,7 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     public void afficherCategorieDescription(ActionEvent e){
         categoriedao = new CategorieDao(em);
         descriptionCategorie.setText(categoriedao.rechercherParNom(comboCategorie.getValue()).getDescription());
+        boutonValider.setDisable(false);
     }
     @Override
     @FXML
