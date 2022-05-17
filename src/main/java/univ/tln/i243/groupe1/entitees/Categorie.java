@@ -7,6 +7,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ *Classe qui représente un ensemble d'enregistrement sous un même nom (ex : catégorie squat)
+ */
+
 @Entity
 @Builder
 @Getter
@@ -52,8 +56,8 @@ public class Categorie implements Entitee {
     public String toString() {
         return "Categorie " +
                 "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", description='" + description + '\'' +
+                ", nom='" + nom +
+                ", description='" + description +
                 ", enregistrements=" + enregistrements;
     }
 }

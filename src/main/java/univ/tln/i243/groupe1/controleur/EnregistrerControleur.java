@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Classe de contrôle résumant un exercice avant l'importation ou l'enregistrement d'un exercice.
+ */
 public class EnregistrerControleur implements PageControleur, Initializable {
 
     @FXML
@@ -58,12 +61,20 @@ public class EnregistrerControleur implements PageControleur, Initializable {
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
     private FrameDao frameDao = new FrameDao(em);
 
-
+    /**
+     * Suppression des frames persistées lors de l'importation et retour à la page de formulaire
+     * @param actionEvent action event
+     * @throws IOException en cas de problème d'ouverture et de lecture de fichier
+     */
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         enregistrementDao.supprimer(enregistrementDao.rechercherParNom(nomExercice.getText()));
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
+    /**
+     * Déclenche un compte à rebours avant de passer à la page suivante (enregistrement)
+     * @param actionEvent action event
+     */
     public void lancerEnregistrement(ActionEvent actionEvent) {
 
         boutonImporter.setVisible(false);
@@ -91,7 +102,11 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         progression.start();
     }
 
-
+    /**
+     * Sérialise ce qui est dans le fichier JSON
+     * @param actionEvent action event
+     * @throws IOException en cas de problème d'ouverture et de lecture de fichier
+     */
     public void importerEnregistrement(ActionEvent actionEvent) throws IOException {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -122,6 +137,11 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
     }
 
+    /**
+     * Fonction qui crée une boite de dialogue pour confirmer l'importation
+     * @param actionEvent action event
+     * @throws IOException en cas de problème d'ouverture de fichier
+     */
     private void afficherConfirmation(ActionEvent actionEvent) throws IOException {
 
         Alert alerte = new Alert(Alert.AlertType.CONFIRMATION);
@@ -137,10 +157,10 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
         Optional<ButtonType> option = alerte.showAndWait();
 
-        if(option.isPresent()) {
-            if (option.get() == accueil) {
+        if(option.isPresent()) { //choix des boutons
+            if (option.get() == accueil) { //persiste et retour à l'accueil
                 chargerPage(actionEvent, "pageAccueil.fxml");
-            } else if (option.get() == pageActuelle) {
+            } else if (option.get() == pageActuelle) { //annulation des frames et retour au formulaire
                 Enregistrement enregistrement = enregistrementDao.rechercherParNom(nomExercice.getText());
                 List<Frame> listeFrames = enregistrement.getFrames();
                 enregistrement.setFrames(null);
@@ -151,6 +171,9 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         }
     }
 
+    /**
+     * Initialise la page en récupérant les informations propres des pages précédentes
+     */
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {

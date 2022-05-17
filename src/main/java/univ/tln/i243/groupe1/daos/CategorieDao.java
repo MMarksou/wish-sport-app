@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * DAO d'une catégorie
+ */
 public class CategorieDao extends DAO<Categorie>{
 
     public CategorieDao(EntityManager em) {

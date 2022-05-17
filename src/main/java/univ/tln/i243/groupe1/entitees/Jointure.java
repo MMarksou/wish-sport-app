@@ -7,6 +7,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Classe qui représente une jointure (une articulation du squelette).
+ */
 @Entity
 @Builder
 @Getter
@@ -57,7 +60,7 @@ public class Jointure implements Entitee {
     public String toString() {
         return "Jointure " +
                 "id=" + id +
-                ", nom='" + nom + '\'' +
+                ", nom='" + nom +
                 ", w=" + w +
                 ", wx=" + wx +
                 ", wy=" + wy +

@@ -5,7 +5,9 @@ import univ.tln.i243.groupe1.entitees.Jointure;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
+/**
+ * DAO d'une jointure.
+ */
 public class JointureDao extends DAO<Jointure>{
 
     public JointureDao(EntityManager entityManager) {

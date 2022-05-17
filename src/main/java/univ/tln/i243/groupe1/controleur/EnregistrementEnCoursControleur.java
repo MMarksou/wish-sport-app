@@ -17,10 +17,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Classe de contrôle de la fenêtre "enregistrement en cours"
+ */
 public class EnregistrementEnCoursControleur  implements PageControleur, Initializable {
 
     @FXML
@@ -33,6 +35,11 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
     private FrameDao frameDao = new FrameDao(em);
 
+    /**
+     * Confirme et persiste l'enregistrement courant
+     * @param actionEvent action event
+     * @throws IOException en cas d'erreur du fichier
+     */
     public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
 
         Enregistrement enregistrement = enregistrementDao.rechercherParNom(AjouterEnregistrementControleur.nomExo);
@@ -57,18 +64,32 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
         chargerPage(actionEvent, "pageAccueil.fxml");
     }
 
+    /**
+     * Réinitialise la liste des frames et retour au formulaire
+     * @param actionEvent action event
+     * @throws IOException en cas d'erreur du fichier
+     */
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         ServeurJava.listeFrames = new ArrayList<>();
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
+    /**
+     * Visualise l'exercice courant dans jME
+     * @param actionEvent action event
+     */
     public void visualiserEnregistrement(ActionEvent actionEvent) {
         JME.main(ServeurJava.listeFrames);
     }
 
+    /**
+     * Déclenche le serveur java et le timer de l'exercice
+     */
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ServeurJava serveurJava = new ServeurJava();
 
         Thread progression = new Thread(() -> {
             try {
@@ -85,7 +106,7 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
             });
         });
 
-        Thread connexion = new Thread(() -> ServeurJava.main(AjouterEnregistrementControleur.dureeExercice, AjouterEnregistrementControleur.nomExo));
+        Thread connexion = new Thread(() -> serveurJava.main(AjouterEnregistrementControleur.dureeExercice));
 
         connexion.start();
         progression.start();

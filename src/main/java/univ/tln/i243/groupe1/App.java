@@ -11,11 +11,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * JavaFX App
+ * Cette classe représente l'application JavaFX
  */
 public class App extends Application {
 
     @Override
+    /**
+     * Cette méthode charge la page d'accueil dans la scène
+     */
     public void start(Stage stage) throws IOException {
 
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("pageAccueil.fxml")));
@@ -25,6 +28,10 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Cette méthode démarre l'application sur la scène
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

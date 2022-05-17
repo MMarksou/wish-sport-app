@@ -13,7 +13,6 @@ import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
-import univ.tln.i243.groupe1.entitees.Frame;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -22,7 +21,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * Classe contrôleur de visualisation, d'exportation et de suppression d'exercice
+ */
 public class ChoixEnregistrementControleur implements PageControleur, Initializable {
 
     @FXML
@@ -44,7 +45,9 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     private EnregistrementDao enregistrementdao = new EnregistrementDao(em);
     private FrameDao frameDao = new FrameDao(em);
 
-
+    /**
+     * Initialise la liste d'exercice selon la catégorie sélectionnée
+     */
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,6 +63,10 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
         }
     }
 
+    /**
+     * Affiche la liste des enregistrements
+     * @param data liste des enregistrements liés à la catégorie choisie
+     */
     private void chargerEnsembleEnregistrement(ObservableList<Enregistrement> data) {
         try {
             nomColumn.setCellValueFactory(new PropertyValueFactory<>("Nom"));
@@ -73,6 +80,10 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
         }
     }
 
+    /**
+     * Déclenche la visualisation de l'exercice sélectionné dans jME.
+     * @param actionEvent action event
+     */
     public void visualiserEnregistrement(ActionEvent actionEvent) {
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
              Enregistrement enregistrement= tableEnregistrement.getSelectionModel().getSelectedItem();
@@ -80,10 +91,20 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
         }
     }
 
+    /**
+     * Retour à la page d'acceuil
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent,"pageAccueil.fxml");
     }
 
+    /**
+     * Supprime l'exercice sélectionné
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void supprimerExercice(ActionEvent actionEvent) throws IOException {
 
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
@@ -95,15 +116,17 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
 
     }
 
+    /**
+     * Mise à jour de la liste d'exercice en cas de sélection de catégorie
+     * @param actionEvent action event
+     */
     public void chargerEnregistrements(ActionEvent actionEvent) {
 
         Categorie categorieActive = categoriedao.rechercherParNom(comboCategorie.getValue());
 
         ObservableList<Enregistrement> data = FXCollections.observableArrayList();
 
-        for (Enregistrement enregistrement: enregistrementdao.rechercherParCategorie(categorieActive)) {
-            data.add(enregistrement);
-        }
+        data.addAll( enregistrementdao.rechercherParCategorie(categorieActive));
 
         chargerEnsembleEnregistrement(data);
     }

@@ -1,5 +1,5 @@
 package univ.tln.i243.groupe1.daos;
-import univ.tln.i243.groupe1.entitees.Categorie;
+
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
 
@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
-
+/**
+ * DAO d'une frame
+ */
 public class FrameDao extends DAO<Frame>{
 
     public FrameDao(EntityManager entityManager) {

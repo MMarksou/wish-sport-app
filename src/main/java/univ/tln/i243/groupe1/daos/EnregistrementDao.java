@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * DAO d'un enregistrement
+ */
 public class EnregistrementDao extends DAO<Enregistrement>{
 
     public EnregistrementDao(EntityManager entityManager) {

@@ -10,6 +10,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui représente un enregistrement (une liste de frame définissant un exercice)
+ */
 @Entity
 @Builder
 @Getter

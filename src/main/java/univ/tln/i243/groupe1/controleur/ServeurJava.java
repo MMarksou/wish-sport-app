@@ -4,14 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.websocket.*;
-import univ.tln.i243.groupe1.daos.EnregistrementDao;
-import univ.tln.i243.groupe1.daos.FrameDao;
-import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
-import univ.tln.i243.groupe1.entitees.Jointure;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
@@ -20,20 +13,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/**
+ * Classe permettant l'instantiation du serveur java
+ */
+
 @ClientEndpoint
 public class ServeurJava {
+
     private static final Logger LOGGER = Logger.getLogger(ServeurJava.class.getName());
+
     private boolean transmission = false;
+
     private String donnees;
 
     protected static List<Frame> listeFrames = new ArrayList<>();
 
-    private static EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
-    private static EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-    private static int nbFrames;
+    private int nbFrames;
 
-    private static Enregistrement enregistrement;
-    private static boolean etatConnexion = true;
+    private boolean etatConnexion = true;
 
 
 
@@ -46,17 +43,17 @@ public class ServeurJava {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
 
-        if(transmission){
+        if(transmission){ //une fois la communication établie
             if(message.equals("Fin")){
                 session.close();
                 transmission = false;
                 session.close();
                 etatConnexion = false;
-            } else {
+            } else { //tant qu'il y a une transmission, récupération du message
                 donnees = message;
                 recupererJson();
             }
-        } else {
+        } else { //échange du nombre de frame à récupérer
             if(message.equals("OK")){
                 session.getBasicRemote().sendText("JSON " + nbFrames);
                 transmission = true;
@@ -69,6 +66,10 @@ public class ServeurJava {
         LOGGER.log(Level.INFO, () -> "Fermeture de la connexion avec la session : "+session.getId());
     }
 
+    /**
+     * Fonction qui sérialise la chaine de caractère reçue en objet frame
+     * @throws JsonProcessingException en cas d'échec de sérialisation
+     */
     public void recupererJson() throws JsonProcessingException {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -76,11 +77,14 @@ public class ServeurJava {
         listeFrames.add(frame);
     }
 
-    public static void main(int nombreFrames, String enregistrementCible)
+    /**
+     * Fonction main permettant le lancement du serveur ainsi que l'établissement de la première communication.
+     * @param nombreSecondes le nombre de seconde de l'exercice
+     */
+    public void main(int nombreSecondes)
     {
 
-        nbFrames = nombreFrames * 30;
-        enregistrement =  enregistrementDao.rechercherParNom(enregistrementCible);
+        nbFrames = nombreSecondes * 30;
 
         LOGGER.log(Level.INFO, "Lancement client");
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();
@@ -92,6 +96,6 @@ public class ServeurJava {
         {
             LOGGER.log(Level.SEVERE, ()->"Impossible de se connecter au serveur"+ex);
         }
-        while (etatConnexion);
+        while (etatConnexion); //tant que connection ouverte
     }
 }

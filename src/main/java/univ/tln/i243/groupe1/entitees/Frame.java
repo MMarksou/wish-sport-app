@@ -8,6 +8,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Classe qui représente une frame (une liste de jointure à un temps donné).
+ */
 @Entity
 @Builder
 @Getter

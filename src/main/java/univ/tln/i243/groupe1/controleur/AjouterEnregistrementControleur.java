@@ -16,6 +16,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Classe controleur du formulaire de création d'un exercice.
+ */
 public class AjouterEnregistrementControleur implements PageControleur, Initializable {
 
     @FXML
@@ -46,7 +49,11 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
     private CategorieDao categoriedao = new CategorieDao(em);
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
 
-
+    /**
+     * Gestion de la validité d'un exercice
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void validerEnregistrement(ActionEvent actionEvent) throws IOException {
 
         if(!nomExercice.getText().equals("")) {
@@ -77,6 +84,10 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
             labelValider.setText("Le nom de l'exercice est obligatoire !");
         }
     }
+
+    /**
+     * Mise à jour des champs static pour l'accès des données
+     */
     public static void miseAJourChamps(ComboBox<String> comboCategorie, Spinner<Integer> spinnerNbrRep, Spinner<Integer> spinnerDuree, TextField nomExercice, TextArea descriptionExercice){
         nomCategorie = comboCategorie.getValue();
         nbRepetition = spinnerNbrRep.getValue();
@@ -84,14 +95,29 @@ public class AjouterEnregistrementControleur implements PageControleur, Initiali
         nomExo = nomExercice.getText();
         descriptionExo = descriptionExercice.getText();
     }
+
+    /**
+     * Retour à la page précédente
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void retourChoix(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageChoix.fxml");
     }
+
+    /**
+     * Affiche la description d'une catégorie et débloque le bouton valider
+     * @param e ae
+     */
     public void afficherCategorieDescription(ActionEvent e){
         categoriedao = new CategorieDao(em);
         descriptionCategorie.setText(categoriedao.rechercherParNom(comboCategorie.getValue()).getDescription());
         boutonValider.setDisable(false);
     }
+
+    /**
+     * Initialise les widgets avec les plages voulues
+     */
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {

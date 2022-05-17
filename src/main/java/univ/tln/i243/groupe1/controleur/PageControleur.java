@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Interface de chargement des FXML (classe de délégation)
+ */
 public interface PageControleur {
 
     default void chargerPage(ActionEvent actionEvent, String str) throws IOException {
