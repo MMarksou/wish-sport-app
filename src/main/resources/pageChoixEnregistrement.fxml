@@ -12,16 +12,6 @@
                 <Image url="@logo.png" />
             </image>
         </ImageView>
-        <Label fx:id="nomCategorie" layoutX="586.0" layoutY="269.0" text="nom de la categorie">
-            <font>
-                <Font name="Arial Bold" size="15.0" />
-            </font>
-        </Label>
-        <Label fx:id="nbRepetition" layoutX="599.0" layoutY="312.0" text="nombre répétition">
-            <font>
-                <Font name="Arial Bold" size="15.0" />
-            </font>
-        </Label>
         <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="269.0" prefHeight="271.0" prefWidth="880.0">
             <columns>
                 <TableColumn fx:id="nomColumn" prefWidth="75.0" text="nom" />

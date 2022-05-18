@@ -7,36 +7,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.i243.groupe1.controleur.AjouterEnregistrementControleur">
 <children>
-    <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-            <Image url="@logo.png" />
-        </image>
-    </ImageView>
-    <Label layoutX="244.0" layoutY="228.0" text="Catégorie">
-        <font>
-            <Font name="Arial Bold" size="15.0" />
-        </font>
-    </Label>
-
-    <Button fx:id="buttonConfirmAddType" layoutX="649.0" layoutY="420.0" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Valider">
-        <font>
-            <Font name="Segoe UI Semibold" size="16.0" />
-        </font>
-    </Button>
-    <Button layoutX="158.0" layoutY="420.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
-        <font>
-            <Font name="Segoe UI Semibold" size="16.0" />
-        </font>
-    </Button>
-      <Separator layoutX="401.0" layoutY="210.0" orientation="VERTICAL" prefHeight="138.0" prefWidth="11.0" />
-      <Label layoutX="228.0" layoutY="296.0" text="addTypeExerciceScreen.fxml">
-         <font>
-            <Font name="Arial Bold" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="textFieldCategorie1" layoutX="280.0" layoutY="581.0" prefHeight="28.0" prefWidth="243.0" />
-      <Spinner layoutX="452.0" layoutY="291.0" />
-      <ComboBox layoutX="448.0" layoutY="228.0" prefWidth="150.0" />
       <AnchorPane layoutX="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css">
       <children>
           <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">

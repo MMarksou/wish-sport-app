@@ -28,6 +28,10 @@ public class ChoixControleur implements PageControleur {
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
+    public void chargerExerciceReferent(ActionEvent actionEvent) throws IOException {
+        chargerPage(actionEvent, "pageAjouterExerciceReferent.fxml");
+    }
+
     /**
      * Retour à l'accueil
      * @param actionEvent action event
@@ -36,4 +40,6 @@ public class ChoixControleur implements PageControleur {
     public void retourAccueil(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageAccueil.fxml");
     }
+
+
 }

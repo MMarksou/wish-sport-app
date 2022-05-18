@@ -27,5 +27,10 @@
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
       </Button>
+      <Button fx:id="buttonCreeEnregistrement1" layoutX="335.0" layoutY="467.0" onAction="#chargerExerciceReferent" prefHeight="38.0" prefWidth="249.0" stylesheets="@style.css" text="Créer un exercice référent">
+         <font>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

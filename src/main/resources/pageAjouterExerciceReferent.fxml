@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="900.0" style="-fx-background-color: #FFFFFF;-fx-background-image: url('background.jpg');" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="univ.tln.i243.groupe1.controleur.ChoixExerciceReferentControleur">
+    <children>
+        <ImageView fitHeight="178.0" fitWidth="471.0" layoutX="316.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@logo.png" />
+            </image>
+        </ImageView>
+        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="269.0" prefHeight="271.0" prefWidth="880.0">
+            <columns>
+                <TableColumn fx:id="nomColumn" prefWidth="75.0" text="nom" />
+                <TableColumn fx:id="dureeColumn" prefWidth="75.0" text="durée" />
+                <TableColumn fx:id="repetitionColumn" prefWidth="75.0" text="répétition" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="75.0" text="description" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+
+        </TableView>
+        <Button layoutX="723.0" layoutY="575.0" onAction="#validerExercice" prefHeight="38.0" prefWidth="103.0" stylesheets="@style.css" text="Valider">
+            <font>
+                <Font name="Segoe UI Semibold" size="16.0" />
+            </font>
+        </Button>
+        <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
+            <font>
+                <Font name="Segoe UI Semibold" size="16.0" />
+            </font>
+        </Button>
+        <ComboBox fx:id="comboCategorie" layoutX="167.0" layoutY="210.0" onAction="#chargerEnregistrements" prefWidth="150.0" />
+        <Label layoutX="20.0" layoutY="214.0" text="Saisir catégorie">
+            <font>
+                <Font size="16.0" />
+            </font></Label>
+    </children>
+</AnchorPane>

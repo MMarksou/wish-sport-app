@@ -1,7 +1,6 @@
 package univ.tln.i243.groupe1.daos;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.java.Log;
 import univ.tln.i243.groupe1.entitees.Entitee;
 
 import javax.persistence.EntityManager;

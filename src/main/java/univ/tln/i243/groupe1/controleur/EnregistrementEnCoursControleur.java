@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
-import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
 import univ.tln.i243.groupe1.entitees.Jointure;
@@ -33,7 +32,6 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-    private FrameDao frameDao = new FrameDao(em);
 
     /**
      * Confirme et persiste l'enregistrement courant

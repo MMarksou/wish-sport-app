@@ -20,37 +20,32 @@ public class Liaisons {
      */
     public Liaisons() {
 
-        String bassin = "BASSIN";
-        String thorax = "COLONNE_THORAX";
-        String poignetGauche = "POIGNET_GAUCHE";
-        String poignetDroit = "POIGNET_DROIT";
-
-        listeLiaisons.add(new Pair<>("COLONNE_NOMBRIL", bassin));
-        listeLiaisons.add(new Pair<>(thorax, "COLONNE_NOMBRIL"));
-        listeLiaisons.add(new Pair<>("COU", thorax));
-        listeLiaisons.add(new Pair<>("CLAVICULE_GAUCHE", thorax));
-        listeLiaisons.add(new Pair<>("EPAULE_GAUCHE", "CLAVICULE_GAUCHE"));
-        listeLiaisons.add(new Pair<>("COUDE_GAUCHE", "EPAULE_GAUCHE"));
-        listeLiaisons.add(new Pair<>(poignetGauche, "COUDE_GAUCHE"));
-        listeLiaisons.add(new Pair<>("MAIN_GAUCHE", poignetGauche));
-        listeLiaisons.add(new Pair<>("BOUTMAIN_GAUCHE", "MAIN_GAUCHE"));
-        listeLiaisons.add(new Pair<>("POUCE_GAUCHE", poignetGauche));
-        listeLiaisons.add(new Pair<>("CLAVICULE_DROITE", thorax));
-        listeLiaisons.add(new Pair<>("EPAULE_DROITE", "CLAVICULE_DROITE"));
-        listeLiaisons.add(new Pair<>("COUDE_DROIT", "EPAULE_DROITE"));
-        listeLiaisons.add(new Pair<>(poignetDroit, "COUDE_DROIT"));
-        listeLiaisons.add(new Pair<>("MAIN_DROITE", poignetDroit));
-        listeLiaisons.add(new Pair<>("BOUTMAIN_DROITE", "MAIN_DROITE"));
-        listeLiaisons.add(new Pair<>("POUCE_DROIT", poignetDroit));
-        listeLiaisons.add(new Pair<>("HANCHE_GAUCHE", bassin));
-        listeLiaisons.add(new Pair<>("GENOUX_GAUCHE", "HANCHE_GAUCHE"));
-        listeLiaisons.add(new Pair<>("CHEVILLE_GAUCHE", "GENOUX_GAUCHE"));
-        listeLiaisons.add(new Pair<>("PIED_GAUCHE", "CHEVILLE_GAUCHE"));
-        listeLiaisons.add(new Pair<>("HANCHE_DROITE", bassin));
-        listeLiaisons.add(new Pair<>("GENOUX_DROIT", "HANCHE_DROITE"));
-        listeLiaisons.add(new Pair<>("CHEVILLE_DROITE", "GENOUX_DROIT"));
-        listeLiaisons.add(new Pair<>("PIED_DROIT", "CHEVILLE_DROITE"));
-        listeLiaisons.add(new Pair<>("TETE", "COU"));
+        listeLiaisons.add(new Pair<>(NomJointures.COLONNE_NOMBRIL.name(), NomJointures.BASSIN.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.COLONNE_THORAX.name(), NomJointures.COLONNE_NOMBRIL.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.COU.name(), NomJointures.COLONNE_THORAX.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.CLAVICULE_GAUCHE.name(), NomJointures.COLONNE_THORAX.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.EPAULE_GAUCHE.name(), NomJointures.CLAVICULE_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.COUDE_GAUCHE.name(), NomJointures.EPAULE_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.POIGNET_GAUCHE.name(), NomJointures.COUDE_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.MAIN_GAUCHE.name(), NomJointures.POIGNET_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.BOUTMAIN_GAUCHE.name(), NomJointures.MAIN_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.POUCE_GAUCHE.name(), NomJointures.POIGNET_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.CLAVICULE_DROITE.name(), NomJointures.COLONNE_THORAX.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.EPAULE_DROITE.name(), NomJointures.CLAVICULE_DROITE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.COUDE_DROIT.name(), NomJointures.EPAULE_DROITE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.POIGNET_DROIT.name(), NomJointures.COUDE_DROIT.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.MAIN_DROITE.name(), NomJointures.POIGNET_DROIT.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.BOUTMAIN_DROITE.name(), NomJointures.MAIN_DROITE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.POUCE_DROIT.name(), NomJointures.POIGNET_DROIT.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.HANCHE_GAUCHE.name(), NomJointures.BASSIN.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.GENOUX_GAUCHE.name(), NomJointures.HANCHE_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.CHEVILLE_GAUCHE.name(), NomJointures.GENOUX_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.PIED_GAUCHE.name(), NomJointures.CHEVILLE_GAUCHE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.HANCHE_DROITE.name(), NomJointures.BASSIN.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.GENOUX_DROIT.name(), NomJointures.HANCHE_DROITE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.CHEVILLE_DROITE.name(), NomJointures.GENOUX_DROIT.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.PIED_DROIT.name(), NomJointures.CHEVILLE_DROITE.name()));
+        listeLiaisons.add(new Pair<>(NomJointures.TETE.name(), NomJointures.COU.name()));
     }
 
 }
