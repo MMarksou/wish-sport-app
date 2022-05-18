@@ -136,6 +136,11 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
         chargerEnsembleEnregistrement(data);
     }
 
+    /**
+     * Fonction d'exportation d'un enregistrement en JSON
+     * @param actionEvent action event
+     * @throws IOException erreur sur le fichier
+     */
     public void exporterEnregistrement(ActionEvent actionEvent) throws IOException {
 
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {

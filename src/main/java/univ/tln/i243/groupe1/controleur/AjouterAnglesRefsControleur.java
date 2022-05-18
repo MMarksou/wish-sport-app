@@ -23,13 +23,26 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
     private Label labelMessage;
 
 
+    /**
+     * Fonction de validation et de persistance des angles de l'exercice de référence
+     * @param actionEvent action event
+     */
     public void validerExercice(ActionEvent actionEvent) {
     }
 
+    /**
+     * Fonction de retour à l'accueil
+     * @param actionEvent action event
+     * @throws IOException si erreur sur les fichiers
+     */
     public void retourAccueil(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent,"pageAjouterExerciceReferent.fxml");
     }
 
+    /**
+     * Ajoute les jointures des Combobox dans la liste
+     * @param actionEvent action event
+     */
     public void ajouterJointures(ActionEvent actionEvent) {
 
         if(comboJointure1.getValue() != null &&  comboJointure2.getValue() != null &&  comboJointure3.getValue() != null) {
@@ -43,6 +56,9 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
         }
     }
 
+    /**
+     * Redéfinit la fonction pour remplir les Combobox en fonction des noms de jointures disponibles
+     */
     @Override
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {

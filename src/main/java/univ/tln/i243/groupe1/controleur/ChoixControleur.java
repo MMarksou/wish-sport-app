@@ -28,6 +28,11 @@ public class ChoixControleur implements PageControleur {
         chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
     }
 
+    /**
+     * Charge la page de création d'un exercice de référence
+     * @param actionEvent action event
+     * @throws IOException erreur sur les fichiers
+     */
     public void chargerExerciceReferent(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageAjouterExerciceReferent.fxml");
     }

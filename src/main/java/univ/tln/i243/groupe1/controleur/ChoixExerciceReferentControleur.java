@@ -21,8 +21,11 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ChoixExerciceReferentControleur implements PageControleur, Initializable {
 
+/**
+ * Classe contrôleur de choix d'un enregistrement en tant qu'exercice de référence
+ */
+public class ChoixExerciceReferentControleur implements PageControleur, Initializable {
 
     @FXML
     private ComboBox<String> comboCategorie;

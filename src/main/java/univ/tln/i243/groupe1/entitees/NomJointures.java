@@ -1,5 +1,9 @@
 package univ.tln.i243.groupe1.entitees;
 
+/**
+ * Enum des noms de jointures possibles
+ */
+
 public enum NomJointures {
     BASSIN,
     COU,
