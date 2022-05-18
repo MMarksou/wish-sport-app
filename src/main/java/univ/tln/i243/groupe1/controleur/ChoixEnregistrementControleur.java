@@ -1,12 +1,16 @@
 package univ.tln.i243.groupe1.controleur;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
@@ -16,6 +20,7 @@ import univ.tln.i243.groupe1.entitees.Enregistrement;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -126,8 +131,27 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
 
         ObservableList<Enregistrement> data = FXCollections.observableArrayList();
 
-        data.addAll( enregistrementdao.rechercherParCategorie(categorieActive));
+        data.addAll(enregistrementdao.rechercherParCategorie(categorieActive));
 
         chargerEnsembleEnregistrement(data);
+    }
+
+    public void exporterEnregistrement(ActionEvent actionEvent) throws IOException {
+
+        if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
+
+            Enregistrement enregistrement = tableEnregistrement.getSelectionModel().getSelectedItem();
+
+            FileChooser choixFichier = new FileChooser();
+
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
+            choixFichier.getExtensionFilters().add(extFilter);
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            File fichier = choixFichier.showSaveDialog(stage);
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(fichier, enregistrement.getFrames());
+        }
     }
 }

@@ -16,7 +16,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Categorie.rechercherTout",query = "select c from Categorie c")
 @NamedQuery(name = "Categorie.rechercherParNom",query = "select c from Categorie c where c.nom=:nom")
 

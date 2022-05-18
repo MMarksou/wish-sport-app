@@ -34,7 +34,7 @@
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
         </Button>
-      <Button layoutX="474.0" layoutY="575.0" onAction="#supprimerExercice" prefHeight="38.0" prefWidth="183.0" stylesheets="@style.css" text="Exporter en C3D">
+      <Button layoutX="474.0" layoutY="575.0" onAction="#exporterEnregistrement" prefHeight="38.0" prefWidth="183.0" stylesheets="@style.css" text="Exporter en JSON">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>

@@ -3,6 +3,7 @@ package univ.tln.i243.groupe1.entitees;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -18,11 +19,9 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Enregistrement.rechercherTout",query = "select c from Enregistrement c")
 @NamedQuery(name = "Enregistrement.rechercherParNom",query = "select c from Enregistrement c where c.nom=:nom")
 @NamedQuery(name = "Enregistrement.rechercherParCategorie",query = "select c from Enregistrement c where c.categorie=:categorie")
-
 @Table(name = "Enregistrement",uniqueConstraints = {@UniqueConstraint(name = "uniqueEnregistrementCategorie", columnNames = {"nom","id_categorie"})})
 public class Enregistrement implements Entitee {
 

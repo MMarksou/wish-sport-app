@@ -13,22 +13,17 @@
             <Image url="@logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="buttonEnregistrer" layoutX="350.0" layoutY="270.0" onAction="#chargerCategorie" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Enregistrer">
+      <Button fx:id="buttonEnregistrer" layoutX="364.0" layoutY="305.0" onAction="#chargerCategorie" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Enregistrer">
          <font>
          <Font name="Segoe UI Semibold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonVisualiser" layoutX="350.0" layoutY="341.0" onAction="#chargerVisualisation" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Visualiser">
+      <Button fx:id="buttonVisualiser" layoutX="364.0" layoutY="376.0" onAction="#chargerVisualisation" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Visualiser">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="buttonComparer" layoutX="350.0" layoutY="409.0" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Comparer">
-         <font>
-            <Font name="Segoe UI Semibold" size="16.0" />
-         </font>
-      </Button>
-      <Button fx:id="buttonExporter" layoutX="350.0" layoutY="479.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Exporter">
+      <Button fx:id="buttonComparer" layoutX="364.0" layoutY="444.0" prefHeight="38.0" prefWidth="190.0" stylesheets="@style.css" text="Comparer">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>

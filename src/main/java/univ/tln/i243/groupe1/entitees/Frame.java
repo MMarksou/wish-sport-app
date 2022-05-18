@@ -1,11 +1,11 @@
 package univ.tln.i243.groupe1.entitees;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,11 +16,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Frame.rechercherTout",query = "select c from Frame c")
 @NamedQuery(name = "Frame.rechercherParEnregistrement",query = "select c from Frame c where c.enregistrement=:enregistrement")
-
 @Table(name = "Frame",uniqueConstraints = {@UniqueConstraint(name = "uniqueFrameEnregistrement",columnNames = {"frameNumero","id_enregistrement"})})
+@JsonIgnoreProperties(value = "id", allowSetters = true)
 public class Frame implements Entitee {
 
     @Id
@@ -39,6 +38,7 @@ public class Frame implements Entitee {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "ID_ENREGISTREMENT")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private Enregistrement enregistrement;
 
     @Override

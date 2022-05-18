@@ -1,8 +1,6 @@
 package univ.tln.i243.groupe1.entitees;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,10 +13,9 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 @NamedQuery(name = "Jointure.rechercherTout",query = "select c from Jointure c")
-
 @Table(name = "Jointure",uniqueConstraints = {@UniqueConstraint(name = "uniqueJointureFrame",columnNames = {"nom","id_frame"})})
+@JsonIgnoreProperties(value = "id", allowSetters = true)
 public class Jointure implements Entitee {
 
     @Id
@@ -29,6 +26,7 @@ public class Jointure implements Entitee {
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     @JoinColumn(name = "ID_FRAME")
     @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     private Frame frame;
 
     @Setter
