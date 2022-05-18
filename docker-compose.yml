@@ -13,6 +13,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_USER=sa
-      - POSTGRES_DB=bdd
+      - POSTGRES_PASSWORD=kinect
+      - POSTGRES_USER=kinect
+      - POSTGRES_DB=kinect

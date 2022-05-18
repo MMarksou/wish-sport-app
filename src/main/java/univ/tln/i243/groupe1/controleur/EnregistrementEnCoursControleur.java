@@ -53,11 +53,10 @@ public class EnregistrementEnCoursControleur  implements PageControleur, Initial
             for (Jointure jointure: frame.getJointures()) {
                 jointure.setFrame(frame);
             }
-
-            frameDao.persister(frame);
         }
 
-        enregistrementDao.recharger(enregistrement);
+        enregistrementDao.supprimer(enregistrement);
+        enregistrementDao.persister(enregistrement);
 
         ServeurJava.listeFrames.clear();
 
