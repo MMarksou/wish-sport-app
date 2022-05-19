@@ -1,34 +1,35 @@
-package univ.tln.i243.groupe1.campare;
+package univ.tln.i243.groupe1.comparaison;
 
 
 public class Angle {
+
     public double calculateAngle(double x1, double y1, double z1,
                                  double x2, double y2, double z2,
                                  double x3, double y3, double z3)
     {
 
         // Trouver le rapport de direction de la ligne AB
-        double ABx = x1 - x2;
-        double ABy = y1 - y2;
-        double ABz = z1 - z2;
+        double xAB = x1 - x2;
+        double yAB = y1 - y2;
+        double zAB = z1 - z2;
 
         // Trouver le rapport de direction de la ligne BC
-        double BCx = x3 - x2;
-        double BCy = y3 - y2;
-        double BCz = z3 - z2;
+        double xBC = x3 - x2;
+        double yBC = y3 - y2;
+        double zBC = z3 - z2;
 
         // Trouver le produit scalair des lignes AB & BC
-        double dotProduct = ABx * BCx +
-                ABy * BCy +
-                ABz * BCz;
+        double dotProduct = xAB * xBC +
+                yAB * yBC +
+                zAB * zBC;
 
         // Trouver la grandeur des AB & BC
-        double magnitudeAB = ABx * ABx +
-                ABy * ABy +
-                ABz * ABz;
-        double magnitudeBC = BCx * BCx +
-                BCy * BCy +
-                BCz * BCz;
+        double magnitudeAB = xAB * xAB +
+                yAB * yAB +
+                zAB * zAB;
+        double magnitudeBC = xBC * xBC +
+                yBC * yBC +
+                zBC * zBC;
 
         // Trouver le cosinus de l'angle formé par AB et BC
         double angle = dotProduct;
@@ -36,9 +37,6 @@ public class Angle {
 
         // Trouver l'angle en radian
         angle = (angle * 180) / 3.14;
-
-        // print de l'angle
-        //System.out.printf("\n"+ Math.abs(angle) + "\n");
 
         return angle;
     }

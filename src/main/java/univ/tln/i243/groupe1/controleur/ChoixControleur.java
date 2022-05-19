@@ -34,7 +34,7 @@ public class ChoixControleur implements PageControleur {
      * @throws IOException erreur sur les fichiers
      */
     public void chargerExerciceReferent(ActionEvent actionEvent) throws IOException {
-        chargerPage(actionEvent, "pageAjouterExerciceReferent.fxml");
+        chargerPage(actionEvent, "pageAjouterAnglesRefs.fxml");
     }
 
     /**

@@ -12,7 +12,7 @@
                 <Image url="@logo.png" />
             </image>
         </ImageView>
-        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="269.0" prefHeight="271.0" prefWidth="880.0">
+        <TableView fx:id="tableEnregistrement" layoutX="10.0" layoutY="290.0" prefHeight="271.0" prefWidth="880.0">
             <columns>
                 <TableColumn fx:id="listeJointure1" prefWidth="75.0" text="Jointure 1" />
                 <TableColumn fx:id="listeJointure2" prefWidth="75.0" text="Jointure 2" />
@@ -23,24 +23,24 @@
             </columnResizePolicy>
 
         </TableView>
-        <Button layoutX="723.0" layoutY="575.0" onAction="#validerExercice" prefHeight="38.0" prefWidth="103.0" stylesheets="@style.css" text="Valider">
+        <Button layoutX="715.0" layoutY="618.0" onAction="#enregistrerMouvement" prefHeight="38.0" prefWidth="119.0" stylesheets="@style.css" text="Enregistrer">
             <font>
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
         </Button>
-        <Button layoutX="57.0" layoutY="575.0" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
+        <Button layoutX="57.0" layoutY="618.0" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="38.0" prefWidth="110.0" stylesheets="@style.css" text="Retour">
             <font>
                 <Font name="Segoe UI Semibold" size="16.0" />
             </font>
         </Button>
-        <ComboBox fx:id="comboJointure1" layoutX="167.0" layoutY="210.0" prefWidth="150.0" />
-        <Label layoutX="20.0" layoutY="214.0" text="Saisir jointures">
+        <ComboBox fx:id="comboJointure1" disable="true" layoutX="167.0" layoutY="231.0" prefWidth="150.0" />
+        <Label layoutX="20.0" layoutY="235.0" text="Saisir jointures">
             <font>
                 <Font size="16.0" />
             </font></Label>
-      <ComboBox fx:id="comboJointure2" layoutX="341.0" layoutY="210.0" prefWidth="150.0" />
-      <ComboBox fx:id="comboJointure3" layoutX="517.0" layoutY="210.0" prefWidth="150.0" />
-      <Button layoutX="723.0" layoutY="205.0" onAction="#ajouterJointures" prefHeight="38.0" prefWidth="103.0" stylesheets="@style.css" text="Ajouter">
+      <ComboBox fx:id="comboJointure2" disable="true" layoutX="341.0" layoutY="231.0" prefWidth="150.0" />
+      <ComboBox fx:id="comboJointure3" disable="true" layoutX="517.0" layoutY="231.0" prefWidth="150.0" />
+      <Button layoutX="723.0" layoutY="226.0" onAction="#ajouterJointures" prefHeight="38.0" prefWidth="103.0" stylesheets="@style.css" text="Ajouter">
          <font>
             <Font name="Segoe UI Semibold" size="16.0" />
          </font>
@@ -49,6 +49,23 @@
          <font>
             <Font size="17.0" />
          </font>
+      </Label>
+      <Button layoutX="391.0" layoutY="618.0" onAction="#importerMouvement" prefHeight="38.0" prefWidth="119.0" stylesheets="@style.css" text="Importer">
+         <font>
+            <Font name="Segoe UI Semibold" size="16.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="comboCategorie" layoutX="166.0" layoutY="182.0" onAction="#chargerJointure" prefWidth="150.0" />
+      <Label layoutX="16.0" layoutY="186.0" text="Saisir Catégorie">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="barreTemps" layoutX="307.0" layoutY="590.0" prefHeight="17.0" prefWidth="288.0" progress="0.0" />
+      <Label fx:id="labelInformationLancement" layoutX="309.0" layoutY="561.0" textFill="RED">
+        <font>
+            <Font name="System Bold" size="18.0" />
+        </font>
       </Label>
     </children>
 </AnchorPane>

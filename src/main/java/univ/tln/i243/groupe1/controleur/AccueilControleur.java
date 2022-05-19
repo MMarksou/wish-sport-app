@@ -28,4 +28,8 @@ public class AccueilControleur implements PageControleur {
         chargerPage(actionEvent,"pageChoixEnregistrement.fxml");
 
     }
+
+    public void chargerComparaison(ActionEvent actionEvent) throws IOException {
+        chargerPage(actionEvent,"pageChoixComparaison.fxml");
+    }
 }

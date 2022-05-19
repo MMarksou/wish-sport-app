@@ -18,7 +18,7 @@ import java.util.Objects;
 @NamedQuery(name = "MouvementRef.rechercherTout",query = "select m from MouvementRef m")
 @NamedQuery(name = "MouvementRef.rechercherParCategorie",query = "select m from MouvementRef m where m.categorie=:categorie")
 
-@Table(name = "MouvementRef", uniqueConstraints = {@UniqueConstraint(name = "uniqueMouvementRef",columnNames = {"jointure2","categorie"})})
+@Table(name = "MouvementRef", uniqueConstraints = {@UniqueConstraint(name = "uniqueMouvementRef",columnNames = {"jointure2","id_categorie"})})
 public class MouvementRef implements Entitee{
 
     @Id
@@ -38,7 +38,7 @@ public class MouvementRef implements Entitee{
     private double angleDebut;
 
     @Setter
-    private double angleFin;
+    private double andgleFin;
 
     @Setter
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -66,8 +66,6 @@ public class MouvementRef implements Entitee{
                 ", jointure1='" + jointure1 + '\'' +
                 ", jointure2='" + jointure2 + '\'' +
                 ", jointure3='" + jointure3 + '\'' +
-                ", angleDebut=" + angleDebut +
-                ", angleFin=" + angleFin +
                 ", categorie=" + categorie +
                 '}';
     }

@@ -41,7 +41,11 @@ public abstract class DAO<E extends Entitee> {
         em.getTransaction().commit();
     }
 
-    public void recharger(E t){em.refresh(t);}
+    public void recharger(E t){
+        em.getTransaction().begin();
+        em.refresh(t);
+        em.getTransaction().commit();
+    }
 
     public void nettoyer(){em.clear();}
 

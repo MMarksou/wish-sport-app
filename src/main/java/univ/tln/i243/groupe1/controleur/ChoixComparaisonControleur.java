@@ -9,23 +9,21 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import univ.tln.i243.groupe1.comparaison.VerifieAngle;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
+import univ.tln.i243.groupe1.entitees.MouvementRef;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
+public class ChoixComparaisonControleur implements PageControleur, Initializable {
 
-/**
- * Classe contrôleur de choix d'un enregistrement en tant qu'exercice de référence
- */
-public class ChoixExerciceReferentControleur implements PageControleur, Initializable {
 
     @FXML
     private ComboBox<String> comboCategorie;
@@ -44,8 +42,6 @@ public class ChoixExerciceReferentControleur implements PageControleur, Initiali
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private CategorieDao categoriedao = new CategorieDao(em);
     private EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-
-    protected static Enregistrement exerciceReferent;
 
     /**
      * Initialise la liste d'exercice selon la catégorie sélectionnée
@@ -86,10 +82,13 @@ public class ChoixExerciceReferentControleur implements PageControleur, Initiali
      * Charge la page de création des angles de l'exercice référent choisi.
      * @param actionEvent action event
      */
-    public void validerExercice(ActionEvent actionEvent) throws IOException {
+    public void validerExercice(ActionEvent actionEvent) {
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
-            exerciceReferent =  tableEnregistrement.getSelectionModel().getSelectedItem();
-            chargerPage(actionEvent, "pageAjouterAnglesRefs.fxml");
+            List<Map<String, String>> listeResultat = new ArrayList<>();
+            Categorie categorie = categoriedao.rechercherParNom(comboCategorie.getValue());
+            for(MouvementRef mouvementRef : categorie.getMouvementsRefs()){
+                listeResultat.add(VerifieAngle.lancerComparaison(mouvementRef.getJointure1(), mouvementRef.getJointure2(), mouvementRef.getJointure3(), mouvementRef.getAngleDebut(), mouvementRef.getAndgleFin(), tableEnregistrement.getSelectionModel().getSelectedItem()));
+            }
         }
     }
 
@@ -112,7 +111,7 @@ public class ChoixExerciceReferentControleur implements PageControleur, Initiali
 
         ObservableList<Enregistrement> data = FXCollections.observableArrayList();
 
-        data.addAll( enregistrementdao.rechercherParCategorie(categorieActive));
+        data.addAll(enregistrementdao.rechercherParCategorie(categorieActive));
 
         chargerEnsembleEnregistrement(data);
     }

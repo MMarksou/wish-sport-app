@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 
-// TODO: 17/05/2022  
 public class AjouterCategorieControleur implements PageControleur {
 
     @FXML

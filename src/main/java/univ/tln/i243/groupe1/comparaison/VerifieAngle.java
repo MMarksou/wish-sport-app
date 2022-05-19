@@ -1,6 +1,8 @@
-package univ.tln.i243.groupe1.campare;
+package univ.tln.i243.groupe1.comparaison;
 
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
+import univ.tln.i243.groupe1.entitees.Enregistrement;
+import univ.tln.i243.groupe1.entitees.Frame;
 import univ.tln.i243.groupe1.entitees.Jointure;
 
 import javax.persistence.EntityManager;
@@ -8,6 +10,7 @@ import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Math.*;
 
@@ -33,16 +36,16 @@ public class VerifieAngle {
      * Methode qui permet de trouver l'angle maximale lors du mouvement
      * return int : angle maximale
      **/
-    public static int maxAngle(double a0, String enregNom, String j1, String j2, String j3, int frame, int direction) {
-        int frameNumber = enregistrementDao.rechercherParNom(enregNom).getFrames().size();
+    public static int maxAngle(double a0, List<Frame> listeFrame, String j1, String j2, String j3, int frame, int direction) {
 
+        int frameNumber = listeFrame.size();
 
         double a1 = a0;
         int framefin = 0;
         a = a0;
         aPrecedente = a;
         while (frameNumber>frame){
-            List<Jointure> jointuresList3 = enregistrementDao.rechercherParNom(enregNom).getFrames().get(frame).getJointures();
+            List<Jointure> jointuresList3 = listeFrame.get(frame).getJointures();
 
             for (Jointure jointure : jointuresList3) {
                 if (jointure.getNom().equals(j1)) {
@@ -80,12 +83,11 @@ public class VerifieAngle {
      * qui forment l'angle et le nom de l'enregistremnt
      * return List<Double> : la liste des angles
      **/
-    public static List<Double> calculerAngle(String enregNom, String j1, String j2, String j3) {
+    public static List<Double> calculerAngle(List<Frame> listeFrame, int repNumber, String j1, String j2, String j3) {
         List<Double> angles = new ArrayList<>();
-        List<Jointure> jointuresList = enregistrementDao.rechercherParNom(enregNom).getFrames().get(1).getJointures();
+        List<Jointure> jointuresList = listeFrame.get(1).getJointures();
 
-        int repNumber = enregistrementDao.rechercherParNom(enregNom).getRepetition();
-        int frameNumber = enregistrementDao.rechercherParNom(enregNom).getFrames().size();
+        int frameNumber = listeFrame.size();
 
         /** recuperer les coordonnees des jointures pour calculer l'angle en etat initale **/
         for (Jointure jointure : jointuresList) {
@@ -112,7 +114,7 @@ public class VerifieAngle {
         int iframe=0;
         do{
 
-            List<Jointure> jointuresList2 = enregistrementDao.rechercherParNom(enregNom).getFrames().get(iframe).getJointures();
+            List<Jointure> jointuresList2 = listeFrame.get(iframe).getJointures();
 
             for (Jointure jointure : jointuresList2) {
                 if (jointure.getNom().equals(j1)) {
@@ -135,9 +137,6 @@ public class VerifieAngle {
             /** calcul de l'angle apres 30 frames  **/
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
 
-
-
-
             /**Verifier si l'angle augmente ou diminue**/
             if(abs(a1-a0)>15){
                 if (a0 < a1) {
@@ -148,16 +147,15 @@ public class VerifieAngle {
             }else{
                 iframe+=5;
             }
-        }while (direction==0);
+        }while (direction==0 && iframe < frameNumber);
         int frame =1;
         /** Continuer a calculer les angles en fonction de nombre de repetition et frame **/
         int rep = 0;
         while (rep < repNumber && frame>0) {
             angles.add(a0);
-            frame = maxAngle(a0, enregNom, j1, j2, j3, frame, direction);
+            frame = maxAngle(a0, listeFrame, j1, j2, j3, frame, direction);
             frameValue.add(frame);
-            System.out.println("1 " +frame);
-            jointuresList = enregistrementDao.rechercherParNom(enregNom).getFrames().get(frame).getJointures();
+            jointuresList = listeFrame.get(frame).getJointures();
             for (Jointure jointure : jointuresList) {
                 if (jointure.getNom().equals(j1)) {
                     x1 = jointure.getX();
@@ -179,10 +177,9 @@ public class VerifieAngle {
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
             angles.add(a1);
 
-            frame = maxAngle(a1, enregNom, j1, j2, j3, frame, -1*direction);
+            frame = maxAngle(a1, listeFrame, j1, j2, j3, frame, -1*direction);
             frameValue.add(frame);
-            System.out.println("2 " +frame);
-            jointuresList = enregistrementDao.rechercherParNom(enregNom).getFrames().get(frame).getJointures();
+            jointuresList = listeFrame.get(frame).getJointures();
 
             for (Jointure jointure : jointuresList) {
                 if (jointure.getNom().equals(j1)) {
@@ -206,23 +203,22 @@ public class VerifieAngle {
             rep++;
 
         }
-        System.out.println("aaaaaaaa");
         return angles;
     }
 
-    public static HashMap<String, String> lancerComparaison(List<String> listAngles, String nomEnregRef, String nomEnregExo) {
+    public static Map<String, String> lancerComparaison(String j1, String j2, String j3, Double angleDebut, Double angleFin, Enregistrement enregistrementCible) {
         int y=0;
-        HashMap<String, String> anglesValues = new HashMap<String, String>();
+        HashMap<String, String> anglesValues = new HashMap<>();
 
         List<Double> angleReferent;
         List<Double> angleValue;
-        int repNumber = enregistrementDao.rechercherParNom(nomEnregExo).getRepetition();
+        int repNumber = enregistrementCible.getRepetition();
 
-        for (int i = 0; i < listAngles.size(); i += 3) {
+        //for (int i = 0; i < listAngles.size(); i += 3) {
 
-            angleReferent = calculerAngle(nomEnregRef, listAngles.get(i), listAngles.get(i + 1), listAngles.get(i + 2));
+        angleReferent = calculerAngle(enregistrementCible.getFrames(), enregistrementCible.getRepetition(), j1, j2, j3);
 
-            angleValue = calculerAngle(nomEnregExo, listAngles.get(i), listAngles.get(i + 1), listAngles.get(i + 2));
+        angleValue = calculerAngle(enregistrementCible.getFrames(), enregistrementCible.getRepetition(), j1, j2, j3);
 
 
             for (int j = 0; j < 2 * repNumber; j += 2) {
@@ -234,20 +230,19 @@ public class VerifieAngle {
                     etat = "pas mal fait";
                 if ((dif1 + dif2) / 2 > 40.0)
                     etat = "tres mal fait";
-                //System.out.println("frame: "+frameValue.get(y));
-                anglesValues.put("" + listAngles.get(i) + "," + listAngles.get(i + 1) + "," + listAngles.get(i + 2) + "," + frameValue.get(y), etat);
+                anglesValues.put("" + j1 + "," + j2 + "," + j3 + "," + frameValue.get(y), etat);
                 y++;
             }
-        }
+        //}
         for (String name: anglesValues.keySet()) {
-            String key = name.toString();
-            String value = anglesValues.get(name).toString();
+            String key = name;
+            String value = anglesValues.get(name);
             System.out.println(key + " " + value);
         }
         return anglesValues;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 //        List<String> listAngles = new ArrayList<>();
 //
 //        listAngles.add("EPAULE_DROITE");
@@ -308,5 +303,5 @@ public class VerifieAngle {
                     System.out.println("tres mal fait\n");
             }
         }
-    }
+    }*/
 }
