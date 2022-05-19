@@ -234,11 +234,11 @@ public class VerifieAngle {
                 y++;
             }
         //}
-        for (String name: anglesValues.keySet()) {
+        /*for (String name: anglesValues.keySet()) {
             String key = name;
             String value = anglesValues.get(name);
             System.out.println(key + " " + value);
-        }
+        }*/
         return anglesValues;
     }
 

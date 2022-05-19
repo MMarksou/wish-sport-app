@@ -6,6 +6,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.system.AppSettings;
@@ -28,6 +29,7 @@ public class JMEComparaison extends SimpleApplication {
     private long tempsTotal;
 
     private Liaisons liaisons = new Liaisons();
+    private Map<String, Geometry> carteGeometriesJointures = new HashMap<>();
 
     private static List<Frame> listeFrameRefActive;
     private static List<Map<String, String>> listeComparaisonActive;
@@ -78,6 +80,7 @@ public class JMEComparaison extends SimpleApplication {
                 rootNode.detachAllChildren();
                 Frame frame = listeFrameRefActive.get(numero);
                 initGeometriesCylindres(initListeGeometriesJointures(frame.getJointures()));
+                verifierComparaison(numero);
                 numero++;
             }
             tempsTotal = tempsActuel;
@@ -90,8 +93,6 @@ public class JMEComparaison extends SimpleApplication {
      * @return la liste des géométries des jointures
      */
     public Map<String, Geometry> initListeGeometriesJointures(List<Jointure> listeJointure){
-        Map<String, Geometry> carteGeometriesJointures = new HashMap<>();
-
         Node geometriesJointures = new Node();
 
         Sphere jointureSphere = new Sphere(20, 20, rayonSphere);
@@ -101,7 +102,7 @@ public class JMEComparaison extends SimpleApplication {
 
         for(int i = 0; i < listeJointure.size(); i++){
 
-            carteGeometriesJointures.put(listeJointure.get(i).getNom(), new Geometry("Jointure_" + i, jointureSphere));
+            carteGeometriesJointures.put(listeJointure.get(i).getNom(), new Geometry(listeJointure.get(i).getNom(), jointureSphere));
             carteGeometriesJointures.get(listeJointure.get(i).getNom()).setMaterial(mat);
             carteGeometriesJointures.get(listeJointure.get(i).getNom()).setLocalTranslation(new Vector3f(-listeJointure.get(i).getX(), -listeJointure.get(i).getY(), listeJointure.get(i).getZ()).normalize());
 
@@ -127,6 +128,39 @@ public class JMEComparaison extends SimpleApplication {
         }
 
         return listeGeometriesCylindres;
+    }
+
+    public void verifierComparaison(int numero){
+        for (Map<String, String> comparaisons : listeComparaisonActive) {
+            Material mat = new Material(assetManager,
+                    "Common/MatDefs/Light/Lighting.j3md");
+            mat.setTexture("NormalMap",
+                    assetManager.loadTexture("normal.png"));
+            mat.setBoolean("UseMaterialColors",true);
+            for (String clef: comparaisons.keySet()) {
+                String[] valeurs = clef.split(",");
+                if(Integer.valueOf(valeurs[3]) == numero){
+                    if(comparaisons.get(clef).equals("tres mal fait")){
+                        mat.setColor("Diffuse",ColorRGBA.Red);
+                        mat.setColor("Specular",ColorRGBA.Red);
+                        mat.setFloat("Shininess", 64f);
+                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                    }
+                    else if(comparaisons.get(clef).equals("pas mal fait")){
+                        mat.setColor("Diffuse",ColorRGBA.Orange);
+                        mat.setColor("Specular",ColorRGBA.Orange);
+                        mat.setFloat("Shininess", 64f);
+                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                    }
+                    else if(comparaisons.get(clef).equals("bien fait")){
+                        mat.setColor("Diffuse",ColorRGBA.Green);
+                        mat.setColor("Specular",ColorRGBA.Green);
+                        mat.setFloat("Shininess", 64f);
+                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                    }
+                }
+            }
+        }
     }
 
     /**

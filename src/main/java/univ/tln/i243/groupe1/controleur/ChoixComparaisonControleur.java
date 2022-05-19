@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import univ.tln.i243.groupe1.JMEComparaison;
 import univ.tln.i243.groupe1.comparaison.VerifieAngle;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
@@ -89,6 +90,7 @@ public class ChoixComparaisonControleur implements PageControleur, Initializable
             for(MouvementRef mouvementRef : categorie.getMouvementsRefs()){
                 listeResultat.add(VerifieAngle.lancerComparaison(mouvementRef.getJointure1(), mouvementRef.getJointure2(), mouvementRef.getJointure3(), mouvementRef.getAngleDebut(), mouvementRef.getAndgleFin(), tableEnregistrement.getSelectionModel().getSelectedItem()));
             }
+            JMEComparaison.main(tableEnregistrement.getSelectionModel().getSelectedItem().getFrames(), listeResultat);
         }
     }
 
