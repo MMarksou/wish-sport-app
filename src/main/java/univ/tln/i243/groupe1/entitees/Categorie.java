@@ -36,6 +36,10 @@ public class Categorie implements Entitee {
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE},mappedBy = "categorie")
     private List<Enregistrement> enregistrements;
 
+    @Setter
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE},mappedBy = "categorie")
+    private List<MouvementRef> mouvementsRefs;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
