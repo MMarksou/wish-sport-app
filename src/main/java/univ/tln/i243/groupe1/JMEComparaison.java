@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class JMEComparaison extends SimpleApplication {
 
-    private float rayonSphere = 0.01f;
+    private float rayonSphere = 0.015f;
 
     private int numero = 0;
     private long compteur = 1000/30;
@@ -33,6 +33,8 @@ public class JMEComparaison extends SimpleApplication {
 
     private static List<Frame> listeFrameRefActive;
     private static List<Map<String, String>> listeComparaisonActive;
+
+    private ColorRGBA couleurShpere = ColorRGBA.Black;
 
     /**
      * Fonction principale qui démarre une fenêtre jMonkey.
@@ -96,9 +98,8 @@ public class JMEComparaison extends SimpleApplication {
         Node geometriesJointures = new Node();
 
         Sphere jointureSphere = new Sphere(20, 20, rayonSphere);
-        Material mat = new Material(assetManager,
-                "Common/MatDefs/Light/Lighting.j3md");
-        mat.setColor("Ambient", ColorRGBA.Cyan);
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setColor("Color", couleurShpere);
 
         for(int i = 0; i < listeJointure.size(); i++){
 
@@ -132,31 +133,17 @@ public class JMEComparaison extends SimpleApplication {
 
     public void verifierComparaison(int numero){
         for (Map<String, String> comparaisons : listeComparaisonActive) {
-            Material mat = new Material(assetManager,
-                    "Common/MatDefs/Light/Lighting.j3md");
-            mat.setTexture("NormalMap",
-                    assetManager.loadTexture("normal.png"));
-            mat.setBoolean("UseMaterialColors",true);
             for (String clef: comparaisons.keySet()) {
                 String[] valeurs = clef.split(",");
                 if(Integer.valueOf(valeurs[3]) == numero){
                     if(comparaisons.get(clef).equals("tres mal fait")){
-                        mat.setColor("Diffuse",ColorRGBA.Red);
-                        mat.setColor("Specular",ColorRGBA.Red);
-                        mat.setFloat("Shininess", 64f);
-                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                        couleurShpere = ColorRGBA.Red;
                     }
                     else if(comparaisons.get(clef).equals("pas mal fait")){
-                        mat.setColor("Diffuse",ColorRGBA.Orange);
-                        mat.setColor("Specular",ColorRGBA.Orange);
-                        mat.setFloat("Shininess", 64f);
-                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                        couleurShpere = ColorRGBA.Orange;
                     }
                     else if(comparaisons.get(clef).equals("bien fait")){
-                        mat.setColor("Diffuse",ColorRGBA.Green);
-                        mat.setColor("Specular",ColorRGBA.Green);
-                        mat.setFloat("Shininess", 64f);
-                        carteGeometriesJointures.get(valeurs[1]).setMaterial(mat);
+                        couleurShpere = ColorRGBA.Green;
                     }
                 }
             }

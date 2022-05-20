@@ -22,6 +22,7 @@ import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class ChoixComparaisonControleur implements PageControleur, Initializable {
 
@@ -43,6 +44,8 @@ public class ChoixComparaisonControleur implements PageControleur, Initializable
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private CategorieDao categoriedao = new CategorieDao(em);
     private EnregistrementDao enregistrementdao = new EnregistrementDao(em);
+
+    private Logger log;
 
     /**
      * Initialise la liste d'exercice selon la catégorie sélectionnée
@@ -90,6 +93,7 @@ public class ChoixComparaisonControleur implements PageControleur, Initializable
             for(MouvementRef mouvementRef : categorie.getMouvementsRefs()){
                 listeResultat.add(VerifieAngle.lancerComparaison(mouvementRef.getJointure1(), mouvementRef.getJointure2(), mouvementRef.getJointure3(), mouvementRef.getAngleDebut(), mouvementRef.getAndgleFin(), tableEnregistrement.getSelectionModel().getSelectedItem()));
             }
+            System.err.println(listeResultat);
             JMEComparaison.main(tableEnregistrement.getSelectionModel().getSelectedItem().getFrames(), listeResultat);
         }
     }
