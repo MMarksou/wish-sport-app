@@ -29,6 +29,7 @@ public class VerifieAngle {
     static double z3 = 0;
     static String etat;
     static List<Integer> frameValue =new ArrayList<>();
+    static List<Integer> repetition = new ArrayList<>();
     static EnregistrementDao enregistrementDao = new EnregistrementDao(em);
     static Angle angle = new Angle();
 
@@ -201,7 +202,7 @@ public class VerifieAngle {
 
             a0 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
             rep++;
-
+            repetition.add(rep);
         }
         return angles;
     }
@@ -213,8 +214,6 @@ public class VerifieAngle {
         List<Double> angleReferent;
         List<Double> angleValue;
         int repNumber = enregistrementCible.getRepetition();
-
-        //for (int i = 0; i < listAngles.size(); i += 3) {
 
         angleReferent = calculerAngle(enregistrementCible.getFrames(), enregistrementCible.getRepetition(), j1, j2, j3);
 
@@ -230,15 +229,9 @@ public class VerifieAngle {
                     etat = "pas mal fait";
                 if ((dif1 + dif2) / 2 > 40.0)
                     etat = "tres mal fait";
-                anglesValues.put("" + j1 + "," + j2 + "," + j3 + "," + frameValue.get(y), etat);
+                anglesValues.put("" + j1 + "," + j2 + "," + j3 + "," + frameValue.get(y) + "," + repetition.get(y), etat);
                 y++;
             }
-        //}
-        /*for (String name: anglesValues.keySet()) {
-            String key = name;
-            String value = anglesValues.get(name);
-            System.out.println(key + " " + value);
-        }*/
         return anglesValues;
     }
 

@@ -1,12 +1,12 @@
 package univ.tln.i243.groupe1;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
-import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Cylinder;
 import com.jme3.scene.shape.Sphere;
 import com.jme3.system.AppSettings;
@@ -34,7 +34,9 @@ public class JMEComparaison extends SimpleApplication {
     private static List<Frame> listeFrameRefActive;
     private static List<Map<String, String>> listeComparaisonActive;
 
-    private ColorRGBA couleurShpere = ColorRGBA.Black;
+    private ColorRGBA couleurSphere = ColorRGBA.Black;
+
+    private Map<String, ColorRGBA> listeChangementsJointures = new HashMap<>();
 
     /**
      * Fonction principale qui démarre une fenêtre jMonkey.
@@ -98,10 +100,16 @@ public class JMEComparaison extends SimpleApplication {
         Node geometriesJointures = new Node();
 
         Sphere jointureSphere = new Sphere(20, 20, rayonSphere);
-        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", couleurShpere);
 
         for(int i = 0; i < listeJointure.size(); i++){
+
+            Material mat = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
+
+            if(listeChangementsJointures.keySet().contains(listeJointure.get(i).getNom())){
+                mat.setColor("Color", listeChangementsJointures.get(listeJointure.get(i).getNom()));
+            } else {
+                mat.setColor("Color", couleurSphere);
+            }
 
             carteGeometriesJointures.put(listeJointure.get(i).getNom(), new Geometry(listeJointure.get(i).getNom(), jointureSphere));
             carteGeometriesJointures.get(listeJointure.get(i).getNom()).setMaterial(mat);
@@ -132,20 +140,32 @@ public class JMEComparaison extends SimpleApplication {
     }
 
     public void verifierComparaison(int numero){
+        String repetition;
         for (Map<String, String> comparaisons : listeComparaisonActive) {
             for (String clef: comparaisons.keySet()) {
                 String[] valeurs = clef.split(",");
+                repetition = valeurs[4];
                 if(Integer.valueOf(valeurs[3]) == numero){
-                    if(comparaisons.get(clef).equals("tres mal fait")){
-                        couleurShpere = ColorRGBA.Red;
+                    guiNode.detachAllChildren();
+                    if(listeChangementsJointures.containsKey(valeurs[1])) {
+                        listeChangementsJointures.remove(valeurs[1]);
                     }
-                    else if(comparaisons.get(clef).equals("pas mal fait")){
-                        couleurShpere = ColorRGBA.Orange;
-                    }
-                    else if(comparaisons.get(clef).equals("bien fait")){
-                        couleurShpere = ColorRGBA.Green;
+                    if (comparaisons.get(clef).equals("tres mal fait")) {
+                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Red);
+                    } else if (comparaisons.get(clef).equals("pas mal fait")) {
+                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Orange);
+                    } else if (comparaisons.get(clef).equals("bien fait")) {
+                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Green);
                     }
                 }
+                /*BitmapText nbRep = new BitmapText(guiFont, false);
+                nbRep.setSize(guiFont.getCharSet().getRenderedSize() * 2);
+                nbRep.setText(String.valueOf("Répétition : " + repetition));
+                nbRep.setLocalTranslation(
+                        settings.getWidth() / 6 - nbRep.getLineWidth()/2,
+                        settings.getHeight() / 6 + nbRep.getLineHeight()/2, 0);
+                nbRep.setColor(ColorRGBA.Black);
+                guiNode.attachChild(nbRep);*/
             }
         }
     }
