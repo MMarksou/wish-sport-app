@@ -115,8 +115,7 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         File fichier = fileChooser.showOpenDialog(stage);
         String contenu = Files.readString(Path.of(fichier.getPath()));
 
-        EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-        Enregistrement enregistrement = enregistrementdao.rechercherParNom(nomExercice.getText());
+        Enregistrement enregistrement = enregistrementDao.rechercherParNom(nomExercice.getText());
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<>() {
@@ -131,9 +130,8 @@ public class EnregistrerControleur implements PageControleur, Initializable {
         }
 
         enregistrement.setFrames(frames);
-        enregistrementdao.persister(enregistrement);
 
-        afficherConfirmation(actionEvent);
+        afficherConfirmation(actionEvent, enregistrement);
 
     }
 
@@ -142,7 +140,7 @@ public class EnregistrerControleur implements PageControleur, Initializable {
      * @param actionEvent action event
      * @throws IOException en cas de problème d'ouverture de fichier
      */
-    private void afficherConfirmation(ActionEvent actionEvent) throws IOException {
+    private void afficherConfirmation(ActionEvent actionEvent, Enregistrement enregistrement) throws IOException {
 
         Alert alerte = new Alert(Alert.AlertType.CONFIRMATION);
         alerte.setTitle("Importation");
@@ -159,14 +157,10 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
         if(option.isPresent()) { //choix des boutons
             if (option.get() == accueil) { //persiste et retour à l'accueil
+                enregistrementDao.persister(enregistrement);
                 chargerPage(actionEvent, "pageAccueil.fxml");
             } else if (option.get() == pageActuelle) { //annulation des frames et retour au formulaire
-                Enregistrement enregistrement = enregistrementDao.rechercherParNom(nomExercice.getText());
-                List<Frame> listeFrames = enregistrement.getFrames();
-                enregistrement.setFrames(null);
-                for (Frame frame : listeFrames) {
-                    frameDao.supprimer(frame);
-                }
+                chargerPage(actionEvent, "pageResumeEnregistrement.fxml");
             }
         }
     }

@@ -49,6 +49,7 @@ public class JMEComparaison extends SimpleApplication {
         AppSettings settings = new AppSettings(true);
         settings.setResolution(1200, 720);
         settings.setFrameRate(30);
+        settings.setTitle("Comparaison exercice");
         app.setSettings(settings);
         app.setDisplayStatView(false);
         app.start();
