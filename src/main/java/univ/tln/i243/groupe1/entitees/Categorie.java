@@ -3,7 +3,6 @@ package univ.tln.i243.groupe1.entitees;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

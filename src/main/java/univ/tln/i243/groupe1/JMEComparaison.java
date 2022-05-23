@@ -1,7 +1,6 @@
 package univ.tln.i243.groupe1;
 
 import com.jme3.app.SimpleApplication;
-import com.jme3.font.BitmapText;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
@@ -139,33 +138,36 @@ public class JMEComparaison extends SimpleApplication {
         return listeGeometriesCylindres;
     }
 
+    /**
+     * Permet d'associer une couleur à une Géométrie de jointure en fonction de la valeur renvoyée par l'algo de comparaison
+     * @param numero Numéro de la Frame concernée
+     */
     public void verifierComparaison(int numero){
-        String repetition;
         for (Map<String, String> comparaisons : listeComparaisonActive) {
-            for (String clef: comparaisons.keySet()) {
-                String[] valeurs = clef.split(",");
-                repetition = valeurs[4];
-                if(Integer.valueOf(valeurs[3]) == numero){
-                    guiNode.detachAllChildren();
-                    if(listeChangementsJointures.containsKey(valeurs[1])) {
-                        listeChangementsJointures.remove(valeurs[1]);
-                    }
-                    if (comparaisons.get(clef).equals("tres mal fait")) {
-                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Red);
-                    } else if (comparaisons.get(clef).equals("pas mal fait")) {
-                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Orange);
-                    } else if (comparaisons.get(clef).equals("bien fait")) {
-                        listeChangementsJointures.put(valeurs[1], ColorRGBA.Green);
-                    }
-                }
-                /*BitmapText nbRep = new BitmapText(guiFont, false);
-                nbRep.setSize(guiFont.getCharSet().getRenderedSize() * 2);
-                nbRep.setText(String.valueOf("Répétition : " + repetition));
-                nbRep.setLocalTranslation(
-                        settings.getWidth() / 6 - nbRep.getLineWidth()/2,
-                        settings.getHeight() / 6 + nbRep.getLineHeight()/2, 0);
-                nbRep.setColor(ColorRGBA.Black);
-                guiNode.attachChild(nbRep);*/
+            for (Map.Entry<String, String> listeClef: comparaisons.entrySet()) {
+                verifierCles(listeClef.getKey(), comparaisons);
+            }
+        }
+    }
+
+    /**
+     * Permet d'associer une couleur à une Géométrie de jointure en fonction de la valeur renvoyée par l'algo de comparaison
+     * @param clef
+     * @param comparaisons
+     */
+    public void verifierCles(String clef, Map<String, String> comparaisons){
+        String[] valeurs = clef.split(",");
+        if(Integer.valueOf(valeurs[3]) == numero){
+            guiNode.detachAllChildren();
+            if(listeChangementsJointures.containsKey(valeurs[1])) {
+                listeChangementsJointures.remove(valeurs[1]);
+            }
+            if (comparaisons.get(clef).equals("tres mal fait")) {
+                listeChangementsJointures.put(valeurs[1], ColorRGBA.Red);
+            } else if (comparaisons.get(clef).equals("pas mal fait")) {
+                listeChangementsJointures.put(valeurs[1], ColorRGBA.Orange);
+            } else if (comparaisons.get(clef).equals("bien fait")) {
+                listeChangementsJointures.put(valeurs[1], ColorRGBA.Green);
             }
         }
     }

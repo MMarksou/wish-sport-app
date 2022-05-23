@@ -12,6 +12,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import java.io.IOException;
 
+/**
+ * Classe controleur du formulaire de création d'une catégorie.
+ */
 public class AjouterCategorieControleur implements PageControleur {
 
     @FXML
@@ -25,6 +28,11 @@ public class AjouterCategorieControleur implements PageControleur {
 
     CategorieDao categoriedao = new CategorieDao(em);
 
+
+    /**
+     * Persiste la catgorie quand l'utilisateur appuie sur le bouton Valider
+     * @param actionEvent action event
+     */
     public void validerCategorie (ActionEvent actionEvent) {
 
         if(!nomCategorie.getText().equals("")) {
@@ -49,6 +57,11 @@ public class AjouterCategorieControleur implements PageControleur {
         }
     }
 
+    /**
+     * Charge la page de choix
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void retourChoix(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent, "pageChoix.fxml");
     }
