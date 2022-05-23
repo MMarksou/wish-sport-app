@@ -213,7 +213,7 @@ public class VerifieAngle {
      * les angles precalculé recuperer de la base de données d'un mouvement reference
      * return les 3 jointure qui contruisent l'angle ,la frame de debut et fin de mouvement ,score pour chaque repitition
      **/
-    public static Map<String, String> lancerComparaison(String j1, String j2, String j3, Double angleDebut, Double angleFin, Enregistrement enregistrementCible) {
+    public static Map<String, String> lancerComparaison(String j1, String j2, String j3, Enregistrement enregistrementCible) {
         int y=0;
         HashMap<String, String> anglesValues = new HashMap<>();
 

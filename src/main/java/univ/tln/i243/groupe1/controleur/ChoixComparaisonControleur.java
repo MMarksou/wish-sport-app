@@ -88,7 +88,7 @@ public class ChoixComparaisonControleur implements PageControleur, Initializable
             List<Map<String, String>> listeResultat = new ArrayList<>();
             Categorie categorie = categoriedao.rechercherParNom(comboCategorie.getValue());
             for(MouvementRef mouvementRef : categorie.getMouvementsRefs()){
-                listeResultat.add(VerifieAngle.lancerComparaison(mouvementRef.getJointure1(), mouvementRef.getJointure2(), mouvementRef.getJointure3(), mouvementRef.getAngleDebut(), mouvementRef.getAndgleFin(), tableEnregistrement.getSelectionModel().getSelectedItem()));
+                listeResultat.add(VerifieAngle.lancerComparaison(mouvementRef.getJointure1(), mouvementRef.getJointure2(), mouvementRef.getJointure3(), tableEnregistrement.getSelectionModel().getSelectedItem()));
             }
             JMEComparaison.main(tableEnregistrement.getSelectionModel().getSelectedItem().getFrames(), listeResultat);
         }
