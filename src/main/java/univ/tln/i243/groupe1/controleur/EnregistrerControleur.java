@@ -11,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
-import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 import univ.tln.i243.groupe1.entitees.Frame;
 import univ.tln.i243.groupe1.entitees.Jointure;
@@ -59,7 +58,6 @@ public class EnregistrerControleur implements PageControleur, Initializable {
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private EnregistrementDao enregistrementDao = new EnregistrementDao(em);
-    private FrameDao frameDao = new FrameDao(em);
 
     /**
      * Suppression des frames persistées lors de l'importation et retour à la page de formulaire
