@@ -158,10 +158,3 @@ moyen de comparaison avec d'autres exercices de la même catégorie.</i></p>
 <p><a href="#haut">haut de page</a></p>
 <hr/>
 
-
-<style>
-.alinea { 
-  text-indent: 20px; 
-}
-</style>
-
