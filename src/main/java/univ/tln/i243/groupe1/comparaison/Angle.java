@@ -35,7 +35,7 @@ public class Angle {
         double angle = dotProduct;
         angle /= Math.sqrt(magnitudeAB * magnitudeBC);
 
-        // Trouver l'angle en radian
+        // Trouver l'angle
         angle = (angle * 180) / 3.14;
 
         return angle;

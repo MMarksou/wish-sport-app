@@ -34,8 +34,8 @@ public class VerifieAngle {
     static Angle angle = new Angle();
 
     /**
-     * Methode qui permet de trouver l'angle maximale lors du mouvement
-     * return int : angle maximale
+     * Methode qui permet de trouver la frame de l'angle maximale lors du mouvement en prenant la derniere frame avant l'execution du mouvement en contre direction
+     * return int : frame equivalente a l 'angle
      **/
     public static int maxAngle(double a0, List<Frame> listeFrame, String j1, String j2, String j3, int frame, int direction) {
 
@@ -81,7 +81,7 @@ public class VerifieAngle {
 
     /**
      * Methode qui permet de calculer des angles en prennant les coordonnees des trois jointures
-     * qui forment l'angle et le nom de l'enregistremnt
+     * qui forment l'angle et le nom de list qui contient les valeurs de l'enregistremnt
      * return List<Double> : la liste des angles
      **/
     public static List<Double> calculerAngle(List<Frame> listeFrame, int repNumber, String j1, String j2, String j3) {
@@ -135,7 +135,7 @@ public class VerifieAngle {
                 }
             }
 
-            /** calcul de l'angle apres 30 frames  **/
+            /** calcul de l'angle apres un certain nombre de frames pour s'avoir la direction de mouvement   **/
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
 
             /**Verifier si l'angle augmente ou diminue**/
@@ -153,6 +153,7 @@ public class VerifieAngle {
         /** Continuer a calculer les angles en fonction de nombre de repetition et frame **/
         int rep = 0;
         while (rep < repNumber && frame>0) {
+            /**ajout de a0 l angle de debut de mouvement aller**/
             angles.add(a0);
             frame = maxAngle(a0, listeFrame, j1, j2, j3, frame, direction);
             frameValue.add(frame);
@@ -174,7 +175,7 @@ public class VerifieAngle {
                     z3 = jointure.getZ();
                 }
             }
-
+            /**ajout de a1 l 'angle de debut de mouvement retour**/
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
             angles.add(a1);
 
@@ -207,6 +208,11 @@ public class VerifieAngle {
         return angles;
     }
 
+    /**
+     * Methode qui permet de comparer les angle calculer pour un enregistrement avec
+     * les angles precalculé recuperer de la base de données d'un mouvement reference
+     * return les 3 jointure qui contruisent l'angle ,la frame de debut et fin de mouvement ,score pour chaque repitition
+     **/
     public static Map<String, String> lancerComparaison(String j1, String j2, String j3, Double angleDebut, Double angleFin, Enregistrement enregistrementCible) {
         int y=0;
         HashMap<String, String> anglesValues = new HashMap<>();
@@ -219,7 +225,7 @@ public class VerifieAngle {
 
         angleValue = calculerAngle(enregistrementCible.getFrames(), enregistrementCible.getRepetition(), j1, j2, j3);
 
-
+        /**assignation un score au repition en dependant de l'incertitude des angles **/
             for (int j = 0; j < 2 * repNumber; j += 2) {
                 double dif1 = Math.abs(angleReferent.get(0) - angleValue.get(j));
                 double dif2 = Math.abs(angleReferent.get(1) - angleValue.get(j + 1));
@@ -234,67 +240,4 @@ public class VerifieAngle {
             }
         return anglesValues;
     }
-
-    /*public static void main(String[] args) {
-//        List<String> listAngles = new ArrayList<>();
-//
-//        listAngles.add("EPAULE_DROITE");
-//        listAngles.add("COUDE_DROIT");
-//        listAngles.add("POIGNET_DROIT");
-//
-//        listAngles.add("EPAULE_GAUCHE");
-//        listAngles.add("COUDE_GAUCHE");
-//        listAngles.add("POIGNET_GAUCHE");
-//
-//        listAngles.add("HANCHE_DROITE");
-//        listAngles.add("GENOUX_DROIT");
-//        listAngles.add("CHEVILLE_DROITE");
-//
-//        listAngles.add("HANCHE_GAUCHE");
-//        listAngles.add("GENOUX_GAUCHE");
-//        listAngles.add("CHEVILLE_GAUCHE");
-//
-//        lancerComparaison(listAngles,"mouvement5","exercice5");
-
-
-        List<String> listAngles = new ArrayList<>();
-
-        listAngles.add("EPAULE_DROITE");
-        listAngles.add("COUDE_DROIT");
-        listAngles.add("POIGNET_DROIT");
-
-        listAngles.add("EPAULE_GAUCHE");
-        listAngles.add("COUDE_GAUCHE");
-        listAngles.add("POIGNET_GAUCHE");
-
-        listAngles.add("HANCHE_DROITE");
-        listAngles.add("GENOUX_DROIT");
-        listAngles.add("CHEVILLE_DROITE");
-
-        listAngles.add("HANCHE_GAUCHE");
-        listAngles.add("GENOUX_GAUCHE");
-        listAngles.add("CHEVILLE_GAUCHE");
-
-        List<Double> angleReferent;
-        List<Double> angleValue;
-        int repNumber = enregistrementDao.rechercherParNom("exercice5").getRepetition();
-
-        for (int i = 0; i < listAngles.size(); i += 3) {
-
-            angleReferent = calculerAngle("mouvement5", listAngles.get(i), listAngles.get(i + 1), listAngles.get(i + 2));
-
-            angleValue = calculerAngle("exercice5", listAngles.get(i), listAngles.get(i + 1), listAngles.get(i + 2));
-
-            for (int j = 0; j < angleValue.size(); j += 2) {
-                double dif1 = Math.abs(angleReferent.get(0) - angleValue.get(j));
-                double dif2 = Math.abs(angleReferent.get(1) - angleValue.get(j + 1));
-                if ((dif1 + dif2) / 2 <= 10.0)
-                    System.out.println("bien\n");
-                if ((dif1 + dif2) / 2 > 10.0 && (dif1 + dif2) / 2 <= 25.0)
-                    System.out.println("pas mal\n");
-                if ((dif1 + dif2) / 2 > 25.0)
-                    System.out.println("tres mal fait\n");
-            }
-        }
-    }*/
 }
