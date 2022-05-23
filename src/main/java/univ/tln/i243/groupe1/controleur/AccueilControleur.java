@@ -20,7 +20,7 @@ public class AccueilControleur implements PageControleur {
     }
 
     /**
-     * Charge la page de la liste des exercices.
+     * Charge la page de la liste des exercices pour visualiser ou supprimer.
      * @param actionEvent action event
      * @throws IOException erreur fichier
      */
@@ -29,6 +29,11 @@ public class AccueilControleur implements PageControleur {
 
     }
 
+    /**
+     * Charge la page de la liste des exercices pour comparer avec un mouvement de référence
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void chargerComparaison(ActionEvent actionEvent) throws IOException {
         chargerPage(actionEvent,"pageChoixComparaison.fxml");
     }

@@ -15,8 +15,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import univ.tln.i243.groupe1.comparaison.VerifieAngle;
 import univ.tln.i243.groupe1.daos.CategorieDao;
-import univ.tln.i243.groupe1.daos.EnregistrementDao;
-import univ.tln.i243.groupe1.daos.MouvementRefDao;
 import univ.tln.i243.groupe1.entitees.*;
 
 import javax.persistence.EntityManager;
@@ -28,6 +26,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
+
+/**
+ * Classe controleur du formulaire de choix des jointures associées au mouvement de référence.
+ */
 public class AjouterAnglesRefsControleur implements PageControleur, Initializable {
 
     @FXML
@@ -48,7 +50,7 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
     private TableColumn<Map, String> listeJointure3;
 
     @FXML
-    private TableView tableEnregistrement;
+    private TableView<Map<String, Object>> tableEnregistrement;
 
     @FXML
     private Label labelMessage;
@@ -57,17 +59,24 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
     private ProgressBar barreTemps;
     @FXML
     private Label labelInformationLancement;
+
     @FXML
     private Button boutonImporter;
 
-    private ObservableList<Map<String, Object>> listeAngle = FXCollections.<Map<String, Object>>observableArrayList();
-    private List<String> listeJointuresRefs = new ArrayList<>();
+    private ObservableList<Map<String, Object>> listeAngle = FXCollections.observableArrayList();
+    protected static List<String> listeJointuresRefs = new ArrayList<>();
 
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private CategorieDao categorieDao = new CategorieDao(em);
-    private MouvementRefDao mouvementRefDao = new MouvementRefDao(em);
+
+    protected static String nomCategorie;
 
 
+    /**
+     * Permet d'importer un mouvement de référence via un JSON
+     * @param actionEvent action event
+     * @throws IOException erreur fichier
+     */
     public void importerMouvement(ActionEvent actionEvent) throws IOException {
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -75,9 +84,6 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
         fileChooser.setTitle("Open Resource File");
         File fichier = fileChooser.showOpenDialog(stage);
         String contenu = Files.readString(Path.of(fichier.getPath()));
-
-        EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-        Enregistrement enregistrement = enregistrementdao.rechercherParNom(AjouterEnregistrementControleur.nomExo);
 
         ObjectMapper objectMapper = new ObjectMapper();
         List<Frame> frames = objectMapper.readValue(contenu, new TypeReference<>() {
@@ -125,12 +131,17 @@ public class AjouterAnglesRefsControleur implements PageControleur, Initializabl
                 categorieDao.supprimer(categorie);
                 categorieDao.persister(categorie);
             } else if (option.get() == pageActuelle) { //annulation des frames et retour au formulaire
-               categorie = null;
+                chargerPage(actionEvent, "pageChoix.fxml");
             }
         }
     }
 
+    /**
+     * Permet de faire un décompte et charge la page d'enregistrement d'un mouvement de référence
+     * @param actionEvent action event
+     */
     public void enregistrerMouvement(ActionEvent actionEvent) {
+        nomCategorie = comboCategorie.getValue();
         boutonImporter.setVisible(false);
         labelInformationLancement.setVisible(true);
         labelInformationLancement.setText("Placez-vous devant la Kinect");
