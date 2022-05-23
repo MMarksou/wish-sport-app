@@ -33,6 +33,28 @@ public class VerifieAngle {
     static EnregistrementDao enregistrementDao = new EnregistrementDao(em);
     static Angle angle = new Angle();
 
+
+    /**
+     * Methode qui permet de trouver les valuers x ,y,et z des jointure de langle
+     **/
+    public static void coordonees(List<Jointure> jointuresList,String j1, String j2, String j3) {
+        for (Jointure jointure : jointuresList) {
+            if (jointure.getNom().equals(j1)) {
+                x1 = jointure.getX();
+                y1 = jointure.getY();
+                z1 = jointure.getZ();
+            } else if (jointure.getNom().equals(j2)) {
+                x2 = jointure.getX();
+                y2 = jointure.getY();
+                z2 = jointure.getZ();
+            } else if (jointure.getNom().equals(j3)) {
+                x3 = jointure.getX();
+                y3 = jointure.getY();
+                z3 = jointure.getZ();
+            }
+        }
+    }
+
     /**
      * Methode qui permet de trouver la frame de l'angle maximale lors du mouvement en prenant la derniere frame avant l'execution du mouvement en contre direction
      * return int : frame equivalente a l 'angle
@@ -48,23 +70,7 @@ public class VerifieAngle {
         while (frameNumber>frame){
             List<Jointure> jointuresList3 = listeFrame.get(frame).getJointures();
 
-            for (Jointure jointure : jointuresList3) {
-                if (jointure.getNom().equals(j1)) {
-                    x1 = jointure.getX();
-                    y1 = jointure.getY();
-                    z1 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j2)) {
-                    x2 = jointure.getX();
-                    y2 = jointure.getY();
-                    z2 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j3)) {
-                    x3 = jointure.getX();
-                    y3 = jointure.getY();
-                    z3 = jointure.getZ();
-                }
-            }
+            coordonees(jointuresList3,j1,j2,j3);
 
             aPrecedente = a;
             a = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
@@ -91,23 +97,7 @@ public class VerifieAngle {
         int frameNumber = listeFrame.size();
 
         /** recuperer les coordonnees des jointures pour calculer l'angle en etat initale **/
-        for (Jointure jointure : jointuresList) {
-            if (jointure.getNom().equals(j1)) {
-                x1 = jointure.getX();
-                y1 = jointure.getY();
-                z1 = jointure.getZ();
-            }
-            else if (jointure.getNom().equals(j2)) {
-                x2 = jointure.getX();
-                y2 = jointure.getY();
-                z2 = jointure.getZ();
-            }
-            else if (jointure.getNom().equals(j3)) {
-                x3 = jointure.getX();
-                y3 = jointure.getY();
-                z3 = jointure.getZ();
-            }
-        }
+        coordonees(jointuresList,j1,j2,j3);
 
         /** Calculer de l'angle en etat initiale **/
         double a0 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
@@ -117,23 +107,7 @@ public class VerifieAngle {
 
             List<Jointure> jointuresList2 = listeFrame.get(iframe).getJointures();
 
-            for (Jointure jointure : jointuresList2) {
-                if (jointure.getNom().equals(j1)) {
-                    x1 = jointure.getX();
-                    y1 = jointure.getY();
-                    z1 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j2)) {
-                    x2 = jointure.getX();
-                    y2 = jointure.getY();
-                    z2 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j3)) {
-                    x3 = jointure.getX();
-                    y3 = jointure.getY();
-                    z3 = jointure.getZ();
-                }
-            }
+            coordonees(jointuresList2,j1,j2,j3);
 
             /** calcul de l'angle apres un certain nombre de frames pour s'avoir la direction de mouvement   **/
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
@@ -158,23 +132,7 @@ public class VerifieAngle {
             frame = maxAngle(a0, listeFrame, j1, j2, j3, frame, direction);
             frameValue.add(frame);
             jointuresList = listeFrame.get(frame).getJointures();
-            for (Jointure jointure : jointuresList) {
-                if (jointure.getNom().equals(j1)) {
-                    x1 = jointure.getX();
-                    y1 = jointure.getY();
-                    z1 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j2)) {
-                    x2 = jointure.getX();
-                    y2 = jointure.getY();
-                    z2 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j3)) {
-                    x3 = jointure.getX();
-                    y3 = jointure.getY();
-                    z3 = jointure.getZ();
-                }
-            }
+            coordonees(jointuresList,j1,j2,j3);
             /**ajout de a1 l 'angle de debut de mouvement retour**/
             double a1 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
             angles.add(a1);
@@ -183,23 +141,7 @@ public class VerifieAngle {
             frameValue.add(frame);
             jointuresList = listeFrame.get(frame).getJointures();
 
-            for (Jointure jointure : jointuresList) {
-                if (jointure.getNom().equals(j1)) {
-                    x1 = jointure.getX();
-                    y1 = jointure.getY();
-                    z1 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j2)) {
-                    x2 = jointure.getX();
-                    y2 = jointure.getY();
-                    z2 = jointure.getZ();
-                }
-                else if (jointure.getNom().equals(j3)) {
-                    x3 = jointure.getX();
-                    y3 = jointure.getY();
-                    z3 = jointure.getZ();
-                }
-            }
+            coordonees(jointuresList,j1,j2,j3);
 
             a0 = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
             rep++;
