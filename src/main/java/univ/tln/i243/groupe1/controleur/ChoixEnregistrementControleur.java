@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.daos.CategorieDao;
 import univ.tln.i243.groupe1.daos.EnregistrementDao;
-import univ.tln.i243.groupe1.daos.FrameDao;
 import univ.tln.i243.groupe1.entitees.Categorie;
 import univ.tln.i243.groupe1.entitees.Enregistrement;
 
@@ -48,7 +47,6 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
     private EntityManager em = Persistence.createEntityManagerFactory("bddlocal").createEntityManager();
     private CategorieDao categoriedao = new CategorieDao(em);
     private EnregistrementDao enregistrementdao = new EnregistrementDao(em);
-    private FrameDao frameDao = new FrameDao(em);
 
     /**
      * Initialise la liste d'exercice selon la catégorie sélectionnée
@@ -91,8 +89,7 @@ public class ChoixEnregistrementControleur implements PageControleur, Initializa
      */
     public void visualiserEnregistrement(ActionEvent actionEvent) {
         if (tableEnregistrement.getSelectionModel().getSelectedItem() != null) {
-             Enregistrement enregistrement= tableEnregistrement.getSelectionModel().getSelectedItem();
-            JME.main(frameDao.rechercherParEnregistrement(enregistrement));
+            JME.main(tableEnregistrement.getSelectionModel().getSelectedItem().getFrames());
         }
     }
 
