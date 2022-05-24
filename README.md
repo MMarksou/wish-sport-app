@@ -18,6 +18,8 @@
 <li><a href="#intro">Introduction</a></li>
 <li><a href="#fonctionnalité">Fonctionnalités</a></li> 
 <li><a href="#installation">Installation</a></li>
+<ul><a href="#prerequis">Prérequis</a> </ul>
+<ul><a href="#demarrage">Démarrage de l'application</a> </ul>
 <li><a href="#utilisation">Comment utiliser wish sport ?</a></li>
 <ul><a href="#accueil">Page d'accueil</a></ul>
 <ul><a href="#creation">Page de création</a></ul>
@@ -29,16 +31,16 @@
 
 <hr/>
 
-<h2> Introduction </h2><br/>
 <div id="intro"></div>
+<h2> Introduction </h2><br/>
 
 <p class="alinea">wish sport est une application de gestion d'exercices sportifs. Grâce à l'utilisation d'une kinect,
 les mouvements du sportif sont capturés et enregistrés sur l'ordinateur.</p>
 <p><a href="#haut">haut de page</a></p>
 
 <hr/>
-<h2> Fonctionnalités </h2><br/>
 <div id="fonctionnalité"></div>
+<h2> Fonctionnalités </h2><br/>
 <li>Enregistrement d'un exercice,</li>
 <li>Enregistrement d'un mouvement de référence en lien à une catégorie,</li>
 <li>Visualisation d'un exercice,</li>
@@ -47,16 +49,42 @@ les mouvements du sportif sont capturés et enregistrés sur l'ordinateur.</p>
 
 <p><a href="#haut">haut de page</a></p>
 <hr/>
-<h2> Installation </h2><br/>
 <div id="installation"></div>
+<h2> Installation </h2><br/>
+<div id="prerequis"></div>
+<h3>Prérequis</h3>
+<li>Bibliothèques pour faire fonctionner la kinect : <a href="https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download">cliquez-ici</a> </li>
+<li>Bibliothèque pour le websocket : <a href="https://github.com/uNetworking/uWebSockets">cliquez-ici</a> </li>
+<li>Bibliothèque pour du JSON en c++ : <a href="https://github.com/open-source-parsers/jsoncpp">cliquez-ici</a> </li>
+<li>Docker (ainsi que docker-compose)</li>
+<li>Maven</li>
+<br/>
+<div id="demarrage"></div>
+<h3>Démarrage de l'application</h3>
+<p><i>Il faut d'abord cloner le projet git puis exécuter les commandes ci-dessous.</i></p>
+<h4>La base de données</h4>
+<p><i>Pour démarrer la base de données, il faut utiliser la ligne de commande suivante :</i></p>
+<p style="padding: 10px; border: 2px solid;">docker compose up</p>
+<h4>Le serveur</h4>
+<p><i>Pour démarrer le serveur, il faut utiliser les lignes de commande suivante :</i></p>
+<p style="padding: 10px; border: 2px solid;">cd serveur_cpp</p>
+<p style="padding: 10px; border: 2px solid;">make</p>
+<p style="padding: 10px; border: 2px solid;">sudo ./WsServer</p>
+<h4>L'application générale</h4>
+<p><i>Pour démarrer l'application, il faut utiliser les lignes de commande suivante :</i></p>
+<p><i><b>Avec Maven</b></i></p>
+<p style="padding: 10px; border: 2px solid;">mvn clean package</p>
+<p style="padding: 10px; border: 2px solid;">mvn javafx:run</p>
+<p><i><b>Sans Maven</b> (il faut se mettre à la racine du dossier)</i></p>
+<p style="padding: 10px; border: 2px solid;">java -cp target/WishSport-1.0.0-jar-with-dependencies.jar univ.tln.i243.groupe1.Main</p>
 
 <p><a href="#haut">haut de page</a></p>
 <hr/>
 
-<h2> Comment utiliser wish sport ? </h2><br/>
 <div id="utilisation"></div>
-<h3>Page d'accueil</h3>
+<h2> Comment utiliser wish sport ? </h2><br/>
 <div id="accueil"></div>
+<h3>Page d'accueil</h3>
 <p align="center">
     <img alt="p-accueil" title="p-accueil" src="./src/main/resources/readme-resources/page-accueil.png" width="920">
 </p>
@@ -65,8 +93,8 @@ les mouvements du sportif sont capturés et enregistrés sur l'ordinateur.</p>
 <li><b>Comparer</b> : Permet d'aller sur la page de vérification des exercices</li>
 <p><a href="#haut">haut de page</a></p>
 <hr/>
-<h3>Page de création</h3>
 <div id="creation"></div>
+<h3>Page de création</h3>
 
 <p align="center">
     <img alt="p-creation" title="p-creation" src="./src/main/resources/readme-resources/page-creation.png" width="920">
@@ -99,8 +127,8 @@ moyen de comparaison avec d'autres exercices de la même catégorie.</i></p>
 <br/>
 <p><a href="#haut">haut de page</a></p>
 <hr/>
-<h3>Visualiser</h3>
 <div id="visualisation"></div>
+<h3>Visualiser</h3>
 <p align="center">
     <img alt="p-visualisation" title="p-visualisation" src="./src/main/resources/readme-resources/page-visualisation.png" width="920">
 </p>
@@ -112,8 +140,8 @@ moyen de comparaison avec d'autres exercices de la même catégorie.</i></p>
 <p><a href="#haut">haut de page</a></p>
 <hr/>
 <h3>Page de vérification</h3>
-<h4>Page de choix de l'exercice à vérifier</h4>
 <div id="verification"></div>
+<h4>Page de choix de l'exercice à vérifier</h4>
 <p align="center">
     <img alt="p-visualisation" title="p-visualisation" src="./src/main/resources/readme-resources/page-verification.png" width="920">
 </p>
@@ -133,8 +161,8 @@ moyen de comparaison avec d'autres exercices de la même catégorie.</i></p>
 <br/>
 <p><a href="#haut">haut de page</a></p>
 <hr/>
-<h2> Les limites de l'application </h2><br/>
 <div id="limite"></div>
+<h2> Les limites de l'application </h2><br/>
 
 <li>L'application ne peut gérer qu'une seule personne devant la kinect,</li>
 <li>L'application ne peut gérer qu'une seule kinect,</li>
@@ -144,8 +172,8 @@ moyen de comparaison avec d'autres exercices de la même catégorie.</i></p>
 
 <p><a href="#haut">haut de page</a></p>
 <hr/>
-<h2> Les perspectives d'évolution </h2><br/>
 <div id="évolution"></div>
+<h2> Les perspectives d'évolution </h2><br/>
 <p><i>(du + important au - important)</i></p>
 
 <li>Amélioration de la vérification de mouvement notamment la rotation des jointures et la synchronisation des gestes (fonctionnalité faisable),</li>
