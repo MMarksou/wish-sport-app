@@ -1,0 +1,1 @@
+insert into PUBLIC.SEQUENCE (SEQ_NAME, SEQ_COUNT) values ('SEQ_GEN', 18500);
