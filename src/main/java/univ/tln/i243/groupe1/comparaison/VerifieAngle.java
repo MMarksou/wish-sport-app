@@ -74,10 +74,10 @@ public class VerifieAngle {
 
             aPrecedente = a;
             a = angle.calculateAngle(x1, y1, z1, x2, y2, z2, x3, y3, z3);
-            if (direction*(a-a1)>0) {
+            if (direction*(a-a1)>-5) {
                 a1 = a;
                 framefin = frame;
-            }else if(direction*(a-a1)<-20){
+            }else {
                 return framefin;
             }
             frame++;
@@ -168,14 +168,14 @@ public class VerifieAngle {
         angleValue = calculerAngle(enregistrementCible.getFrames(), enregistrementCible.getRepetition(), j1, j2, j3);
 
         /**assignation un score au repition en dependant de l'incertitude des angles **/
-            for (int j = 0; j < 2 * repNumber; j += 2) {
+            for (int j = 0; j < angleValue.size(); j += 2) {
                 double dif1 = Math.abs(angleReferent.get(0) - angleValue.get(j));
                 double dif2 = Math.abs(angleReferent.get(1) - angleValue.get(j + 1));
-                if ((dif1 + dif2) / 2 <= 15.0)
+                if ((dif1 + dif2) / 2 <= 7.0)
                     etat = "bien fait";
-                if ((dif1 + dif2) / 2 > 15.0 && (dif1 + dif2) / 2 <= 30.0)
+                if ((dif1 + dif2) / 2 > 7.0 && (dif1 + dif2) / 2 <=15)
                     etat = "pas mal fait";
-                if ((dif1 + dif2) / 2 > 40.0)
+                if ((dif1 + dif2) / 2 > 15)
                     etat = "tres mal fait";
                 anglesValues.put("" + j1 + "," + j2 + "," + j3 + "," + frameValue.get(y) + "," + repetition.get(y), etat);
                 y++;

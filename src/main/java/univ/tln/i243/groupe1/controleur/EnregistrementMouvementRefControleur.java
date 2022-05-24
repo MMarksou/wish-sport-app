@@ -9,6 +9,7 @@ import javafx.scene.control.ProgressBar;
 import univ.tln.i243.groupe1.JME;
 import univ.tln.i243.groupe1.comparaison.VerifieAngle;
 import univ.tln.i243.groupe1.daos.CategorieDao;
+import univ.tln.i243.groupe1.daos.MouvementRefDao;
 import univ.tln.i243.groupe1.entitees.*;
 
 import javax.persistence.EntityManager;
@@ -51,10 +52,16 @@ public class EnregistrementMouvementRefControleur  implements PageControleur, In
 
         categorie.setMouvementsRefs(listeMouvementsRefs);
 
-        categorieDao.supprimer(categorie);
-        categorieDao.persister(categorie);
+        MouvementRefDao mouvementRefDao = new MouvementRefDao(em);
+
+        for (MouvementRef mvt : listeMouvementsRefs
+             ) {
+            mouvementRefDao.persister(mvt);
+        }
 
         ServeurJava.listeFrames.clear();
+        AjouterAnglesRefsControleur.listeJointuresRefs.clear();
+        AjouterAnglesRefsControleur.nomCategorie = null;
 
         chargerPage(actionEvent, "pageAccueil.fxml");
     }
@@ -66,7 +73,7 @@ public class EnregistrementMouvementRefControleur  implements PageControleur, In
      */
     public void retourEnregistrement(ActionEvent actionEvent) throws IOException {
         ServeurJava.listeFrames = new ArrayList<>();
-        chargerPage(actionEvent, "pageAjouterEnregistrement.fxml");
+        chargerPage(actionEvent, "pageAjouterAnglesRefs.fxml");
     }
 
     /**
@@ -88,8 +95,8 @@ public class EnregistrementMouvementRefControleur  implements PageControleur, In
 
         Thread progression = new Thread(() -> {
             try {
-                for (float i = 0; i <= AjouterEnregistrementControleur.dureeExercice; i++) {
-                    barreTemps.setProgress(i/AjouterEnregistrementControleur.dureeExercice);
+                for (float i = 0; i <= 5; i++) {
+                    barreTemps.setProgress(i/5);
                     Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {

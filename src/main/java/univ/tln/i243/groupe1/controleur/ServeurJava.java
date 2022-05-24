@@ -28,7 +28,7 @@ public class ServeurJava {
 
     protected static List<Frame> listeFrames = new ArrayList<>();
 
-    private int nbFrames;
+    private static int nbFrames;
 
     private boolean etatConnexion = true;
 
@@ -84,7 +84,7 @@ public class ServeurJava {
     public void main(int nombreSecondes)
     {
 
-        nbFrames = nombreSecondes * 30;
+        nbFrames = nombreSecondes * 25;
 
         LOGGER.log(Level.INFO, "Lancement client");
         WebSocketContainer container = ContainerProvider.getWebSocketContainer();

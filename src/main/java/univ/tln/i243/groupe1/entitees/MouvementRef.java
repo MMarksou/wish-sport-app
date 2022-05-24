@@ -18,7 +18,7 @@ import java.util.Objects;
 @NamedQuery(name = "MouvementRef.rechercherTout",query = "select m from MouvementRef m")
 @NamedQuery(name = "MouvementRef.rechercherParCategorie",query = "select m from MouvementRef m where m.categorie=:categorie")
 
-@Table(name = "MouvementRef", uniqueConstraints = {@UniqueConstraint(name = "uniqueMouvementRef",columnNames = {"jointure2","id_categorie"})})
+@Table(name = "MouvementRef", uniqueConstraints = {@UniqueConstraint(name = "uniqueMouvementRef",columnNames = {"jointure1","jointure2","jointure3","id_categorie"})})
 public class MouvementRef implements Entitee{
 
     @Id
