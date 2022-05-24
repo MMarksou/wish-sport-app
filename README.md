@@ -63,8 +63,18 @@ les mouvements du sportif sont capturés et enregistrés sur l'ordinateur.</p>
 <h3>Démarrage de l'application</h3>
 <p><i>Il faut d'abord cloner le projet git puis exécuter les commandes ci-dessous.</i></p>
 <h4>La base de données</h4>
-<p><i>Pour démarrer la base de données, il faut utiliser la ligne de commande suivante :</i></p>
+<p><i>Pour démarrer la base de données, il faut utiliser les lignes de commande suivante :</i></p>
 <p style="padding: 10px; border: 2px solid;">docker compose up</p>
+<p><i>Pour remplir la base de données :</i></p>
+<p style="padding: 10px; border: 2px solid;">docker cp ./wish-sport-app/src/main/resources/scripts/ wish-sport-app-app-1:/scripts</p>
+<p style="padding: 10px; border: 2px solid;">docker exec -it wish-sport-app-app-1 psql -U kinect kinect \
+-f /scripts/create_db.sql \
+-f /scripts/categorie.sql \
+-f /scripts/enregistrement.sql \
+-f /scripts/frame.sql \
+-f /scripts/jointure.sql \
+-f /scripts/mouvementref.sql \
+-f /scripts/sequence.sql</p>
 <h4>Le serveur</h4>
 <p><i>Pour démarrer le serveur, il faut utiliser les lignes de commande suivante :</i></p>
 <p style="padding: 10px; border: 2px solid;">cd serveur_cpp</p>
