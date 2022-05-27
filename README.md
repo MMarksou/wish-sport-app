@@ -55,6 +55,7 @@ les mouvements du sportif sont capturés et enregistrés sur l'ordinateur.</p>
 <h3>Prérequis</h3>
 <li>Bibliothèques pour faire fonctionner la kinect : <a href="https://docs.microsoft.com/en-us/azure/kinect-dk/sensor-sdk-download">cliquez-ici</a> </li>
 <li>Bibliothèque pour le websocket : <a href="https://github.com/uNetworking/uWebSockets">cliquez-ici</a> </li>
+<li>Bibliothèque pour la kinect si besoin  <a href="https://github.com/Microsoft/vcpkg">cliquez-ici</a> </li>
 <li>Bibliothèque pour du JSON en c++ : <a href="https://github.com/open-source-parsers/jsoncpp">cliquez-ici</a> </li>
 <li>Docker (ainsi que docker-compose)</li>
 <li>Maven</li>
